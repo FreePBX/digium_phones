@@ -1,0 +1,22 @@
+<module>
+	<rawname>digium_phones</rawname>
+	<type>setup</type>
+	<category>Connectivity</category>
+	<name>Digium Phones Config</name>
+	<version>2.10.0.9.3</version>
+	<publisher>Digium</publisher>
+	<license>GPLv2</license>
+	<candisable>yes</candisable>
+	<canuninstall>yes</canuninstall>
+	<changelog>
+		*2.10.0.9.3* Styling
+		*0.1* initial commit
+	</changelog>
+	<depends>
+		<phpversion>5.1.0</phpversion>
+		<version>2.10</version>
+	</depends>
+	<menuitems>
+		<digium_phones needsenginedb="yes">Digium Phones</digium_phones>
+	</menuitems>
+</module>

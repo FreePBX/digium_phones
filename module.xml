@@ -22,4 +22,5 @@
 		<digium_phones needsenginedb="yes">Digium Phones</digium_phones>
 	</menuitems>
 	<location>release/2.11/digium_phones-2.11.0.2.tgz</location>
+	<md5sum></md5sum>
 </module>

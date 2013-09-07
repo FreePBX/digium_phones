@@ -3,9 +3,9 @@
 /**
  * FreePBX Digium Phones Config Module
  *
- * Copyright (c) 2011, Digium, Inc.
+ * Copyright (c) 2011, Digium, Inc., 2013, Schmoozecom, Inc.
  *
- * Author: Jason Parker <jparker@digium.com>
+ * Author: Jason Parker <jparker@digium.com>, Luke Duquaine <luke.duquaine@schmoozecom.com>
  *
  * This program is free software, distributed under the terms of
  * the GNU General Public License Version 2. 

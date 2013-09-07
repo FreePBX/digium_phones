@@ -3,12 +3,13 @@
 	<type>setup</type>
 	<category>Connectivity</category>
 	<name>Digium Phones Config</name>
-	<version>2.10.0.9.3</version>
-	<publisher>Digium</publisher>
+	<version>2.11.0.1</version>
+	<publisher>Schmoozecom.com</publisher>
 	<license>GPLv2</license>
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
 	<changelog>
+		*2.11.0.1* FreePBX/Schmoozecom Release
 		*2.10.0.9.3* Styling
 		*0.1* initial commit
 	</changelog>

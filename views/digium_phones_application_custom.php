@@ -54,10 +54,10 @@ $('form').submit(function() {
 		alert('You must specify a .zip file.');
 		return false;
 	}
-	if (files[0].type != 'application/x-zip-compressed') {
-		alert('You must specify a .zip format file.');
-		return false;
-	}
+	if (files[0].type != 'application/x-zip-compressed' && files[0].type!='application/zip') {
+ 		alert('You must specify a .zip format file.');
+ 		return false;
+ 	}
 	if (files[0].size <= 0) {
 		alert('The file specified is too small.');
 		return false;

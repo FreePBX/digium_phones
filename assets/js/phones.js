@@ -192,16 +192,33 @@ $('#digium_phones_editdevice').submit(function(e) {
 	var statuses = $("#devicestatuses").sortable("serialize");
 	var customapps = $("#devicecustomapps").sortable("serialize");
 	var postvar = form 
+	postvar = postvar + '&' + lines;
 	if (phonebooks) {
-		postvar = postvar + '&' + lines + '&' + phonebooks + '&' + networks + '&' + logos + '&' + alerts + '&' + statuses + '&' + customapps;
+		postvar = postvar + '&' + phonebooks;
 	}
-	//console.log('postvar' + postvar);
+	if (networks) {
+		postvar = postvar + '&' + networks; 
+	}
+	if (logos) {
+		postvar = postvar + '&' + logos;
+	}
+	if (alerts) {
+		postvar = postvar + '&' + alerts;
+	}
+	if (statuses) {
+		postvar = postvar + '&' + statuses;
+	}
+	if (customapps) {
+		postvar = postvar + '&' + customapps;
+	}
+
+	//console.log('lines ' + lines);
+	//console.log('postvar ' + postvar);
 	$.ajax({
 		type: "POST",
 		url: $('form').attr('action'),
 		data: postvar,
 		success: function(data) {
-			//console.log('posting');
 			document.location.reload(true);
 		}
 	});

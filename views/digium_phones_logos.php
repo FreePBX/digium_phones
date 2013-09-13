@@ -24,14 +24,9 @@ function edit_logo_clicked(id)
 		$('#diveditlogo').slideDown('fast');
 	}
 
-	for (var i=0; i < logos.length; i++) {
-		if (id == logos[i]['id']) {
-            $('#edit_logo_name').val(logos[i]['name']);
-            $('#edit_logo_model').val(logos[i]['model']);
-            $('#edit_logo_id').val(logos[i]['id']);
-		}
-
-	}
+	$('#edit_logo_name').val(logos[id]['name']);
+	$('#edit_logo_model').val(logos[id]['model']);
+	$('#edit_logo_id').val(logos[id]['id']);
 }
 </script>
 

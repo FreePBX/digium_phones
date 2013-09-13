@@ -38,21 +38,16 @@ function add_ringtone_clicked() {
 }
 function edit_ringtone_clicked(id) {
 	$('#divaddringtone').slideUp('fast');
-
+	
 	if ('undefined' == typeof id) { // cancel button
 		$('#diveditringtone').slideUp('fast');
 	} else {
 		$('#diveditringtone').slideDown('fast');
 	}
-
-	for (var i=0; i < ringtones.length; i++) {
-		if (id == ringtones[i]['id']) {
-			$('#ringtoneEditId').val(ringtones[i]['id']);
-			$('#ringtoneEditName').val(ringtones[i]['name']);
-			$('#ringtoneEditType').val(ringtones[i]['type']);
-			$('#ringtoneEditRingtoneId').val(ringtones[i]['ringtone_id']);
-		}
-	}
+	$('#ringtoneEditId').val(ringtones[id]['id']);
+	$('#ringtoneEditName').val(ringtones[id]['name']);
+	$('#ringtoneEditType').val(ringtones[id]['type']);
+	$('#ringtoneEditRingtoneId').val(ringtones[id]['ringtone_id']);
 }
 function changeOpacity(element, status, level) {
 	if (status == 'enabled') {
@@ -179,7 +174,9 @@ foreach ($ringtones as $ringtone) {
 <table cellpadding="5">
 <tr>
 	<td><a href="#" class="info">Ringtone Name<span>Name given to this ringtone file for easier reference.</span></a></td>
-	<td><input type="text" id="ringtoneEditName" name="ringtoneEditName" onkeyup="checkIsFilled('ringtoneEditName', 'ringtoneEditSubmit')" /></td>
+	<td><input type="text" id="ringtoneEditName" name="ringtoneEditName" onkeyup="checkIsFilled('ringtoneEditName', 'ringtoneEditSubmit')" />
+	</td>
+	<tr><td><input type="hidden" id="ringtoneEditId" name="ringtoneEditId" value=""></td><td></td></tr>
 </tr>
 <tr>
 	<td colspan="2">

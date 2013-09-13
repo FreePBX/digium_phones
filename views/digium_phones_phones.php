@@ -1048,6 +1048,7 @@ $table->clear();
 
 ?>
 	<input type="button" value="Cancel" onclick="location.href='config.php?type=setup&display=digium_phones&digium_phones_form=phones_edit'"/>
+	<input type="hidden" name="editdevice_submit" value="Save"/>
 	<input type="submit" name="editdevice_submit" value="Save"/>
 </div>
 </form>

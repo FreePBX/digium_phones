@@ -31,6 +31,32 @@ if (isset($_GET['digium_phones_form'])) {
 }
 $error = array();
 
+
+/**
+ * AJAX post will render devicephonebooks_-1 as devicephonebooks_[0]=1
+ * instead of devicephonebooks[0]='-1'.  Duct taping can of worms here.
+*/
+if (!empty($_POST['devicephonebooks_'])) {
+
+	if (empty($_POST['devicephonebooks']))
+		$_POST['devicephonebooks']=array();
+
+	array_unshift($_POST['devicephonebooks'],-1);
+	unset($_POST['devicephonebooks_']);
+}
+
+if (!empty($_POST['devicenetworks_'])) {
+
+	if (empty($_POST['devicenetworks']))
+		$_POST['devicenetworks']=array();
+
+	array_unshift($_POST['devicenetworks'],-1);
+	unset($_POST['devicenetworks_']);
+}
+
+//if (!empty($_POST)) file_put_contents('/tmp/post',print_r($_POST,true));
+
+
 /**
  * The following if statements check for when a form has been submitted. There
  * are 2 possible forms: general, editline. These conditions
@@ -716,6 +742,7 @@ if (isset($_GET['user_image'])) {
 	<script>
 	function ChangeSelectByValue(dom_id, value, change) {
 		var dom = document.getElementById(dom_id);
+		if (!dom) return;
 		for (var i = 0; i < dom.options.length; i++) {
 			if (dom.options[i].value == value) {
 				if (dom.selectedIndex != i) {

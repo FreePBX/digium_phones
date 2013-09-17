@@ -80,7 +80,7 @@ echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">mDNS Disco
 <br />
 
 <script>
-	ChangeSelectByValue('easy_mode', '<?php echo $digium_phones->get_general('easy_mode')?>', true);
+	//ChangeSelectByValue('easy_mode', '<?php echo $digium_phones->get_general('easy_mode')?>', true);
 	ChangeSelectByValue('userlist_auth', '<?php echo $digium_phones->get_general('userlist_auth')?>', true);
 	ChangeSelectByValue('config_auth', '<?php echo $digium_phones->get_general('config_auth')?>', true);
 	ChangeSelectByValue('internal_phonebook_sort', '<?php echo $digium_phones->get_general('internal_phonebook_sort')?>', true);

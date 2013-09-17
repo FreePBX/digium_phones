@@ -10,7 +10,7 @@
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
 	<changelog>
-		*2.11.0.4* Fixed general settings save, dragdrop pb & net
+		*2.11.0.4* Fixed general settings save, dragdrop pb and net
 		*2.11.0.3* Fixed Not Saving Data #6747
 		*2.11.0.1* FreePBX/Schmoozecom Release
 		*2.10.0.9.3* Styling

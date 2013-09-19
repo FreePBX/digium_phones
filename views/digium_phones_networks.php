@@ -128,7 +128,7 @@ foreach ($networks as $networkid=>$network) {
 				<option value="debug">Debug</option>
 				<option value="error">Error</option>
 				<option value="warn">Warning</option>
-				<option value="info">Info</option>
+				<option value="information">Infomation</option>
 			</select></td></tr>';	
 	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Syslog Server:<span>If Syslog is enabled, sets the server to which syslog messages are sent by the phone.</span></a></td><td>
 		<input type="text" id="syslog_server" name="syslog_server" /></td></tr>';

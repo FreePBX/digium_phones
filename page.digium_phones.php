@@ -596,9 +596,8 @@ function download_firmware($firmware, &$filename) {
 		set_time_limit($time_limit);
 	}
 
+	echo 'Downloading: <span id="downloadprogress"></span>';
 	@ ob_flush();
-
-	echo '<span id="downloadprogress"></span>';
 	flush();
 
 	$filename = dirname(__FILE__) . "/" . basename($url);
@@ -643,6 +642,7 @@ function download_firmware($firmware, &$filename) {
 				$progress .= ' ('.round($totalread/$max*100).'%)';
 			}
 			echo '<script>document.getElementById(\'downloadprogress\').innerHTML = \''.$progress.'\';</script>';
+			@ ob_flush();
 			flush();
 		}
 		fclose($dp);

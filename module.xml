@@ -4,12 +4,14 @@
 	<type>setup</type>
 	<category>Connectivity</category>
 	<name>Digium Phones Config</name>
-	<version>2.11.0.4</version>
-	<publisher>Schmoozecom.com</publisher>
+	<version>2.11.0.5</version>
+	<publisher>Digium</publisher>
 	<license>GPLv2</license>
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
 	<changelog>
+		*2.11.0.5* Fixes for Custom Apps, External Line Edit, Download
+			and select firmware, Queue Members, Status Entries
 		*2.11.0.4* Fixed general settings save, dragdrop pb and net
 		*2.11.0.3* Fixed Not Saving Data #6747
 		*2.11.0.1* FreePBX/Schmoozecom Release

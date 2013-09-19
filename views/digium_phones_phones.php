@@ -3,6 +3,14 @@
 <script type="text/javascript" src="modules/digium_phones/assets/js/phones.js"></script>
 <form id="digium_phones_editdevice" name="digium_phones_editdevice" action="config.php?type=setup&display=digium_phones&digium_phones_form=phones_edit" method="post">
 <script>
+function reconfiguredevice(id)
+{
+	if ($('#button_reload').is(":visible")) {
+		alert("Please press Apply Config before reconfiguring phone");
+		return;
+	}
+	parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=phones_edit&reconfiguredevice_submit=Reconfigure&device='+id;
+}
 $().ready(function() {
 <?php
 if (isset($_GET['reconfiguredevice_submit']) && $response != null) {
@@ -13,6 +21,7 @@ if (isset($_GET['reconfiguredevice_submit']) && $response != null) {
 <?php
 	}
 }
+
 
 $devices = $digium_phones->get_devices();
 
@@ -319,7 +328,7 @@ function useStatus(statusid) {
 	$('#statuses option[value='+statusid+']').remove();
 }
 function addStatus(statusid) {
-	statusentry = $('#statuses option[value='+statusid+']');
+	statusentry = $('#availableStatuses option[value='+statusid+']');
 	if (statusentry.val() == statusid) {
 		newstatus = statusentry.clone();
 		newstatus.appendTo('#devicestatuses');
@@ -376,7 +385,7 @@ if (!$easymode) {
 <?php
 }
 ?>
-<input type="button" value="Reconfigure All" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=phones_edit&reconfiguredevice_submit=Reconfigure&device=-1'">
+<input type="button" value="Reconfigure All" onClick="reconfiguredevice(-1);">
 <p>
 
 <table style="border-collapse:collapse; border-style:outset; border-width: 1px; ">
@@ -541,7 +550,8 @@ foreach ($devices as $deviceid=>$device) {
 <?php
 	}
 ?>
-		<input type="button" value="Reconfigure" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=phones_edit&reconfiguredevice_submit=Reconfigure&device=<?php echo $deviceid?>'">
+		<input type="button" value="Reconfigure" onClick="reconfiguredevice(<?php echo $deviceid?>)">
+
 	</td>
 <?php
 	if (!$easymode) {
@@ -792,7 +802,7 @@ foreach ($digium_phones->get_statuses() as $data) {
 	$statuses[$data['id']] = $data['name'];
 }
 foreach($devices['statuses'] as $data){
-	$statusesSelected[$data['statusesid']] = $data['statusesid'];
+	$statusesSelected[$data['statusid']] = $data['statusid'];
 }
 echo '<div class="dragdropFrame">';
 echo '<div class="dragdrop">';
@@ -825,7 +835,7 @@ foreach ($digium_phones->get_customapps() as $data) {
 	$customapps[$data['id']] = $data['name'];
 }
 foreach($devices['customapps'] as $data){
-	$customappsSelected[$data['customappsid']] = $data['customappsid'];
+	$customappsSelected[$data['customappid']] = $data['customappid'];
 }
 echo '<div class="dragdropFrame">';
 echo '<div class="dragdrop">';
@@ -876,12 +886,21 @@ $table->add_row(array( 'data' => fpbx_label('Enable Web UI:', 'By default, when 
 					<option value="yes" ' . ($devices['settings']['web_ui_enabled'] == 'yes' ? 'selected' : '') . '>Enabled</option>
 					<option value="no" ' . ($devices['settings']['web_ui_enabled'] == 'no' ? 'selected' : '') . '>Disabled (Default)</option></select>'));
 
-$firmware = '<select id="firmware_package_id" name="firmware_package_id"><option value="" selected></option>';
 $packages = $digium_phones->get_firmware_manager()->get_packages();
+
+$firmware = '';
+$selected = ' selected';
 foreach ($packages as $package) {
-	$firmware .= '<option value="' . $package->get_unique_id() . '"><' . $package->get_name() . '</option>';
+	$id = $package->get_unique_id();
+	$firmware .= '<option value="' . $id . '"';
+	if ($id==$devices['settings']['firmware_package_id']) {
+		$firmware .= $selected;
+		$selected = '';
+	}
+	$firmware .='>' . $package->get_name() . '</option>';
 }
-$firmware .= '</select>';			
+$firmware = '<select id="firmware_package_id" name="firmware_package_id"><option value=""'.$selected.'>None</option>'.$firmware.'</select>';			
+
 $table->add_row(array( 'data' => fpbx_label('Select Firmware:', 'Pick the firmware to load on the phone.')),
 				array( 'data' => $firmware));
 

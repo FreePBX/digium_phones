@@ -157,7 +157,7 @@ $(function() {
 
 //for Customapps
 $(function() {
-    $( "#managers" ).sortable({
+    $( "#devicecustomapps" ).sortable({
         connectWith: '.customapps',
         create: function(event, ui) {
 			$(this).children().removeClass('filled');

@@ -614,6 +614,9 @@ class digium_phones_conf {
 				$loutput[] = "type=external_line";
 
 				foreach ($externalline['settings'] as $key=>$val) {
+					if ($key=='server_transport') {
+						$key='transport';
+					}
 					$loutput[] = "{$key}={$val}";
 				}
 				$loutput[] = "";
@@ -3481,7 +3484,7 @@ class digium_phones {
 	public function add_externalline($externalline) {
 		global $db;
 
-		$externalline_id = $externalline['id'];
+		$externallineid = $externalline['id'];
 
 		// external lines
 		$sql = "INSERT INTO digium_phones_externallines (id, name) VALUES(\"{$db->escapeSimple($externalline['id'])}\", \"{$db->escapeSimple($externalline['name'])}\")";

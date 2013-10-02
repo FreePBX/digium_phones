@@ -54,8 +54,6 @@ if (!empty($_POST['devicenetworks_'])) {
 	unset($_POST['devicenetworks_']);
 }
 
-//if (!empty($_POST)) file_put_contents('/tmp/post',print_r($_POST,true));
-
 
 /**
  * The following if statements check for when a form has been submitted. There

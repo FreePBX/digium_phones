@@ -212,8 +212,6 @@ $('#digium_phones_editdevice').submit(function(e) {
 		postvar = postvar + '&' + customapps;
 	}
 
-	//console.log('lines ' + lines);
-	//console.log('postvar ' + postvar);
 	$.ajax({
 		type: "POST",
 		url: $('form').attr('action'),

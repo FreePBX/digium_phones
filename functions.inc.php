@@ -928,13 +928,29 @@ class firmware_package {
 			return false;
 		}
 
-		foreach ($presults as $prow) {
+		foreach ($presults as $pindex => $prow) {
 			$package = new firmware_package($prow['name'], $prow['file_path'], $prow['version'], $prow['unique_id']);
 
 			// Bail if the location doesn't exist.
 			if (!file_exists($package->get_file_path())) {
-				echo "The firmware package location ".$package->get_file_path()." does not exist.";
-				return array();
+
+				// instead of complaining, just delete the missing package
+				//echo "The firmware package location ".$package->get_file_path()." does not exist.";
+				$sql = "DELETE from digium_phones_firmware_packages where unique_id=\"{$package->unique_id}\";";
+				$result = $db->query($sql);
+				if (DB::IsError($presults)) {
+					die_freepbx($presults->getDebugInfo());
+					return false;
+				}
+				$sql = "DELETE from digium_phones_firmware where package_id=\"{$package->unique_id}\";";
+				$result = $db->query($sql);
+				if (DB::IsError($presults)) {
+					die_freepbx($presults->getDebugInfo());
+					return false;
+				}
+				unset($package);
+				unset($presults[$pindex]);
+				continue;
 			}
 
 			$sql = "SELECT * FROM digium_phones_firmware WHERE package_id=\"{$package->unique_id}\" ORDER BY file_name";
@@ -1771,7 +1787,7 @@ class digium_phones {
 	 * @return bool
 	 */
 	public function update_general($params) {
-	 	global $db;
+		global $db;
 
 		foreach ($params as $keyword=>$val) {
 			if ($val === null) {

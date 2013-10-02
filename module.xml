@@ -26,6 +26,6 @@
 	<menuitems>
 		<digium_phones needsenginedb="yes">Digium Phones</digium_phones>
 	</menuitems>
-	<location>release/2.11/digium_phones-2.11.0.5.tgz</location>
-	<md5sum>41b8b4e9c0cf7e8c7cd671d76ac42798</md5sum>
+	<location>release/2.11/digium_phones-2.11.0.6.tgz</location>
+	<md5sum>0b2bb75bddb7225f49e1ab4c5d1c4818</md5sum>
 </module>

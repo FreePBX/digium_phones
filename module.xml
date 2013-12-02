@@ -27,4 +27,4 @@
 	</menuitems>
 	<location>release/2.11/digium_phones-2.11.0.5.tgz</location>
 	<md5sum>41b8b4e9c0cf7e8c7cd671d76ac42798</md5sum>
-</module>
+<supported><version>2.11</version></supported></module>

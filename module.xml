@@ -19,4 +19,4 @@
 	<menuitems>
 		<digium_phones needsenginedb="yes">Digium Phones</digium_phones>
 	</menuitems>
-</module>
+<supported><version>2.10</version></supported></module>

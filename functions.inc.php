@@ -62,6 +62,12 @@ function digium_phones_hookGet_config($engine) {
 function digium_phones_configpageinit($pagename) {
 	global $currentcomponent;
 	global $amp_conf;
+	global $astman;
+
+	$dpmalicensestatus = $astman->send_request('DPMALicenseStatus');
+	if (empty($dpmalicensestatus['Response']) || $dpmalicensestatus['Response'] != "Success") {
+		return;
+	}
 
 	$action = isset($_REQUEST['action'])?$_REQUEST['action']:null;
 	$extdisplay = isset($_REQUEST['extdisplay'])?$_REQUEST['extdisplay']:null;
@@ -201,13 +207,29 @@ function digium_phones_configprocess() {
 class digium_phones_conf {
 	var $use_warning_banner = false;
 	var $digium_phones;
+	var $autohint;
+	var $sorted_users;
 
 	public function digium_phones_conf() {
 		$this->digium_phones = new digium_phones();
+		$this->autohint = array();
+
+		$this->sorted_users = $this->digium_phones->get_core_devices();
+		if ($this->digium_phones->get_general('internal_phonebook_sort') == "description") {
+			usort($this->sorted_users, array($this, "desccmp"));
+		} else {
+			usort($this->sorted_users, array($this, "extencmp"));
+		}
 	}
 
 	public function get_filename() {
 		global $amp_conf;
+		global $astman;
+
+		$dpmalicensestatus = $astman->send_request('DPMALicenseStatus');
+		if (empty($dpmalicensestatus['Response']) || $dpmalicensestatus['Response'] != "Success") {
+			return array();
+		}
 
 		if ($this->digium_phones->get_general('easy_mode') == "yes") {
 			foreach ($this->digium_phones->get_devices() as $deviceid=>$device) {
@@ -301,22 +323,16 @@ class digium_phones_conf {
 			global $amp_conf;
 
 			$output = array();
+			$extension = $matches[2];
 
 			if ($matches[1] == "internal-") {
 				$phonebook = array();
 				$phonebook['entries'] = array();
-				$phonebook['name'] = $matches[1] . $matches[2];
+				$phonebook['name'] = $matches[1] . $extension;
 
-				$users = $this->digium_phones->get_core_devices();
-				if ($this->digium_phones->get_general('internal_phonebook_sort') == "description") {
-					usort($users, array($this, "desccmp"));
-				} else {
-					usort($users, array($this, "extencmp"));
-				}
-
-				foreach ($users as $user) {
+				foreach ($this->sorted_users as $user) {
 					$hasline = false;
-					$device = $this->digium_phones->get_device($matches[2]);
+					$device = $this->digium_phones->get_device($extension);
 					foreach ($device['lines'] as $lineid=>$line) {
 						if ($line['extension'] == $user['id']) {
 							$hasline = true;
@@ -332,7 +348,7 @@ class digium_phones_conf {
 				}
 			} else {
 				$phonebooks = $this->digium_phones->get_phonebooks();
-				$phonebook = $phonebooks[$matches[2]];
+				$phonebook = $phonebooks[$extension];
 			}
 
 			$output[] = '<contacts ';
@@ -341,12 +357,16 @@ class digium_phones_conf {
 			$output[] = '>';
 
 			foreach ($phonebook['entries'] as $entryid=>$entry) {
-				$autohint = false;
-				foreach ($this->digium_phones->get_devices() as $device) {
-					foreach ($device['lines'] as $l) {
-						if ($entry['extension'] == $l['extension']) {
-							/* This is a Digium Phone. */
-							$autohint = true;
+				$extension=$entry['extension'];
+
+				if (!array_key_exists($extension,$this->autohint)) {
+					$this->autohint[$extension] = false;
+					foreach ($this->digium_phones->get_devices() as $device) {
+						foreach ($device['lines'] as $l) {
+							if ($entry['extension'] == $l['extension']) {
+								/* This is a Digium Phone. */
+								$this->autohint[$extension] = true;
+							}
 						}
 					}
 				}
@@ -389,7 +409,7 @@ class digium_phones_conf {
 					// TODO: Not all contacts are SIP.  Or maybe it doesn't matter because it's SIP to Asterisk.  Who knows?
 					$output[] = '    contact_type="sip"';
 					$output[] = '    account_id="' . htmlspecialchars($entry['extension']) . '"';
-					if ($autohint) {
+					if ($this->autohint[$extension]) {
 						$output[] = '    subscribe_to="auto_hint_' . htmlspecialchars($entry['extension']) . '"';
 					} else {
 						$output[] = '    subscribe_to="' . htmlspecialchars($entry['extension']) . '"';
@@ -1445,7 +1465,7 @@ class digium_phones {
 
 	public function cache_core_devices_list() {
 		foreach(core_devices_list('all', 'full') as $device) {
-			$this->core_devices[] = $device;
+			$this->core_devices[$device['id']] = $device;
 		}
 	}
 
@@ -1454,11 +1474,8 @@ class digium_phones {
 	}
 
 	public function get_core_device($param) {
-		foreach ($this->core_devices as $device) {
-			if ($device['id'] == $param) {
-				return $device;
-			}
-		}
+		if (array_key_exists($param,$this->core_devices))
+			return($this->core_devices[$param]);
 		return null;
 	}
 
@@ -1467,7 +1484,7 @@ class digium_phones {
 			$newuser['extension'] = $user[0];
 			$newuser['name'] = $user[1];
 			$newuser['voicemail'] = $user[2];
-			$this->core_users[] = $newuser;
+			$this->core_users[$newuser['extension']] = $newuser;
 		}
 	}
 
@@ -1476,11 +1493,8 @@ class digium_phones {
 	}
 
 	public function get_core_user($param) {
-		foreach ($this->core_users as $user) {
-			if ($user['extension'] == $param) {
-				return $user;
-			}
-		}
+		if (array_key_exists($param,$this->core_users))
+			return($this->core_users[$param]);
 		return null;
 	}
 

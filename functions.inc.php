@@ -64,6 +64,10 @@ function digium_phones_configpageinit($pagename) {
 	global $amp_conf;
 	global $astman;
 
+	if (!isset($astman)) { // Called in a 'reload', astman explicitly undefined.
+		return;
+	}
+
 	$dpmalicensestatus = $astman->send_request('DPMALicenseStatus');
 	if (empty($dpmalicensestatus['Response']) || $dpmalicensestatus['Response'] != "Success") {
 		return;

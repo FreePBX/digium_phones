@@ -1209,6 +1209,7 @@ class firmware_manager {
 		$this->packages = array();
 		$this->versions = array();
 		$this->phones = $phones;
+		$this->error_msg = '';
 	}
 
 	/**
@@ -1315,12 +1316,14 @@ class firmware_manager {
 		// See if we have a digium_phones_firmware.conf
 		$conf_name = $path.'/digium_phones_firmware.conf';
 		if (!file_exists($conf_name)) {
+			$this->error_msg = 'Could not find digium_phones_firmware.conf in tarball';
 			return false;
 		}
 		$conf_file = new firmware_conf($conf_name);
 		$package = $this->create_package($conf_file);
 
 		if ($package === null) {
+			$this->error_msg = 'Failed creating firmware package from configuration file';
 			return false;
 		}
 
@@ -1331,6 +1334,7 @@ class firmware_manager {
 			unlink($conf_name);
 			rmdir($path);
 		}
+		$this->error_msg = '';
 		return true;
 	}
 

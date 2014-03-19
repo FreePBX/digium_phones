@@ -715,10 +715,16 @@ if (isset($_GET['user_image'])) {
 					echo '<span class="failure">'.$error.'</span>';
 					echo '</div>';
 				} else {
-					$firmware_manager->synchronize_file_location($filename);
-					echo '<div>';
-					echo '<span class="success">Firmware downloaded successfully</span>';
-					echo '</div>';
+					if (!$firmware_manager->synchronize_file_location($filename)) {
+						echo '<div>';
+						echo '<span class="failure">Firmware downloaded failed: '.
+							$firmware_manager->error_msg.'</span>';
+						echo '</div>';
+					} else {
+						echo '<div>';
+						echo '<span class="success">Firmware downloaded successfully</span>';
+						echo '</div>';
+					}
 				}
 			}
 		}

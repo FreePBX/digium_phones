@@ -21,14 +21,15 @@
  */
 
 global $db;
+global $amp_conf;
 
 function digium_phones_get_firmware_path($url=False) {
 	$path = "/digium_phones/firmware_package/";
 	if ($url) {
 		return $url . $path;
 	}
-	$path = dirname(dirname(dirname(dirname(__FILE__)))) . $path;
-	// same as /var/www/html/digium_phones/firmware_package
+	$path = $amp_conf['AMPWEBROOT'] . $path;
+	// normally /var/www/html/digium_phones/firmware_package
 	if (!is_dir($path)) {
 		mkdir($path, 0755, true);
 	}
@@ -2682,7 +2683,7 @@ class digium_phones {
 		$fwpath = digium_phones_get_firmware_path();
 		foreach ($results as $row) {
 			if (!file_exists($fwpath. 'user_ringtone_'.$row['id'].'.raw')) {
-				$sql = "DELETE FROM digium_phones_ringtones WHERE id = '{$db->escapeSimple($row['id'])}'";
+				$sql = 'DELETE FROM digium_phones_ringtones WHERE id = "'.$db->escapeSimple($row['id']).'"';
 				$db->query($sql);
 				continue;
 			}
@@ -3216,7 +3217,7 @@ class digium_phones {
 		$fwpath = digium_phones_get_firmware_path();
 		foreach ($results as $row) {
 			if (!file_exists($fwpath . 'application_'.$row['customappid'].'.zip')) {
-				$sql = "DELETE FROM digium_phones_customapps WHERE id = \"{$db->escapeSimple($row['customappid'])}\"";
+				$sql = 'DELETE FROM digium_phones_customapps WHERE id = "'.$db->escapeSimple($row['customappid']).'"';
 				$db->query($sql);
 				continue;
 			}

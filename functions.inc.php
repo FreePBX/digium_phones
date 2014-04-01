@@ -487,6 +487,7 @@ class digium_phones_conf {
 			$output[] = "mdns_address={$this->digium_phones->get_general('mdns_address')}";
 			$output[] = "mdns_port={$this->digium_phones->get_general('mdns_port')}";
 			$output[] = "service_name={$this->digium_phones->get_general('service_name')}";
+			/* note: option firmware_package_directory is deprecated in dpma, but leaving this for now */
 			$output[] = "firmware_package_directory=" . digium_phones_get_firmware_path();
 
 			$output[] = "";
@@ -2678,7 +2679,13 @@ class digium_phones {
 			return false;
 		}
 
+		$fwpath = digium_phones_get_firmware_path();
 		foreach ($results as $row) {
+			if (!file_exists($fwpath. 'user_ringtone_'.$row['id'].'.raw')) {
+				$sql = "DELETE FROM digium_phones_ringtones WHERE id = '{$db->escapeSimple($row['id'])}'";
+				$db->query($sql);
+				continue;
+			}
 			$this->ringtones[$row['id']]['id'] = $row['id'];
 			$this->ringtones[$row['id']]['name'] = $row['name'];
 			$this->ringtones[$row['id']]['filename'] = $row['filename'];
@@ -3206,7 +3213,13 @@ class digium_phones {
 			return false;
 		}
 
+		$fwpath = digium_phones_get_firmware_path();
 		foreach ($results as $row) {
+			if (!file_exists($fwpath . 'application_'.$row['customappid'].'.zip')) {
+				$sql = "DELETE FROM digium_phones_customapps WHERE id = \"{$db->escapeSimple($row['customappid'])}\"";
+				$db->query($sql);
+				continue;
+			}
 			$s = $this->customapps[$row['customappid']];
 			$s['id'] = $row['customappid'];
 			$s['name'] = $row['name'];
@@ -3231,7 +3244,7 @@ class digium_phones {
 		$this->customapps[$id] = $customapp;
 
 		if ($deletefromdevice) {
-			unlink($amp_conf['ASTETCDIR']."/digium_phones/application_{$db->escapeSimple($customappid)}.zip");
+			unlink(digium_phones_get_firmware_path() . 'application_'.$customappid.'.zip');
 
 			$sql = "DELETE FROM digium_phones_device_customapps WHERE customappid = \"{$db->escapeSimple($customapp['id'])}\"";
 			$result = $db->query($sql);
@@ -3356,7 +3369,6 @@ class digium_phones {
 				// also update deprecated path
 				strstr($n['settings']['file_url_prefix'], '/admin/modules/digium_phones/firmware_package/')) {
 				$n['settings']['file_url_prefix'] = digium_phones_get_firmware_path('http://' . $this->get_general('mdns_address'));
-				//"http://{$this->get_general('mdns_address')}/admin/modules/digium_phones/firmware_package/";
 			}
 			if ($n['settings']['ntp_server'] == '') {
 				$n['settings']['ntp_server'] = "0.digium.pool.ntp.org";
@@ -3628,7 +3640,7 @@ class digium_phones {
 		}
 		unset($result);
 
-		// logo is moved to the right spot in digium_phones/views/digium_phones_logos.php
+		// logo is moved to ASTETCDIR/digium_phones in digium_phones/views/digium_phones_logos.php
 
 		needreload();
 	}
@@ -3644,7 +3656,7 @@ class digium_phones {
 		}
 		unset($result);
 
-		// logo is moved to the right spot in digium_phones/views/digium_phones_logos.php
+		// logo is moved to ASTETCDIR/digium_phones in digium_phones/views/digium_phones_logos.php
 
 		needreload();
 	}

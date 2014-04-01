@@ -469,8 +469,10 @@ $result = $db->query($ringtonesql);
 unset($result);
 
 // Make the firmware directory for downloads
+/*
 $firmware_location = dirname(dirname(__FILE__)) . "/digium_phones/firmware_package/";
 if (!file_exists($firmware_location)) {
 	mkdir($firmware_location, 0755);
 }
+*/
 //end of file

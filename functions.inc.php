@@ -22,6 +22,20 @@
 
 global $db;
 
+function digium_phones_get_firmware_path($url=False) {
+	$path = "/digium_phones/firmware_package/";
+	if ($url) {
+		return $url . $path;
+	}
+	$path = dirname(dirname(dirname(dirname(__FILE__)))) . $path;
+	// same as /var/www/html/digium_phones/firmware_package
+	if (!is_dir($path)) {
+		mkdir($path, 0755, true);
+	}
+	return $path;
+}
+
+
 function digium_phones_get_config($engine) {
 	global $core_conf;
 
@@ -473,7 +487,7 @@ class digium_phones_conf {
 			$output[] = "mdns_address={$this->digium_phones->get_general('mdns_address')}";
 			$output[] = "mdns_port={$this->digium_phones->get_general('mdns_port')}";
 			$output[] = "service_name={$this->digium_phones->get_general('service_name')}";
-			$output[] = "firmware_package_directory=" . dirname(dirname(__FILE__)) . "/digium_phones/firmware_package/";
+			$output[] = "firmware_package_directory=" . digium_phones_get_firmware_path();
 
 			$output[] = "";
 
@@ -773,13 +787,14 @@ class digium_phones_conf {
 				$output[] = "";
 			}
 
+			$fwpath = digium_phones_get_firmware_path();
 			foreach ($this->digium_phones->get_customapps() as $customappid=>$customapp) {
 				$output[] = "[customapp-{$customappid}]";
 				$output[] = "type=application";
 				$output[] = "application=custom";
 				$output[] = "name={$customapp['name']}";
 				$output[] = "filename=application_{$customappid}.zip";
-				$output[] = "md5sum=".md5_file(dirname(dirname(__FILE__)) . "/digium_phones/firmware_package/application_{$customappid}.zip");
+				$output[] = "md5sum=".md5_file($fwpath . "application_{$customappid}.zip");
 
 				foreach ($customapp['settings'] as $key=>$val) {
 					$output[] = "{$key}={$val}";
@@ -1329,8 +1344,9 @@ class firmware_manager {
 
 		// If what we're synchronizing isn't the firmware directory,
 		// move the firmware objects over to it
-		if ($path !== dirname(dirname(__FILE__)) . '/digium_phones/firmware_package/') {
-			$package->set_file_path(dirname(dirname(__FILE__)) . '/digium_phones/firmware_package/' . trim($package->get_name(), '/'));
+		$fwpath = digium_phones_get_firmware_path();
+		if ($path !== $fwpath) { 
+			$package->set_file_path($fwpath . trim($package->get_name(), '/'));
 			unlink($conf_name);
 			rmdir($path);
 		}
@@ -2685,7 +2701,8 @@ class digium_phones {
 		}
 		unset($results);
 
-		if (!move_uploaded_file($ringtone['file']['tmp_name'], dirname(dirname(__FILE__)) . "/digium_phones/firmware_package/user_ringtone_".$id.".raw")) {
+		$fwpath = digium_phones_get_firmware_path();
+		if (!move_uploaded_file($ringtone['file']['tmp_name'], $fwpath . "user_ringtone_".$id.".raw")) {
 			?>
 			<br>
 			<span style="color: red; ">Uploaded file is not valid.</span>
@@ -2716,7 +2733,8 @@ class digium_phones {
 		global $amp_conf;
 		global $db;
 
-		unlink(dirname(dirname(__FILE__)) . "/digium_phones/firmware_package/user_ringtone_{$db->escapeSimple($id)}.raw");
+		$fwpath = digium_phones_get_firmware_path();
+		unlink($fwpath . "user_ringtone_{$db->escapeSimple($id)}.raw");
 
 		$sql = "DELETE FROM digium_phones_ringtones WHERE id = '{$db->escapeSimple($id)}'";
 		$results = $db->query($sql);
@@ -3293,7 +3311,8 @@ class digium_phones {
 			unset($result);
 		}
 
-		if (!move_uploaded_file($customapp['file']['tmp_name'], dirname(dirname(__FILE__)) . "/digium_phones/firmware_package/application_".$customappid.".zip")) {
+		$fwpath = digium_phones_get_firmware_path();
+		if (!move_uploaded_file($customapp['file']['tmp_name'], $fwpath . "application_".$customappid.".zip")) {
 			?>
 			<br>
 			<span style="color: red; ">Uploaded file is not valid.</span>
@@ -3333,8 +3352,11 @@ class digium_phones {
 			if ($n['settings']['registration_port'] == '') {
 				$n['settings']['registration_port'] = $this->get_general('mdns_port');
 			}
-			if ($n['settings']['file_url_prefix'] == '') {
-				$n['settings']['file_url_prefix'] = "http://{$this->get_general('mdns_address')}/admin/modules/digium_phones/firmware_package/";
+			if ($n['settings']['file_url_prefix'] == '' || 
+				// also update deprecated path
+				strstr($n['settings']['file_url_prefix'], '/admin/modules/digium_phones/firmware_package/')) {
+				$n['settings']['file_url_prefix'] = digium_phones_get_firmware_path('http://' . $this->get_general('mdns_address'));
+				//"http://{$this->get_general('mdns_address')}/admin/modules/digium_phones/firmware_package/";
 			}
 			if ($n['settings']['ntp_server'] == '') {
 				$n['settings']['ntp_server'] = "0.digium.pool.ntp.org";

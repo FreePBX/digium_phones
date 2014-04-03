@@ -23,13 +23,22 @@
 global $db;
 global $amp_conf;
 
-function digium_phones_get_firmware_path($url=False) {
-	$path = "/digium_phones/firmware_package/";
+/**
+ * Get the path to the publicly accessible
+ * http location to store files for phones
+ * to download.
+ * @return string path to the directory
+ */
+function digium_phones_get_http_path($url=False) {
+	$path = "/digium_phones/";
 	if ($url) {
 		return $url . $path;
 	}
-	$path = $amp_conf['AMPWEBROOT'] . $path;
-	// normally /var/www/html/digium_phones/firmware_package
+	$webroot = $amp_conf['AMPWEBROOT'];
+	if (!$webroot) {
+		$webroot = '/var/www/html';
+	}
+	$path = $webroot . $path;
 	if (!is_dir($path)) {
 		mkdir($path, 0755, true);
 	}
@@ -489,7 +498,7 @@ class digium_phones_conf {
 			$output[] = "mdns_port={$this->digium_phones->get_general('mdns_port')}";
 			$output[] = "service_name={$this->digium_phones->get_general('service_name')}";
 			/* note: option firmware_package_directory is deprecated in dpma, but leaving this for now */
-			$output[] = "firmware_package_directory=" . digium_phones_get_firmware_path();
+			$output[] = "firmware_package_directory=" . digium_phones_get_http_path();
 
 			$output[] = "";
 
@@ -789,14 +798,14 @@ class digium_phones_conf {
 				$output[] = "";
 			}
 
-			$fwpath = digium_phones_get_firmware_path();
+			$http_path = digium_phones_get_http_path();
 			foreach ($this->digium_phones->get_customapps() as $customappid=>$customapp) {
 				$output[] = "[customapp-{$customappid}]";
 				$output[] = "type=application";
 				$output[] = "application=custom";
 				$output[] = "name={$customapp['name']}";
 				$output[] = "filename=application_{$customappid}.zip";
-				$output[] = "md5sum=".md5_file($fwpath . "application_{$customappid}.zip");
+				$output[] = "md5sum=".md5_file($http_path . "application_{$customappid}.zip");
 
 				foreach ($customapp['settings'] as $key=>$val) {
 					$output[] = "{$key}={$val}";
@@ -1337,20 +1346,21 @@ class firmware_manager {
 			return false;
 		}
 		$conf_file = new firmware_conf($conf_name);
+		if (!$conf_file) {
+			$this->error_msg = 'Failed to load configuration file';
+			return false;
+		}
 		$package = $this->create_package($conf_file);
-
-		if ($package === null) {
+		if (!$package) {
 			$this->error_msg = 'Failed creating firmware package from configuration file';
 			return false;
 		}
 
-		// If what we're synchronizing isn't the firmware directory,
-		// move the firmware objects over to it
-		$fwpath = digium_phones_get_firmware_path();
-		if ($path !== $fwpath) { 
-			$package->set_file_path($fwpath . trim($package->get_name(), '/'));
-			unlink($conf_name);
-			rmdir($path);
+		// move the firmware objects over to the downloadable path
+		$http_path = digium_phones_get_http_path();
+		$dest = $http_path . trim($package->get_name(), '/');
+		if (!$package->set_file_path($dest)) {
+			return false;
 		}
 		$this->error_msg = '';
 		return true;
@@ -1428,6 +1438,52 @@ class firmware_manager {
 
 		$json['tarball'] = str_replace('{version}', $json['version'], $json['tarball']);
 		return $json;
+	}
+
+	/**
+	 * Extract firmware archive and load (sync) it
+	 * @param string $archive Path to the archive file (will be deleted)
+	 * @return true if success, false and $this->error_msg if not
+	 */
+	public function untar_firmware_and_load($archive, $path = '/tmp') {
+		$this->error_msg = '';
+		$output = '';
+		$exitcode = 0;
+
+		$path = $path.'/digium_phones_'.time();
+		mkdir($path);
+		if (!is_dir($path)) {
+			$this->error_msg = 'Failed to create temp directory '.$path;
+			unlink($archive);
+			return false;
+		}
+
+		exec('tar xf '.$archive.' -C '.$path.' 2>&1', $output, $exitcode);
+		unlink($archive);
+		if ($exitcode != 0) {
+			$this->error_msg = 'Failed to extract archive: tar exited '.$exitcode;
+			if ($output)
+				$this->error_msg .= "\n".$output;
+			return false;
+		}
+
+		// wack any combination of allowed extensions
+		$expected_subdir = basename($archive, '.tar.gz');
+		$expected_subdir = basename($expected_subdir, '.tgz');
+		$expected_subdir = basename($expected_subdir, '.tar');
+		$path_to_contents = $path . '/' . $expected_subdir;
+
+		if (!is_dir($path_to_contents)) {
+			$this->error_msg = 'Failed to find directory in archive: '.$expected_subdir;
+			return false;
+		}
+
+		$synced = $this->synchronize_file_location($path_to_contents);
+
+		// remove anything leftover
+		exec('rm -rf '.$path);
+
+		return $synced;
 	}
 
 	private $versions;
@@ -2680,9 +2736,9 @@ class digium_phones {
 			return false;
 		}
 
-		$fwpath = digium_phones_get_firmware_path();
+		$http_path = digium_phones_get_http_path();
 		foreach ($results as $row) {
-			if (!file_exists($fwpath. 'user_ringtone_'.$row['id'].'.raw')) {
+			if (!file_exists($http_path. 'user_ringtone_'.$row['id'].'.raw')) {
 				$sql = 'DELETE FROM digium_phones_ringtones WHERE id = "'.$db->escapeSimple($row['id']).'"';
 				$db->query($sql);
 				continue;
@@ -2709,8 +2765,8 @@ class digium_phones {
 		}
 		unset($results);
 
-		$fwpath = digium_phones_get_firmware_path();
-		if (!move_uploaded_file($ringtone['file']['tmp_name'], $fwpath . "user_ringtone_".$id.".raw")) {
+		$http_path = digium_phones_get_http_path();
+		if (!move_uploaded_file($ringtone['file']['tmp_name'], $http_path . "user_ringtone_".$id.".raw")) {
 			?>
 			<br>
 			<span style="color: red; ">Uploaded file is not valid.</span>
@@ -2741,8 +2797,8 @@ class digium_phones {
 		global $amp_conf;
 		global $db;
 
-		$fwpath = digium_phones_get_firmware_path();
-		unlink($fwpath . "user_ringtone_{$db->escapeSimple($id)}.raw");
+		$http_path = digium_phones_get_http_path();
+		unlink($http_path . "user_ringtone_{$db->escapeSimple($id)}.raw");
 
 		$sql = "DELETE FROM digium_phones_ringtones WHERE id = '{$db->escapeSimple($id)}'";
 		$results = $db->query($sql);
@@ -3214,9 +3270,9 @@ class digium_phones {
 			return false;
 		}
 
-		$fwpath = digium_phones_get_firmware_path();
+		$http_path = digium_phones_get_http_path();
 		foreach ($results as $row) {
-			if (!file_exists($fwpath . 'application_'.$row['customappid'].'.zip')) {
+			if (!file_exists($http_path . 'application_'.$row['customappid'].'.zip')) {
 				$sql = 'DELETE FROM digium_phones_customapps WHERE id = "'.$db->escapeSimple($row['customappid']).'"';
 				$db->query($sql);
 				continue;
@@ -3245,7 +3301,7 @@ class digium_phones {
 		$this->customapps[$id] = $customapp;
 
 		if ($deletefromdevice) {
-			unlink(digium_phones_get_firmware_path() . 'application_'.$customappid.'.zip');
+			unlink(digium_phones_get_http_path() . 'application_'.$customappid.'.zip');
 
 			$sql = "DELETE FROM digium_phones_device_customapps WHERE customappid = \"{$db->escapeSimple($customapp['id'])}\"";
 			$result = $db->query($sql);
@@ -3325,8 +3381,8 @@ class digium_phones {
 			unset($result);
 		}
 
-		$fwpath = digium_phones_get_firmware_path();
-		if (!move_uploaded_file($customapp['file']['tmp_name'], $fwpath . "application_".$customappid.".zip")) {
+		$http_path = digium_phones_get_http_path();
+		if (!move_uploaded_file($customapp['file']['tmp_name'], $http_path . "application_".$customappid.".zip")) {
 			?>
 			<br>
 			<span style="color: red; ">Uploaded file is not valid.</span>
@@ -3369,7 +3425,7 @@ class digium_phones {
 			if ($n['settings']['file_url_prefix'] == '' || 
 				// also update deprecated path
 				strstr($n['settings']['file_url_prefix'], '/admin/modules/digium_phones/firmware_package/')) {
-				$n['settings']['file_url_prefix'] = digium_phones_get_firmware_path('http://' . $this->get_general('mdns_address'));
+				$n['settings']['file_url_prefix'] = digium_phones_get_http_path('http://' . $this->get_general('mdns_address'));
 			}
 			if ($n['settings']['ntp_server'] == '') {
 				$n['settings']['ntp_server'] = "0.digium.pool.ntp.org";

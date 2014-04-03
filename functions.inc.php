@@ -1580,30 +1580,6 @@ class digium_phones {
 		return null;
 	}
 
-	public function check_firmware() {
-		$url = "http://downloads.digium.com/pub/telephony/res_digium_phone/firmware/dpma-firmware.json";
-		$request = file_get_contents($url);
-		$request = str_replace(array("\n", "\t"), "", $request);
-		$json = json_decode($request, true);
-
-		if ($json == null) {
-			return null;
-		}
-
-		$json['tarball'] = str_replace('{version}', $json['version'], $json['tarball']);
-		return $json;
-	}
-
-	public function download_firmware($tarball) {
-		$json = check_firmware();
-		if ($json == null) {
-			return false;
-		}
-
-		$this->update_general(array('firmware_version'=>$json['version']));
-		return true;
-	}
-
 	/**
 	 * Get general
 	 *

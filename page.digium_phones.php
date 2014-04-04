@@ -572,24 +572,9 @@ if (isset($_POST['general_submit'])) {
 	}
 }
 
-function untar_firmware(&$filename) {
-	$output = '';
-	$exitcode = 0;
-	$basename = explode('.', basename($filename));
-	$basename = $basename[0];
-	exec("tar zxf ".$filename." -C ".dirname($filename), $output, $exitcode);
-	if ($exitcode != 0) {
-		return false;
-	}
-	unlink($filename);
-	// Set filename to the directory where we put the files
-	$filename = dirname(__FILE__)."/".basename($filename, '.tar.gz');
-	return true;
-}
-
-function download_firmware($firmware, &$filename) {
-	$url = $firmware['path'].$firmware['tarball'];
-	$md5sum = $firmware['md5sum'];
+function download_firmware($json, $firmware_manager) {
+	$url = $json['path'].$json['tarball'];
+	$md5sum = $json['md5sum'];
 	if ($time_limit = ini_get('max_execution_time')) {
 		set_time_limit($time_limit);
 	}
@@ -598,7 +583,7 @@ function download_firmware($firmware, &$filename) {
 	@ ob_flush();
 	flush();
 
-	$filename = dirname(__FILE__) . "/" . basename($url);
+	$filename = digium_phones_get_http_path() . "/" . basename($url);
 	$filedata = '';
 	$download_chunk_size = 12 * 1024;
 
@@ -648,12 +633,12 @@ function download_firmware($firmware, &$filename) {
 
 		if ($md5sum != md5_file($filename)) {
 			unlink($filename);
-			return sprintf(_("Error retrieving %s"), $url);
+			return sprintf(_("Checksum error retrieving %s"), $url);
 		}
 	}
 
-	if (!untar_firmware($filename)) {
-		return sprintf(_("Error untarring %s", $filename));
+	if (!$firmware_manager->untar_firmware_and_load($filename)) {
+		return $firmware_manager->error_msg;
 	}
 	return;
 }
@@ -664,28 +649,27 @@ if (isset($_GET['user_image'])) {
 	download_file($png_file);
 } else if (isset($_POST['uploadfirmware_submit'])) {
 	$allowed_exts = array('tar', 'gz', 'tgz');
-	$ext = end(explode('.', $_FILES['upload_firmware_location']['name']));
+	$original_filename = $_FILES['upload_firmware_location']['name'];
+	$http_path = digium_phones_get_http_path();
+	$archive  = $http_path . $original_filename;
+	$temp_file = $_FILES['upload_firmware_location']['tmp_name'];
+	$ext = end(explode('.', $original_filename));
 	if ($_FILES["upload_firmware_location"]["error"] > 0) {
-		$error[] = "Error uploading file: " . $_FILES["upload_firmware_location"]["error"] . "<br>";
+		echo "Error uploading file: " . $_FILES["upload_firmware_location"]["error"];
 	} else if (!in_array($ext, $allowed_exts)) {
-		$error[] = 'Error uploading file: '.$ext.' is not a valid extension.';
+		echo 'Error uploading file: '.$ext.' is not a valid extension.';
+	} else if (!move_uploaded_file($temp_file, $archive)) {
+		echo 'Error moving uploaded file to '.$archive;
 	} else {
 		$firmware_manager = $digium_phones->get_firmware_manager();
-		if (untar_firmware($_FILES['upload_firmware_location']['tmp_name']) === true) {
-			if ($firmware_manager->synchronize_file_location($_FILES['upload_firmware_location']['tmp_name']) === false) {
-				$error[] = 'Failed to upload and synchronize file to database.';
-			} else {
-				$package = $firmware_manager->get_package_by_name($_FILES['upload_firmware_location']['tmp_name']);
-				if ($package !== NULL) {
-					$package->set_name($_FILES['upload_firmware_location']['name']);
-				}
-			}
+		if (!$firmware_manager->untar_firmware_and_load($archive)) {
+			echo $firmware_manager->error_msg;
 		} else {
-			$error[] = 'Failed to save uploaded file.';
+			echo 'Firmware uploaded succesfully';
 		}
 	}
+	echo '<p><a href="config.php?type=setup&display=digium_phones&digium_phones_form=firmware_edit">Return</a></p>';
 } else if (isset($_GET['update_firmware'])) {
-	$filename = '';
 	$firmware_manager = $digium_phones->get_firmware_manager();
 	$json = $firmware_manager->get_new_firmware_info();
 	if ($json == null) {
@@ -709,22 +693,15 @@ if (isset($_GET['user_image'])) {
 				echo '<input type="button" value="Download" onClick="parent.perform_download();"/>';
 				echo '</div>';
 			} else {
-				$error = download_firmware($json, $filename);
-				if ($error !== null) {
+				$error = download_firmware($json, $firmware_manager);
+				if ($error) {
 					echo '<div>';
 					echo '<span class="failure">'.$error.'</span>';
 					echo '</div>';
 				} else {
-					if (!$firmware_manager->synchronize_file_location($filename)) {
-						echo '<div>';
-						echo '<span class="failure">Firmware downloaded failed: '.
-							$firmware_manager->error_msg.'</span>';
-						echo '</div>';
-					} else {
-						echo '<div>';
-						echo '<span class="success">Firmware downloaded successfully</span>';
-						echo '</div>';
-					}
+					echo '<div>';
+					echo '<span class="success">Firmware downloaded successfully</span>';
+					echo '</div>';
 				}
 			}
 		}

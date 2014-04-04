@@ -12,7 +12,7 @@ This module provides a convenient way to configure Digium IP Phones with FreePBX
 
 Supported features:
 
-  * Easy mode: phones configuration built automatically from FreePBX extensions
+  * Easy mode: phone configuration built automatically from FreePBX extensions
   * Contact lists (manually edited and automatically built from extensions)
   * Alerts and Ringtones
   * Queue and Agent monitoring on phone
@@ -26,21 +26,21 @@ Supported features:
 ## Module components
 
   * PHP files
-    * functions.inc.php - definition of classes and utility functions for managing configuration data and objects, interfacing with Mysql, and building configuration
-    * page.digium_phones.php - top level page generation code (calls appropriate views/*.php for subpages)
-    * install.php - steps to run on module first installation to insure database and filesystem is configured with default settings
-    * uninstall.php - run at removal (not upgrade) of module to erase database tables
-    * views/digium_phones_*.php - html generation for each data table
+    * `functions.inc.php` - definition of classes and utility functions for managing configuration data and objects, interfacing with Mysql, and building configuration
+    * `page.digium_phones.php` - top level page generation code (calls appropriate views/*.php for subpages)
+    * `install.php` - steps to run on module first installation to insure database and filesystem is configured with default settings
+    * `uninstall.php` - run at removal (not upgrade) of module to erase database tables
+    * `views/digium_phones_*.php` - html generation for each data table
 
   * CSS files
-    * assets/css/digium_phones.css - custom styles used within digium_phones module
+    * `assets/css/digium_phones.css` - custom styles used within digium_phones module
 
   * Javascript files
-    * assets/js/phones.js - drop box and submit handling
-    * assets/js/digium_phone_queues.js - handles queue sorting
+    * `assets/js/phones.js` - drop box and submit handling
+    * `assets/js/digium_phone_queues.js` - handles queue sorting
 
   * Configuration files
-    * etc/res_digium_phone.conf - symlinked into /etc/asterisk, this includes the configuration files generated to configure DPMA
+    * `etc/res_digium_phone.conf` - symlinked into /etc/asterisk, this includes the configuration files generated to configure DPMA
 
 ## Storage locations
 
@@ -54,7 +54,7 @@ Other locations that are used to store different types of files and information:
   * `/var/www/html/digium_phones/firmware_package` \- files accessible to phones via HTTP since module version 2.11.1.0 (firmware_package_directory setting in res_digium_phone_general.conf)
   * `/etc/asterisk/res_digium_phone*.conf` \- configuration for DPMA (res_digium_phone) itself.
   * `/etc/asterisk/digium_phones` \- stores files that DPMA (res_digium_phone) transmits to the phone via SIP (file_directory setting in res_digium_phone_general.conf)
-  * Mysql database '`asterisk`' tables '`digium_phones_*`'
+  * Mysql database `asterisk` tables `digium_phones_*`
 
 ## Phone configuration files
 
@@ -74,13 +74,12 @@ Other locations that are used to store different types of files and information:
 #### Configuration files uploaded by user
 
   * In /etc/asterisk/digium_phones (delivered to phone by DPMA)
-
-    * user_image_{id}.png - user uploaded
+    * `user_image_{id}.png` - user uploaded
 
   * In /var/www/html/digium_phones/firmware_package (downloaded by phone via HTTP)
-    * user_ringtone_{id}.raw - ring tone in mono, 16000 samples/sec, 16 bit signed linear, raw (no header)
-    * application_{id}.zip - json application to run on phone
-    * firmware_{version}_package - directory containing firmware files for various models
+    * `user_ringtone_{id}.raw` - ring tone in mono, 16000 samples/sec, 16 bit signed linear, raw (no header)
+    * `application_{id}.zip` - json application to run on phone
+    * `firmware_{version}_package` - directory containing firmware files for various models
 
 ## Notes:
 

@@ -2714,7 +2714,7 @@ class digium_phones {
 
 		$http_path = digium_phones_get_http_path();
 		foreach ($results as $row) {
-			if (!file_exists($http_path. 'user_ringtone_'.$row['id'].'.raw')) {
+			if (!$row['builtin'] && !file_exists($http_path. 'user_ringtone_'.$row['id'].'.raw')) {
 				$sql = 'DELETE FROM digium_phones_ringtones WHERE id = "'.$db->escapeSimple($row['id']).'"';
 				$db->query($sql);
 				continue;

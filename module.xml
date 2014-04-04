@@ -11,6 +11,7 @@
 	<canuninstall>yes</canuninstall>
 	<changelog>
 		*2.11.1.0* Relocate firmware directory
+		*2.11.0.10* Use abstracted function
 		*2.11.0.9* Improve error reporting of firmware download
 		*2.11.0.8* When reloading, we explicitly skip astman
 		*2.11.0.7* Retrieve_conf speed improvements

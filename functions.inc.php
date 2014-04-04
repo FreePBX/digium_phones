@@ -2734,7 +2734,11 @@ class digium_phones {
 		$sql = "INSERT INTO digium_phones_ringtones (id, name, filename) ";
 		$sql.= "VALUES (NULL, '{$db->escapeSimple($ringtone['name'])}', '{$db->escapeSimple($ringtone['file']['name'])}')";
 		$results = $db->query($sql);
-		$id = mysql_insert_id();
+		if(method_exists($db,'insert_id')) {
+			$id = $db->insert_id();
+		} else {
+			$id = $amp_conf["AMPDBENGINE"] == "sqlite3" ? sqlite_last_insert_rowid($db->connection) : mysql_insert_id($db->connection);
+		}
 		if (DB::IsError($results)) {
 			echo $results->getDebugInfo();
 			return false;

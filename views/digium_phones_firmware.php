@@ -1,23 +1,4 @@
 <?php
-/**
- * FreePBX Digium Phones Config Module
- *
- * Copyright (c) 2013, Digium, Inc.
- *
- * Author: Matt Jordan <mjordan@digium.com>
- *
- * This program is free software, distributed under the terms of
- * the GNU General Public License Version 2. 
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- *
- */
 ?>
 
 <h2>Firmware Management</h2>

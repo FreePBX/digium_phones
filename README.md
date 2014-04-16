@@ -1,11 +1,5 @@
 # Digium Phones Module
 
-    Copyright (c) 2011, Digium, Inc.
-    GNU General Public License Version 2
-
-    Originally Written by Jason Parker
-    Currently maintained by Scott Griepentrog <sgriepentrog@digium.com>
-
 ## Purpose
 
 This module provides a convenient way to configure Digium IP Phones with FreePBX.

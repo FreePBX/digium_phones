@@ -7,6 +7,7 @@
 	<version>2.11.1.0</version>
 	<publisher>Digium</publisher>
 	<license>GPLv2</license>
+	<licenselink>http://www.gnu.org/licenses/gpl-2.0.txt</licenselink>
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
 	<changelog>

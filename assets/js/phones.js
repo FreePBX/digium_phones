@@ -211,6 +211,9 @@ $('#digium_phones_editdevice').submit(function(e) {
 	if (customapps) {
 		postvar = postvar + '&' + customapps;
 	}
+	if ($('#pin_voicemail').is(':checked')) {
+		postvar = postvar + '&pin=voicemail';
+	}
 
 	$.ajax({
 		type: "POST",
@@ -221,3 +224,16 @@ $('#digium_phones_editdevice').submit(function(e) {
 		}
 	});
 });
+
+// for views/digium_phones_phones.php
+$('#pin_voicemail').click(function(){
+	if (this.checked) {
+		$(this).data('saved',$(this).prev().val());
+		$(this).prev().prop('disabled',true);
+		$(this).prev().val('voicemail');
+	} else {
+		$(this).prev().prop('disabled',false);
+		$(this).prev().val($(this).data('saved'));
+	}
+});
+

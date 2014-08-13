@@ -48,26 +48,16 @@ if (isset($_GET['logo_upload']) && isset($_FILES['logo_upload']) && $_FILES['log
 		}
 	}
 
-	if (!preg_match('/\.png$/', $file['name'])) {
-?>
-		<span style="color: red; ">Uploaded files must be in png format.</span>
-		<br />
-<?php
-	} else {
-		if (!move_uploaded_file($file['tmp_name'], $amp_conf['ASTETCDIR']."/digium_phones/user_image_".$filename.".png")) {
-?>
-			<span style="color: red; ">Uploaded file is not valid.</span>
-			<br />
-<?php
-		} else {
-			needreload();
-?>
-			<span style="color: green; ">File uploaded successfully.</span>
-			<br />
-			<br />
-<?php
-		}
+	$size='150x45';
+	if ((!empty($_POST['logo_model']) && $_POST['logo_model'] == 'd70') ||
+		(!empty($_POST['edit_logo_model']) && $_POST['edit_logo_model'] == 'd70'))
+	{
+		$size='205x85';
 	}
+	system('convert '.$file['tmp_name'].' -resize '.$size.' '.$amp_conf['ASTETCDIR'].'/digium_phones/user_image_'.$filename.'.png');
+	unlink($file['tmp_name']);
+
+
 }
 ?>
 
@@ -125,6 +115,7 @@ foreach ($logos as $logo) {
 	<td>
 		<select id="logo_model" name="logo_model" />
 			<option value="d40">D40</option>
+			<option value="d45">D45</option>
 			<option value="d50">D50</option>
 			<option value="d70">D70</option>
 		</select>
@@ -161,6 +152,7 @@ foreach ($logos as $logo) {
 	<td>
 		<select id="edit_logo_model" name="edit_logo_model" />
 			<option value="d40">D40</option>
+			<option value="d45">D45</option>
 			<option value="d50">D50</option>
 			<option value="d70">D70</option>
 		</select>

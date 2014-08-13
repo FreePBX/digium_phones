@@ -713,6 +713,12 @@ class digium_phones_conf {
 			$output = array();
 			$locales = array();
 
+			// default voicemail application
+			$output[] = "[voicemail-default]";
+			$output[] = "type=application";
+			$output[] = "application=voicemail";
+			$output[] = "";
+
 			foreach ($this->digium_phones->get_devices() as $deviceid=>$device) {
 				if (isset($device['settings']['active_locale']) === FALSE) {
 					continue;
@@ -745,6 +751,7 @@ class digium_phones_conf {
 				$output[] = "";
 				unset($table);
 			}
+
 			foreach ($this->digium_phones->get_devices() as $deviceid => $device) {
 
 				$locale = $this->digium_phones->get_general('active_locale');
@@ -754,7 +761,7 @@ class digium_phones_conf {
 				$template="(voicemail-$locale)";
 				$table = $this->digium_phones->get_voicemail_translations($locale);
 				if ($table == NULL) {
-					$template = "";
+					$template = "(voicemail-default)";
 				}
 
 				if (empty($device['settings']['vm_require_pin'])) {

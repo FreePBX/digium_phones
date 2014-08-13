@@ -873,6 +873,11 @@ $table->add_row(array( 'data' => fpbx_label('Enable Send to Voicemail:', 'Enable
 					<option value="yes" ' . ($devices['settings']['send_to_vm'] == 'yes' ? 'selected' : '') . '>Enabled (Default)</option>
 					<option value="no" ' . ($devices['settings']['send_to_vm'] == 'no' ? 'selected' : '') . '>Disabled</option></select>'));
 
+$table->add_row(array( 'data' => fpbx_label('Require Pin for Voicemail:', 'Enables or Disables requiring the Phone PIN to access Voicemail. If disabled, Voicemail messages can be viewed and played without entering the PIN first.')),
+				array( 'data' => '<select id="vm_require_pin" name="vm_require_pin">
+					<option value="no" ' . ($devices['settings']['vm_require_pin'] == 'no' ? 'selected' : '') . '>Disabled (Default)</option>
+					<option value="yes" ' . ($devices['settings']['vm_require_pin'] == 'yes' ? 'selected' : '') . '>Enabled</option></select>'));
+
 $table->add_row(array( 'data' => fpbx_label('Rapid Dials on Unused Line Keys:', 'By default, Line keys that do not have an extension assigned to them will be configured with Rapid Dial keys. This behavior may be disabled such that Rapid Dial keys begin assignment on the sidecar keys.')),
 				array( 'data' => '<select id="blf_unused_linekeys" name="blf_unused_linekeys">
 					<option value="yes" ' . ($devices['settings']['blf_unused_linekeys'] == 'yes' ? 'selected' : '') . '>Enabled</option>

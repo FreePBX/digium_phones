@@ -227,13 +227,14 @@ $('#digium_phones_editdevice').submit(function(e) {
 
 // for views/digium_phones_phones.php
 $('#pin_voicemail').click(function(){
+	var pin=$(this).prev();
 	if (this.checked) {
-		$(this).data('saved',$(this).prev().val());
-		$(this).prev().prop('disabled',true);
-		$(this).prev().val('voicemail');
+		pin.data('saved',pin.val());
+		pin.prop('disabled',true);
+		pin.val('voicemail');
 	} else {
-		$(this).prev().prop('disabled',false);
-		$(this).prev().val($(this).data('saved'));
+		pin.prop('disabled',false);
+		pin.val(pin.data('saved'));
 	}
 });
 

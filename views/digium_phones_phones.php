@@ -79,10 +79,10 @@ foreach ($devices as $deviceid=>$device) {
 			}
 <?php
 		}
-		if ($device['settings']['pin']=='voicemail') {
+		if ($device['settings']['pin'] == 'voicemail') {
 ?>
-			$('#pin').prop('disabled',true);
-			$('#pin_voicemail').prop('checked',true);
+			$('#pin').prop('disabled', true);
+			$('#pin_voicemail').prop('checked', true);
 <?php
 		}
 	}

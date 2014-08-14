@@ -3,6 +3,24 @@
 
 <script type="text/javascript">
 <?php
+
+// table of phone models & logo sizes
+$phone_models=array(
+	'd40' => array('name' => 'D40', 'size' => '150x45'),
+	'd45' => array('name' => 'D45', 'size' => '150x45'),
+	'd50' => array('name' => 'D50', 'size' => '150x45'),
+	'd70' => array('name' => 'D70', 'size' => '205x85'),
+);
+
+function phone_model_options() {
+	global $phone_models;
+	foreach ($phone_models as $model => $data) {
+		echo '<option value="'.$model.'">'.$data['name'].'</option>'."\n";
+	}
+}
+
+
+
 // we need our logo stash
 $logos = $digium_phones->get_logos();
 
@@ -48,12 +66,11 @@ if (isset($_GET['logo_upload']) && isset($_FILES['logo_upload']) && $_FILES['log
 		}
 	}
 
-	$size='150x45';
-	if ((!empty($_POST['logo_model']) && $_POST['logo_model'] == 'd70') ||
-		(!empty($_POST['edit_logo_model']) && $_POST['edit_logo_model'] == 'd70'))
-	{
-		$size='205x85';
+	if (empty($phone_models[$_POST['logo_model']]['size'])) {
+		echo '<h3 style="color: red;">Error: unknown phone model</h3>';
+		return;
 	}
+	$size=$phone_models[$_POST['logo_model']]['size'];
 	$dest = $amp_conf['ASTETCDIR'].'/digium_phones/user_image_'.$filename.'.png';
 	system('convert '.$file['tmp_name'].' -resize '.$size.' '.$dest);
 	unlink($file['tmp_name']);
@@ -128,10 +145,7 @@ if ($rc) {
 	<td><a href="#" class="info">Phone Model<span>Select the Digium phone model which can use this logo.</span></a></td>
 	<td>
 		<select id="logo_model" name="logo_model" />
-			<option value="d40">D40</option>
-			<option value="d45">D45</option>
-			<option value="d50">D50</option>
-			<option value="d70">D70</option>
+		<?php phone_model_options() ?>
 		</select>
 	</td>
 </tr>
@@ -165,10 +179,7 @@ if ($rc) {
 	<td><a href="#" class="info">Phone Model<span>Select the Digium phone model which can use this logo.  Logo files should be PNG format, 8-bit, no transparency, and less than 10k in file size.  Dimensions for D40 and D50 logos: 150x45 pixels.  Dimensions for D70 logos: 205x85 pixels.</span></a></td>
 	<td>
 		<select id="edit_logo_model" name="edit_logo_model" />
-			<option value="d40">D40</option>
-			<option value="d45">D45</option>
-			<option value="d50">D50</option>
-			<option value="d70">D70</option>
+		<?php phone_model_options() ?>
 		</select>
 	</td>
 </tr>

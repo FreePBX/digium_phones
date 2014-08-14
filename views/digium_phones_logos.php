@@ -54,11 +54,14 @@ if (isset($_GET['logo_upload']) && isset($_FILES['logo_upload']) && $_FILES['log
 	{
 		$size='205x85';
 	}
-	system('convert '.$file['tmp_name'].' -resize '.$size.' '.$amp_conf['ASTETCDIR'].'/digium_phones/user_image_'.$filename.'.png');
+	$dest = $amp_conf['ASTETCDIR'].'/digium_phones/user_image_'.$filename.'.png';
+	system('convert '.$file['tmp_name'].' -resize '.$size.' '.$dest);
 	unlink($file['tmp_name']);
 
 
 }
+
+
 ?>
 
 <table style="border-collapse:collapse; border-style:outset; border-width: 1px; margin-bottom: 20px;" cellpadding="5" cellspacing="0">
@@ -99,6 +102,17 @@ foreach ($logos as $logo) {
 }
 ?>
 </table>
+
+<?php
+exec('which convert 2>/dev/null', $out, $rc);
+if ($rc) {
+?>
+	<h3 style="color: red;">Error: ImageMagick package must be installed to upload or edit logos.</h3><br />
+<?php
+	return;
+}
+?>
+
 <input type="submit" name="add_logo_submit" value="Add Logo" onclick="add_logo_clicked();"/>
 
 <div id="divaddlogo" style="display: none;">
@@ -111,7 +125,7 @@ foreach ($logos as $logo) {
 	<td><input type="text" id="logo_name" name="logo_name" /></td>
 </tr>
 <tr>
-	<td><a href="#" class="info">Phone Model<span>Select the Digium phone model which can use this logo.  Logo files should be PNG format, 8-bit, no transparency, and less than 10k in size.  For D40 and D50: 150x45.  For D70: 205x85.</span></a></td>
+	<td><a href="#" class="info">Phone Model<span>Select the Digium phone model which can use this logo.</span></a></td>
 	<td>
 		<select id="logo_model" name="logo_model" />
 			<option value="d40">D40</option>

@@ -1,6 +1,57 @@
 <h2>Status</h2>
 <hr />
 
+<?php
+function typeDisplay($type) {
+	switch ($type) {
+		case "available":
+			return "Available";
+		case "dnd":
+			return "Do Not Disturb";
+		case "away":
+			return "Away";
+		case "xa":
+			return "Extended Away";
+		case "chat":
+			return "Prefer Chat";
+		default:
+			return "Unavailable";
+	}
+}
+
+if (function_exists('presencestate_list_get')) {
+	echo '<h4>Using status from <a href="config.php?display=presencestate">Presence State</a> module ';
+	echo '<input type="button" value="Edit" onClick="parent.location=\'config.php?display=presencestate\'">';
+	echo '</h4>';
+
+	$list = presencestate_list_get();
+
+?>
+	<table style="border-collapse:collapse; border-style:outset; border-width: 1px; ">
+	<tr>
+	<th style="border-style:inset; border-width:1px; width:75px; "><a href="#" class="info">Type<span>The type of this status.</span></a></th>
+	<th style="border-style:inset; border-width:1px; width:250px; "><a href="#" class="info">Message<span>The optional message for this status.</span></a></th>
+	</tr>
+
+<?php
+	foreach ($list as $status) {
+?>
+		<tr>
+		<td valign="top" style="width: 200px; border-style:inset; border-width: 1px; ">
+			<span id="status<?php echo $statusid?>type"><?php echo typeDisplay($status['type'])?></span>
+		</td>
+		<td valign="top" style="border-style:inset; border-width:1px; ">
+			<?php echo $status['message']?>
+		</td>
+		</tr>
+<?php
+	}
+	echo '</table>';
+	return;
+}
+
+?>
+
 <form name="digium_phones_status" method="post" action="config.php?type=setup&display=digium_phones&digium_phones_form=application_status_edit<?php echo ($editstatus != null && $editstatus != 0)?"&statusid=".$editstatus:""?>">
 <script>
 $().ready(function() {
@@ -75,25 +126,6 @@ function delEntry(entry) {
 </script>
 <input type="button" value="Add Status" onclick="location.href='config.php?type=setup&display=digium_phones&digium_phones_form=application_status_edit&statusid=0'" />
 <p>
-
-<?php
-function typeDisplay($type) {
-	switch ($type) {
-		case "available":
-			return "Available";
-		case "dnd":
-			return "Do Not Disturb";
-		case "away":
-			return "Away";
-		case "xa":
-			return "Extended Away";
-		case "chat":
-			return "Prefer Chat";
-		default:
-			return "Unavailable";
-	}
-}
-?>
 
 <table style="border-collapse:collapse; border-style:outset; border-width: 1px; ">
 <tr>

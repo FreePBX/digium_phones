@@ -45,6 +45,23 @@ function digium_phones_get_http_path($url=False) {
 	return $path;
 }
 
+/**
+ * Get list of status from presencestate module
+ * @return array of types containing array of messages
+ */
+function digium_phones_presencestate_list() {
+	$statuses=array();
+	foreach (presencestate_list_get() as $state) {
+		$type=$state['type'];
+		if (empty($statuses[$type])) {
+			$statuses[$type]=array();
+		}
+		if ($state['message']) {
+			$statuses[$type][]=$state['message'];
+		}
+	}
+	return $statuses;
+}
 
 function digium_phones_get_config($engine) {
 	global $core_conf;
@@ -647,8 +664,14 @@ class digium_phones_conf {
 					}
 				}
 
-				foreach ($device['statuses'] as $status) {
-					$doutput[] = "application=status-{$status['statusid']}";
+				if (function_exists('presencestate_list_get')) {
+					foreach (digium_phones_presencestate_list() as $type => $status) {
+						$doutput[] = "application=status-{$type}";
+					}
+				} else {
+					foreach ($device['statuses'] as $status) {
+						$doutput[] = "application=status-{$status['statusid']}";
+					}
 				}
 
 				foreach ($device['customapps'] as $customapp) {
@@ -782,20 +805,39 @@ class digium_phones_conf {
 				}
 			}
 
-			foreach ($this->digium_phones->get_statuses() as $statusid=>$status) {
-				$output[] = "[status-{$statusid}]";
-				$output[] = "type=application";
-				$output[] = "application=status";
+			if (function_exists('presencestate_list_get')) {
 
-				foreach ($status['settings'] as $key=>$val) {
-					$output[] = "{$key}={$val}";
+				foreach (digium_phones_presencestate_list() as $type => $status) {
+					$busy = "no";
+					if ($type == "dnd") {
+						$busy = "yes";
+					}
+					$output[] = "[status-{$type}]";
+					$output[] = "type=application";
+					$output[] = "application=status";
+					$output[] = "send486={$busy}";
+					$output[] = "status={$type}";
+					foreach ($status as $message) {
+						$output[] = "substatus={$message}";
+					}
+					$output[] = "";
 				}
+			} else {
+				foreach ($this->digium_phones->get_statuses() as $statusid=>$status) {
+					$output[] = "[status-{$statusid}]";
+					$output[] = "type=application";
+					$output[] = "application=status";
 
-				foreach ($status['entries'] as $entry) {
-					$output[] = "substatus={$entry}";
+					foreach ($status['settings'] as $key=>$val) {
+						$output[] = "{$key}={$val}";
+					}
+
+					foreach ($status['entries'] as $entry) {
+						$output[] = "substatus={$entry}";
+					}
+
+					$output[] = "";
 				}
-
-				$output[] = "";
 			}
 
 			$http_path = digium_phones_get_http_path();

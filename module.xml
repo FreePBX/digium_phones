@@ -25,7 +25,7 @@
 		*0.1* initial commit
 	</changelog>
 	<depends>
-		<phpversion>5.1.0</phpversion>
+		<phpversion>5.2.0</phpversion>
 		<version>2.10</version>
 	</depends>
 	<menuitems>

@@ -693,7 +693,10 @@ $table->add_row(array( 'data' => fpbx_label('Name Format:', 'Sets the name forma
 				<option value="last_first" ' . ($devices['settings']['name_format'] == 'last_first' ? 'selected' : '') . '>LastName, FirstName</option></select>'));
 
 $tz = '<select id="timezone" name="timezone">';
-$tz .= timezone();
+/* DateTimeZone::listIdentifiers has been in PHP since 2006 */
+foreach (DateTimeZone::listIdentifiers() as $tzid) {
+	$tz .= '<option value="'.$tzid.'">'.$tzid.'</option>'."\n";
+}
 $tz .= '<option value="' . $devices['settings']['timezone'] . '">' . $devices['settings']['timezone'] . '</option>';
 $tz .= '</select>';				
 $table->add_row(array( 'data' => fpbx_label('Timezone:', 'Sets the timezone to be used for the phone.')),

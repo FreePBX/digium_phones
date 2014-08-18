@@ -242,6 +242,25 @@ class digium_phones_firmware_manager {
 	}
 
 	/**
+	 * Get the firmware version list, and remove versions already downloaded.
+	 * This replaces get_new_firmware_info()
+	 * @return contents of dpma-firmware.json as nested array
+	 */
+	public function get_firmware_version_info() {
+		$url = "http://downloads.digium.com/pub/telephony/res_digium_phone/firmware/dpma-firmware.json";
+		$request = file_get_contents($url);
+		$json = json_decode($request, true);
+
+		foreach ($json['versions'] as $index => $version) {
+			if ($this->version_exists($version['version'])) {
+				unset($json['versions'][$index]);
+			}
+		}
+		return $json;
+	}
+
+
+	/**
 	 * Extract firmware archive and load (sync) it
 	 * @param string $archive Path to the archive file (will be deleted)
 	 * @return true if success, false and $this->error_msg if not

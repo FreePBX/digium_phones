@@ -2,7 +2,7 @@
 <hr />
 
 <?php
-function typeDisplay($type) {
+function type_display($type) {
 	switch ($type) {
 		case "available":
 			return "Available";
@@ -38,7 +38,7 @@ if (function_exists('presencestate_list_get')) {
 ?>
 		<tr>
 		<td valign="top" style="width: 200px; border-style:inset; border-width: 1px; ">
-			<span id="status<?php echo $statusid?>type"><?php echo typeDisplay($status['type'])?></span>
+			<span id="status<?php echo $statusid?>type"><?php echo type_display($status['type'])?></span>
 		</td>
 		<td valign="top" style="border-style:inset; border-width:1px; ">
 			<?php echo $status['message']?>
@@ -142,7 +142,7 @@ foreach ($statuses as $statusid=>$status) {
 	<span id="status<?php echo $statusid?>name"><?php echo $status['name']?></span>
 </td>
 <td valign="top" style="width: 200px; border-style:inset; border-width: 1px; ">
-	<span id="status<?php echo $statusid?>type"><?php echo typeDisplay($status['settings']['status'])?></span>
+	<span id="status<?php echo $statusid?>type"><?php echo type_display($status['settings']['status'])?></span>
 </td>
 <td valign="top" style="border-style:inset; border-width:1px; ">
 	<?php echo count($status['entries'])?>
@@ -167,11 +167,11 @@ $table->add_row(array( 'data' => fpbx_label('Status Name:', 'A named identifier 
 	);
 $table->add_row(array( 'data' => fpbx_label('Status Type:', 'The type of status.'), 'class' => 'template_name'),
 	array( 'data' => '<select id="status" name="status" />
-			<option value="available">' . typeDisplay("available") . '</option>
-			<option value="dnd">' . typeDisplay("dnd") . '</option>
-			<option value="away">' . typeDisplay("away") . '</option>
-			<option value="xa">' . typeDisplay("xa") . '</option>
-			<option value="chat">' . typeDisplay("chat") . '</option>
+			<option value="available">' . type_display("available") . '</option>
+			<option value="dnd">' . type_display("dnd") . '</option>
+			<option value="away">' . type_display("away") . '</option>
+			<option value="xa">' . type_display("xa") . '</option>
+			<option value="chat">' . type_display("chat") . '</option>
 		</select>')
 	);
 $table->add_row(array( 'data' => fpbx_label('Send 486:', 'Controls whether a phone sends a 486 response when in the specified status. Defaults to No.'), 'class' => 'template_name'),

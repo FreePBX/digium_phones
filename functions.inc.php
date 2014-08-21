@@ -285,6 +285,7 @@ class digium_phones_conf {
 				$device['settings']['rapiddial'] = -1;
 				$device['settings']['record_own_calls'] = "yes";
 				$device['settings']['send_to_vm'] = "yes";
+				$device['settings']['vm_require_pin'] = "no";
 				$this->digium_phones->add_device($device);
 			}
 			$this->digium_phones->read_devices();
@@ -536,14 +537,8 @@ class digium_phones_conf {
 
 				if (isset($device['settings']['active_locale']) === FALSE) {
 					$doutput[] = "active_locale={$default_locale}";
-				} else {
-					$locale = $device['settings']['active_locale'];
-					$table = $this->digium_phones->get_voicemail_translations($locale);
-					if ($table !== NULL) {
-						$doutput[] = "application=voicemail-{$locale}";
-					}
-					unset($table);
 				}
+				$doutput[] = "application=voicemail-{$deviceid}";
 				foreach ($device['settings'] as $key=>$val) {
 					if ($key == 'rapiddial') {
 						if ($val == '') {
@@ -718,6 +713,12 @@ class digium_phones_conf {
 			$output = array();
 			$locales = array();
 
+			// default voicemail application
+			$output[] = "[voicemail-default]";
+			$output[] = "type=application";
+			$output[] = "application=voicemail";
+			$output[] = "";
+
 			foreach ($this->digium_phones->get_devices() as $deviceid=>$device) {
 				if (isset($device['settings']['active_locale']) === FALSE) {
 					continue;
@@ -740,16 +741,39 @@ class digium_phones_conf {
 				$output[] = "type=application";
 				$output[] = "application=voicemail";
 				$output[] = "translation=translation-{$locale}";
-				$output[] = "\n";
+				$output[] = "";
 
 				$output[] = "[translation-{$locale}]";
 				$output[] = "type=translation";
 				foreach ($table as $key=>$value) {
 					$output[] = "{$key}={$value}";
 				}
+				$output[] = "";
 				unset($table);
 			}
 
+			foreach ($this->digium_phones->get_devices() as $deviceid => $device) {
+
+				$locale = $this->digium_phones->get_general('active_locale');
+				if (isset($device['settings']['active_locale']) !== FALSE) {
+					$locale = $device['settings']['active_locale'];
+				}
+				$template="(voicemail-$locale)";
+				$table = $this->digium_phones->get_voicemail_translations($locale);
+				if ($table == NULL) {
+					$template = "(voicemail-default)";
+				}
+
+				if (empty($device['settings']['vm_require_pin'])) {
+					$require_password = "no";
+				} else {
+					$require_password = $device['settings']['vm_require_pin'];
+				}
+
+				$output[] = "[voicemail-{$deviceid}]{$template}";
+				$output[] = "require_password={$require_password}";
+				$output[] = "";
+			}
 			foreach ($this->digium_phones->get_queues() as $queueid=>$queue) {
 				foreach($queue['entries'] as $entry) {
 					if ($entry['deviceid'] == null) {

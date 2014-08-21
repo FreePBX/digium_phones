@@ -79,6 +79,12 @@ foreach ($devices as $deviceid=>$device) {
 			}
 <?php
 		}
+		if ($device['settings']['pin'] == 'voicemail') {
+?>
+			$('#pin').prop('disabled', true);
+			$('#pin_voicemail').prop('checked', true);
+<?php
+		}
 	}
 	foreach ($device["lines"] as $line) {
 		if ($editdev == $deviceid) {
@@ -591,7 +597,7 @@ $table->add_row(array( 'data' => '<input type="hidden" id="device" name="device"
 $table->add_row(array( 'data' => fpbx_label('Phone Name:', 'A named identifier for the phone, such as the person using it.')),
 				array( 'data' => '<input type="text" id="devicename" name="devicename" />'));
 $table->add_row(array( 'data' => fpbx_label('Phone PIN:', 'A numeric identifier associated with this phone. When set, and when enabled in the General Settings page, one must enter this PIN on the phone in order to use this configuration.')),
-				array( 'data' => '<input type="text" id="pin" name="pin" ' . ($config_auth == "pin" ? "" : "readonly") . '/>'));
+				array( 'data' => '<input type="text" id="pin" name="pin" /><input type="checkbox" id="pin_voicemail" name="pin_voicemail" /><label for="pin_voicemail"><small>use Voicemail PIN</small></label>'));
 $table->add_row(array( 'data' => fpbx_label('Phone MAC Address:', 'When set, and when enabled in the General Settings page, the phone configuration is only available to the device matching this MAC Address.')),
 				array( 'data' => '<input type="text" id="mac" name="mac" ($config_auth == "mac" ? "" : "readonly") />'));
 

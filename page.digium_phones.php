@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * \file
  * FreePBX Digium Phones Config Module
  *
  * Copyright (c) 2011, Digium, Inc.
@@ -20,7 +21,13 @@
  *
  */
 
+if (!function_exists('json_decode') || !method_exists('DateTimeZone','listIdentifiers')) {
+	echo '<h3 style="color: red;">Error: please update PHP to 5.2.0 or later</h3>';
+	return;
+}
+
 global $astman;
+require_once dirname(__FILE__).'/classes/digium_phones.php';
 $digium_phones = new digium_phones();
 if (isset($_GET['digium_phones_form'])) {
 	$page = $_GET['digium_phones_form'];
@@ -110,6 +117,7 @@ if (isset($_POST['general_submit'])) {
 		'active_ringtone',
 		'login_password',
 		'send_to_vm',
+		'vm_require_pin',
 		'accept_local_calls',
 		'lock_preferences',
 		'display_mc_notification',

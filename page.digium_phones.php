@@ -117,6 +117,7 @@ if (isset($_POST['general_submit'])) {
 		'active_ringtone',
 		'login_password',
 		'send_to_vm',
+		'vm_require_pin',
 		'accept_local_calls',
 		'lock_preferences',
 		'display_mc_notification',

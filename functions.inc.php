@@ -327,6 +327,7 @@ class digium_phones_conf {
 				$device['settings']['rapiddial'] = -1;
 				$device['settings']['record_own_calls'] = "yes";
 				$device['settings']['send_to_vm'] = "yes";
+				$device['settings']['vm_require_pin'] = "no";
 				$this->digium_phones->add_device($device);
 			}
 			$this->digium_phones->read_devices();

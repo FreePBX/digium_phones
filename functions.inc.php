@@ -55,6 +55,23 @@ function digium_phones_get_http_path($url=False) {
 	return $path;
 }
 
+/**
+ * Get list of status from presencestate module
+ * @return array of types containing array of messages
+ */
+function digium_phones_presencestate_list() {
+	$statuses=array();
+	foreach (presencestate_list_get() as $state) {
+		$type=$state['type'];
+		if (empty($statuses[$type])) {
+			$statuses[$type]=array();
+		}
+		if ($state['message']) {
+			$statuses[$type][]=$state['message'];
+		}
+	}
+	return $statuses;
+}
 
 /**
  * Configuration hook for retreive_conf.

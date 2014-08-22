@@ -27,7 +27,7 @@
 		*0.1* initial commit
 	</changelog>
 	<depends>
-		<phpversion>5.1.0</phpversion>
+		<phpversion>5.2.0</phpversion>
 		<version>2.10</version>
 	</depends>
 	<menuitems>
@@ -36,6 +36,4 @@
 	<supported>
 		<version>2.11</version>
 	</supported>
-	<location>release/2.11/digium_phones-2.11.0.7.tgz</location>
-	<md5sum>0ff79e3630ee659874fcc8367b4c5994</md5sum>
 </module>

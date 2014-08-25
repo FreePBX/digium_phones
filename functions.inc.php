@@ -64,7 +64,7 @@ function digium_phones_get_config($engine) {
 	global $core_conf;
 
 	if (isset($core_conf) && is_a($core_conf, "core_conf")) {
-		$core_conf->addSipGeneral('accept_outofcall_messages','yes');
+		$core_conf->addSipGeneral('accept_outofcall_message','yes');
 		$core_conf->addSipGeneral('auth_message_requests','no');
 		$core_conf->addSipGeneral('outofcall_message_context','dpma_message_context');
 	}

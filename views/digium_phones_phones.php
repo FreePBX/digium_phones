@@ -136,6 +136,13 @@ foreach ($devices as $deviceid=>$device) {
 <?php
 		}
 	}
+	foreach ($device["ringtones"] as $ringtone) {
+		if ($editdev == $deviceid) {
+?>
+			addAlert("<?php echo $ringtone['ringtoneid']?>");
+<?php
+		}
+	}
 
 	foreach ($device["statuses"] as $status) {
 		if ($editdev == $deviceid) {
@@ -197,6 +204,10 @@ $('form').submit(function() {
 	});
 	$('#devicealerts').attr("multiple", "multiple");
  	$('#devicealerts option').each(function() {
+ 		$(this).attr("selected", "selected");
+	});
+	$('#deviceringtones').attr("multiple", "multiple");
+ 	$('#deviceringtones option').each(function() {
  		$(this).attr("selected", "selected");
 	});
 	$('#devicestatuses').attr("multiple", "multiple");
@@ -327,6 +338,30 @@ function delAlert(alertid) {
 		$('#alerts').attr('selectedIndex', aopt.index());
 	} else {
 		$('#alerts').attr('selectedIndex', '0');
+	}
+	return true;
+}
+function useAlert(ringtoneid) {
+	$('#ringtones option[value='+ringtoneid+']').remove();
+}
+function addAlert(ringtoneid) {
+	ringtone = $('#ringtones option[value='+ringtoneid+']');
+	if (ringtone.val() == ringtoneid) {
+		newringtone = ringtone.clone();
+		newringtone.appendTo('#deviceringtones');
+		$('#deviceringtones').attr('selectedIndex', newringtone.index());
+		$('#ringtones').attr('selectedIndex', '0');
+		useAlert(ringtoneid);
+	}
+	return true;
+}
+function delAlert(ringtoneid) {
+	ringtone = $('#deviceringtones option[value='+ringtoneid+']');
+	aopt = ringtone.appendTo('#ringtones');
+	if (aopt) {
+		$('#ringtones').attr('selectedIndex', aopt.index());
+	} else {
+		$('#ringtones').attr('selectedIndex', '0');
 	}
 	return true;
 }
@@ -799,6 +834,41 @@ echo '<ul id="devicealerts" class="alerts ui-menu ui-widget ui-widget-content ui
 if (isset($alertsSelected)){
 	foreach( $alertsSelected as $id){
 		echo '<li id="devicealerts_' . $id . '">' . $alerts[$id] . '</li>';
+	}
+}
+echo '</ul>';
+echo '</div>';
+echo '</div>';	
+echo '<div style="clear:both;" />';
+
+//Ringtones
+foreach ($digium_phones->get_ringtones() as $data) {
+	if ($data['id'] > 0 ) {
+		$ringtones[$data['id']] = $data['name'];
+	}
+}
+if(isset($devices['ringtones'])){
+	foreach($devices['ringtones'] as $data){
+		$ringtonesSelected[$data['ringtoneid']] = $data['ringtoneid'];
+	}
+}
+echo '<div class="dragdropFrame">';
+echo '<div class="dragdrop">';
+echo fpbx_label('Available Ringtones', 'Displays a listing of ringtones that may be assigned to the phone. More than one ringtone may be assigned to a phone.');
+echo '<ul id="availableringtones" class="ringtones ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
+foreach ($ringtones as $id=>$name){
+	if(empty($ringtonesSelected[$id])){
+		echo '<li id="deviceringtones_' . $id . '">' . $name . '</li>';
+	}
+}
+echo '</ul>';
+echo '</div>';
+echo '<div class="dragdrop">';
+echo fpbx_label('Assigned Ringtones', 'Displays a listing of ringtones currently assigned to a phone.');
+echo '<ul id="deviceringtones" class="ringtones ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
+if (isset($ringtonesSelected)){
+	foreach( $ringtonesSelected as $id){
+		echo '<li id="deviceringtones_' . $id . '">' . $ringtones[$id] . '</li>';
 	}
 }
 echo '</ul>';

@@ -41,6 +41,9 @@ function res_digium_phone_devices($conf) {
 		$doutput[] = "type=phone";
 		$doutput[] = "full_name={$device['name']}";
 
+		/* collect which custom ringtones need to be loaded for this device */
+		$ringtones = array();
+
 		$parkext = "";
 		if (function_exists('parking_getconfig')) {
 			// Old and busted parking module
@@ -101,7 +104,7 @@ function res_digium_phone_devices($conf) {
 						/* Builtin ringtone */
 						$doutput[] = "active_ringtone={$ringtone['name']}";
 					} else {
-						$doutput[] = "ringtone=ringtone-{$ringtone['id']}";
+						$ringtones[$ringtone['id']] = true;
 						$doutput[] = "active_ringtone=ringtone-{$ringtone['id']}";
 					}
 					continue;
@@ -134,6 +137,17 @@ function res_digium_phone_devices($conf) {
 		}
 		foreach ($device['alerts'] as $alert) {
 			$doutput[] = "alert=alert-{$alert['alertid']}";
+			$alerts = $conf->digium_phones->get_alerts();
+			$ringtone_id = $alerts[$alert['alertid']]['ringtone_id'];
+			if ($ringtone_id > 0 ) {
+				$ringtones[$alerts[$alert['alertid']]['ringtone_id']] = true;
+			}
+		}
+		foreach ($device['ringtones'] as $ringtone) {
+			$ringtones[$ringtone['ringtoneid']] = true;
+		}
+		foreach ($ringtones as $id => $istrue) {
+			$doutput[] = "ringtone=ringtone-{$id}";
 		}
 /*
 		if ($conf->digium_phones->get_general('easy_mode') == "yes") {

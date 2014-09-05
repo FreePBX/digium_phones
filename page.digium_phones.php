@@ -706,7 +706,7 @@ if (isset($_GET['user_image'])) {
 	} else if ($_GET['update_firmware'] == 'check') {
 		echo '<div><span>Select firmware to download:<select id="firmware_select" name="firmware_select">';
 		foreach ($versions as $version) {
-			echo '<option value="'.$version['version'].'">'.$version['version'].' '.$version['date'].' for:'.$version['models'].'</option>';
+			echo '<option value="'.$version['version'].'">'.$version['version'].' '.$version['date'].' for: '.$version['models'].'</option>';
 		}
 		echo '</select><br />';
 		// jquery is not loaded inside iframe, so go oldschool javascript to get value

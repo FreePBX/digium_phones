@@ -647,6 +647,30 @@ class digium_phones {
 			$devices[$row['deviceid']] = $d;
 		}
 
+		// Get ringtones on devices.
+		$sql = "SELECT das.id, ds.id as deviceid, das.ringtoneid FROM digium_phones_devices AS ds ";
+		$sql = $sql . "  LEFT JOIN digium_phones_device_ringtones AS das ON (ds.id = das.deviceid) ";
+		$sql = $sql . "  LEFT JOIN digium_phones_ringtones AS ringtones ON (das.ringtoneid = ringtones.id) ";
+		$sql = $sql . "ORDER BY ds.id, das.id ";
+
+		$results = $db->getAll($sql, DB_FETCHMODE_ASSOC);
+		if (DB::IsError($results)) {
+			die_freepbx($results->getDebugInfo());
+			return false;
+		}
+
+		foreach ($results as $row) {
+			$d = $devices[$row['deviceid']];
+
+			if ($row['id'] != null) {
+				$a = $d['ringtones'][$row['id']];
+				$a['ringtoneid'] = $row['ringtoneid'];
+				$d['ringtones'][$row['id']] = $a;
+			}
+
+			$devices[$row['deviceid']] = $d;
+		}
+
 		// Get statuses on devices.
 		$sql = "SELECT dss.id, ds.id as deviceid, dss.statusid FROM digium_phones_devices AS ds ";
 		$sql = $sql . "  LEFT JOIN digium_phones_device_statuses AS dss ON (ds.id = dss.deviceid) ";
@@ -759,6 +783,14 @@ class digium_phones {
 		unset($result);
 
 		$sql = "DELETE FROM digium_phones_device_alerts WHERE deviceid = \"{$db->escapeSimple($device['id'])}\"";
+		$result = $db->query($sql);
+		if (DB::IsError($result)) {
+			echo $result->getDebugInfo();
+			return false;
+		}
+		unset($result);
+
+		$sql = "DELETE FROM digium_phones_device_ringtones WHERE deviceid = \"{$db->escapeSimple($device['id'])}\"";
 		$result = $db->query($sql);
 		if (DB::IsError($result)) {
 			echo $result->getDebugInfo();
@@ -961,6 +993,23 @@ class digium_phones {
 		if (count($alerts) > 0) {
 			/* Multiple INSERT */
 			$sql = "INSERT INTO digium_phones_device_alerts (id, deviceid, alertid) VALUES (" . implode('),(', $alerts) . ")";
+			$result = $db->query($sql);
+			if (DB::IsError($result)) {
+				echo $result->getDebugInfo();
+				return false;
+			}
+			unset($result);
+		}
+
+		// Device ringtones
+		$ringtones = array();
+		foreach ($device['ringtones'] as $ringtoneentryid=>$ringtone) {
+			$ringtones[] = '\''.$db->escapeSimple($ringtoneentryid).'\',\''.$db->escapeSimple($deviceid).'\',\''.$db->escapeSimple($ringtone['ringtoneid']).'\'';
+		}
+
+		if (count($ringtones) > 0) {
+			/* Multiple INSERT */
+			$sql = "INSERT INTO digium_phones_device_ringtones (id, deviceid, ringtoneid) VALUES (" . implode('),(', $ringtones) . ")";
 			$result = $db->query($sql);
 			if (DB::IsError($result)) {
 				echo $result->getDebugInfo();

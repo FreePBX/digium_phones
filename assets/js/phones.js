@@ -129,6 +129,32 @@ $(function() {
     }).disableSelection();
 });
 
+//for Ringtones
+$(function() {
+    $( "#deviceringtones" ).sortable({
+        connectWith: '.ringtones',
+        create: function(event, ui) {
+			$(this).children().removeClass('filled');
+        },
+        
+        receive: function(event,ui) {
+			$(this).children().removeClass('filled');
+		},
+        
+		remove: function(ui){
+			$(this).children().removeClass('filled');
+			$(this).removeClass('dontDrop');
+		}
+		}).disableSelection();
+    
+    $('#availableringtones').sortable({
+        connectWith: '.ringtones',
+        remove: function(ui){
+			$(this).children().removeClass('filled');
+        }
+    }).disableSelection();
+});
+
 //for Statuses
 $(function() {
     $( "#devicestatuses" ).sortable({
@@ -189,6 +215,7 @@ $('#digium_phones_editdevice').submit(function(e) {
 	var networks = $("#devicenetworks").sortable("serialize");
 	var logos = $("#devicelogos").sortable("serialize");
 	var alerts = $("#devicealerts").sortable("serialize");
+	var ringtones = $("#deviceringtones").sortable("serialize");
 	var statuses = $("#devicestatuses").sortable("serialize");
 	var customapps = $("#devicecustomapps").sortable("serialize");
 	var postvar = form 
@@ -204,6 +231,9 @@ $('#digium_phones_editdevice').submit(function(e) {
 	}
 	if (alerts) {
 		postvar = postvar + '&' + alerts;
+	}
+	if (ringtones) {
+		postvar = postvar + '&' + ringtones;
 	}
 	if (statuses) {
 		postvar = postvar + '&' + statuses;

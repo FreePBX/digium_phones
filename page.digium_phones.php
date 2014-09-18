@@ -102,6 +102,7 @@ if (isset($_POST['general_submit'])) {
 	$device['externallines'] = array();
 	$device['logos'] = array();
 	$device['alerts'] = array();
+	$device['ringtones'] = array();
 	$device['id'] = $deviceid;
 	$device['name'] = $_POST['devicename'];
 	$settings = array(
@@ -213,6 +214,18 @@ if (isset($_POST['general_submit'])) {
 			}
 		}
 		$device['alerts'][] = $alert;
+	}
+
+	foreach ($_POST['deviceringtones'] as $ringtoneid) {
+		$ringtone = array();
+		$ringtone['ringtoneid'] = $ringtoneid;
+		foreach ($olddevice['ringtones'] as $a) {
+			if ($a['ringtoneid'] == $ringtoneid) {
+				$ringtone = $a;
+				break;
+			}
+		}
+		$device['ringtones'][] = $ringtone;
 	}
 
 	foreach ($_POST['devicestatuses'] as $statusid) {

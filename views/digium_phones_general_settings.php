@@ -19,6 +19,9 @@ $('form').submit(function() {
 <input type="hidden" name="action" value="edit" />
 <?php
 $table = new CI_Table();
+$table ->add_row(fpbx_label('DPMA Version:','The version number of the res_digium_phone.so module loaded by Asterisk.'),
+	'<input type="text" readonly value="'.$digium_phones->get_dpma_version().'" />');
+
 $table->add_row(fpbx_label('Easy Mode:', 'When Easy Mode is enabled, defaults are used for many options, a number of options are not configurable, and Phone Configurations will be automatically created or deleted based on FreePBX extensions, and lines will be mapped to those Phone Configurations.  Disabling Easy Mode provides all configuration options; but, when Easy Mode is disabled, Phone Configurations are not automatically managed.  Defaults to Yes (enabled).'), 
 	'<span class="radioset">
 	<input type="radio" name="easy_mode" id="easy_mode-enable" value="yes" ' . ($digium_phones->get_general('easy_mode') == "yes" ? 'checked' : '') . ' />
@@ -27,6 +30,7 @@ $table->add_row(fpbx_label('Easy Mode:', 'When Easy Mode is enabled, defaults ar
 	<input type="radio" name="easy_mode" id="easy_mode-disable" value="no" ' . ($digium_phones->get_general('easy_mode') == "no" ? 'checked' : '') . ' />
 	<label for="easy_mode-disable">Disable</label></span>'
 	);
+
 
 $table->add_row(array( 'data' => fpbx_label('Global Pin:', 'A numeric identifier that, depending on the setting of User List and Config Authorization requirements, can be used to assign the configuration of any phone.'), 'class' => 'input'),
 	array( 'data' => '<input type="text" id="globalpin" name="globalpin" value="' . $digium_phones->get_general('globalpin') . '" placeholder="Global Pin"/>')

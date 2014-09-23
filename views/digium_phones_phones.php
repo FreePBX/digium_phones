@@ -627,12 +627,19 @@ foreach ($devices as $deviceid=>$device) {
 <hr />
 <div id="editingdevice" style="display: none;">
 <?php
+
+if ($digium_phones->get_dpma_version() < '2.1.') {
+	$pin_voicemail = '';
+} else {
+	$pin_voicemail = '<input type="checkbox" id="pin_voicemail" name="pin_voicemail" /><label for="pin_voicemail"><small>use Voicemail PIN</small></label>';
+}
+
 $table = new CI_Table();
 $table->add_row(array( 'data' => '<input type="hidden" id="device" name="device" />'));
 $table->add_row(array( 'data' => fpbx_label('Phone Name:', 'A named identifier for the phone, such as the person using it.')),
 				array( 'data' => '<input type="text" id="devicename" name="devicename" />'));
 $table->add_row(array( 'data' => fpbx_label('Phone PIN:', 'A numeric identifier associated with this phone. When set, and when enabled in the General Settings page, one must enter this PIN on the phone in order to use this configuration.')),
-				array( 'data' => '<input type="text" id="pin" name="pin" /><input type="checkbox" id="pin_voicemail" name="pin_voicemail" /><label for="pin_voicemail"><small>use Voicemail PIN</small></label>'));
+				array( 'data' => '<input type="text" id="pin" name="pin" />'.$pin_voicemail));
 $table->add_row(array( 'data' => fpbx_label('Phone MAC Address:', 'When set, and when enabled in the General Settings page, the phone configuration is only available to the device matching this MAC Address.')),
 				array( 'data' => '<input type="text" id="mac" name="mac" ($config_auth == "mac" ? "" : "readonly") />'));
 

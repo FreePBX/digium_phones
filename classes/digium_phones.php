@@ -82,6 +82,22 @@ class digium_phones {
 
 	private $error_msg = '';		// The latest error message
 
+	private $dpma_version = '';
+
+	public function get_dpma_version() {
+		global $astman;
+
+		if (!$this->dpma_version) {
+			$this->dpma_version = 'unknown';
+			$response = $astman->send_request('Command',
+				array('Command' => 'digium_phones show version'));
+			if (preg_match('/Version [0-9.]+_([0-9.]+)/', $response['data'], $matches)) {
+				$this->dpma_version = $matches[1];
+			}
+		}
+		return $this->dpma_version;
+	}
+
 	public function cache_core_devices_list() {
 		foreach(core_devices_list('all', 'full') as $device) {
 			$this->core_devices[$device['id']] = $device;

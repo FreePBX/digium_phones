@@ -251,6 +251,11 @@ class digium_phones_firmware_manager {
 		$request = file_get_contents($url);
 		$json = json_decode($request, true);
 
+		if (empty($json['versions'])) {
+			$json['versions'] = null;
+			return $json;
+		}
+
 		foreach ($json['versions'] as $index => $version) {
 			if ($this->version_exists($version['version'])) {
 				unset($json['versions'][$index]);

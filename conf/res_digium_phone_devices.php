@@ -185,8 +185,14 @@ function res_digium_phone_devices($conf) {
 			}
 		}
 
-		foreach ($device['statuses'] as $status) {
-			$doutput[] = "application=status-{$status['statusid']}";
+		if (function_exists('presencestate_list_get')) {
+			foreach (digium_phones_presencestate_list() as $type => $status) {
+				$doutput[] = "application=status-{$type}";
+			}
+		} else {
+			foreach ($device['statuses'] as $status) {
+				$doutput[] = "application=status-{$status['statusid']}";
+			}
 		}
 
 		foreach ($device['customapps'] as $customapp) {

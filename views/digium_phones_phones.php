@@ -883,38 +883,40 @@ echo '</div>';
 echo '</div>';	
 echo '<div style="clear:both;" />';
 
-//Statuses
-foreach ($digium_phones->get_statuses() as $data) {
-	$statuses[$data['id']] = $data['name'];
-}
-foreach($devices['statuses'] as $data){
-	$statusesSelected[$data['statusid']] = $data['statusid'];
-}
-echo '<div class="dragdropFrame">';
-echo '<div class="dragdrop">';
-echo fpbx_label('Available Statuses', 'Displays a listing of statuses that may be assigned to the phone. More than one status should be assigned to a phone.');
-echo '<ul id="availableStatuses" class="statuses ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
-if (isset($statuses)) {
-	foreach ($statuses as $id=>$name){
-		if(empty($statusesSelected[$id])){
-			echo '<li id="devicestatuses_' . $id . '">' . $name . '</li>';
+if (!function_exists('presencestate_list_get')) {
+	//Statuses
+	foreach ($digium_phones->get_statuses() as $data) {
+		$statuses[$data['id']] = $data['name'];
+	}
+	foreach($devices['statuses'] as $data){
+		$statusesSelected[$data['statusid']] = $data['statusid'];
+	}
+	echo '<div class="dragdropFrame">';
+	echo '<div class="dragdrop">';
+	echo fpbx_label('Available Statuses', 'Displays a listing of statuses that may be assigned to the phone. More than one status should be assigned to a phone.');
+	echo '<ul id="availableStatuses" class="statuses ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
+	if (isset($statuses)) {
+		foreach ($statuses as $id=>$name){
+			if(empty($statusesSelected[$id])){
+				echo '<li id="devicestatuses_' . $id . '">' . $name . '</li>';
+			}
 		}
 	}
-}
-echo '</ul>';
-echo '</div>';
-echo '<div class="dragdrop">';
-echo fpbx_label('Assigned Statuses', 'Displays a listing of statuses currently assigned to a phone.');
-echo '<ul id="devicestatuses" class="statuses ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
-if(isset($statusesSelected)){
-	foreach( $statusesSelected as $id){
-		echo '<li id="devicestatuses_' . $id . '">' . $statuses[$id] . '</li>';
+	echo '</ul>';
+	echo '</div>';
+	echo '<div class="dragdrop">';
+	echo fpbx_label('Assigned Statuses', 'Displays a listing of statuses currently assigned to a phone.');
+	echo '<ul id="devicestatuses" class="statuses ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
+	if(isset($statusesSelected)){
+		foreach( $statusesSelected as $id){
+			echo '<li id="devicestatuses_' . $id . '">' . $statuses[$id] . '</li>';
+		}
 	}
+	echo '</ul>';
+	echo '</div>';
+	echo '</div>';	
+	echo '<div style="clear:both;" />';
 }
-echo '</ul>';
-echo '</div>';
-echo '</div>';	
-echo '<div style="clear:both;" />';
 
 //Custom Apps
 foreach ($digium_phones->get_customapps() as $data) {

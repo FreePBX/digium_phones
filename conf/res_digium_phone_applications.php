@@ -98,20 +98,38 @@ function res_digium_phone_applications($conf) {
 		}
 	}
 
-	foreach ($conf->digium_phones->get_statuses() as $statusid=>$status) {
-		$output[] = "[status-{$statusid}]";
-		$output[] = "type=application";
-		$output[] = "application=status";
-
-		foreach ($status['settings'] as $key=>$val) {
-			$output[] = "{$key}={$val}";
+	if (function_exists('presencestate_list_get')) {
+		foreach (digium_phones_presencestate_list() as $type => $status) {
+			$busy = "no";
+			if ($type == "dnd" ) {
+				$busy = "yes";
+			}
+			$output[] = "[status-{$type}]";
+			$output[] = "type=application";
+			$output[] = "application=status";
+			$output[] = "send486={$busy}";
+			$output[] = "status={$type}";
+			foreach ($status as $message) {
+				$output[] = "substatus={$message}";
+			}
+			$output[] = "";
 		}
+	} else {
+		foreach ($conf->digium_phones->get_statuses() as $statusid=>$status) {
+			$output[] = "[status-{$statusid}]";
+			$output[] = "type=application";
+			$output[] = "application=status";
 
-		foreach ($status['entries'] as $entry) {
-			$output[] = "substatus={$entry}";
+			foreach ($status['settings'] as $key=>$val) {
+				$output[] = "{$key}={$val}";
+			}
+
+			foreach ($status['entries'] as $entry) {
+				$output[] = "substatus={$entry}";
+			}
+
+			$output[] = "";
 		}
-
-		$output[] = "";
 	}
 
 	$http_path = digium_phones_get_http_path();

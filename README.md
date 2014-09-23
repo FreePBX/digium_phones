@@ -86,6 +86,12 @@ Other locations that are used to store different types of files and information:
 ## Changes
 
   * Cleaned up functions.inc, moved extra classes to classes subdir, config generators to conf subdir
+  * Added pin=voicemail support for DPMA 2.1
+  * Logo improvements: upload most any image format, automatically resized, D45 now supported
+  * Status (presence) will now use FreePBX PreseneceState module settings if it is enabled
+  * Can now download older firmware versions, not just the current one
+  * Ringtones can now be configured individually to the phone without having to be set as default
+  * General status page now shows version of the DPMA module installed in Asterisk
 
 ## Support files
 

@@ -4,13 +4,16 @@
 	<type>setup</type>
 	<category>Connectivity</category>
 	<name>Digium Phones Config</name>
-	<version>2.11.1.0</version>
+	<version>2.11.2.0</version>
 	<publisher>Digium</publisher>
 	<license>GPLv2</license>
 	<licenselink>http://www.gnu.org/licenses/gpl-2.0.txt</licenselink>
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
 	<changelog>
+		*2.11.2.0* Cleanup, support for DPMA 2.1, D45
+		           Logo upload, firmware download enhanced
+				   Ringtones configured to phone
 		*2.11.1.0* Relocate firmware directory
 		*2.11.0.10* Use abstracted function
 		*2.11.0.9* Improve error reporting of firmware download
@@ -26,7 +29,7 @@
 		*0.1* initial commit
 	</changelog>
 	<depends>
-		<phpversion>5.1.0</phpversion>
+		<phpversion>5.2.0</phpversion>
 		<version>2.10</version>
 	</depends>
 	<menuitems>
@@ -35,6 +38,4 @@
 	<supported>
 		<version>2.11</version>
 	</supported>
-	<location>release/2.11/digium_phones-2.11.0.7.tgz</location>
-	<md5sum>0ff79e3630ee659874fcc8367b4c5994</md5sum>
 </module>

@@ -98,9 +98,10 @@ function close_update_firmware(goback) {
 	}
 }
 
-function perform_download() {
+function perform_download(version) {
 	box.dialog("destroy").remove();
 	urlStr = 'config.php?type=setup&display=digium_phones&update_firmware=download&quietmode=1';
+	urlStr = urlStr + '&version=' + version;
 	box = $('<div></div>')
 		.html('<iframe frameBorder="0" src="'+urlStr+'"></iframe>')
 		.dialog({

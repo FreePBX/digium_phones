@@ -79,6 +79,12 @@ foreach ($devices as $deviceid=>$device) {
 			}
 <?php
 		}
+		if ($device['settings']['pin'] == 'voicemail') {
+?>
+			$('#pin').prop('disabled', true);
+			$('#pin_voicemail').prop('checked', true);
+<?php
+		}
 	}
 	foreach ($device["lines"] as $line) {
 		if ($editdev == $deviceid) {
@@ -127,6 +133,13 @@ foreach ($devices as $deviceid=>$device) {
 		if ($editdev == $deviceid) {
 ?>
 			addAlert("<?php echo $alert['alertid']?>");
+<?php
+		}
+	}
+	foreach ($device["ringtones"] as $ringtone) {
+		if ($editdev == $deviceid) {
+?>
+			addAlert("<?php echo $ringtone['ringtoneid']?>");
 <?php
 		}
 	}
@@ -191,6 +204,10 @@ $('form').submit(function() {
 	});
 	$('#devicealerts').attr("multiple", "multiple");
  	$('#devicealerts option').each(function() {
+ 		$(this).attr("selected", "selected");
+	});
+	$('#deviceringtones').attr("multiple", "multiple");
+ 	$('#deviceringtones option').each(function() {
  		$(this).attr("selected", "selected");
 	});
 	$('#devicestatuses').attr("multiple", "multiple");
@@ -321,6 +338,30 @@ function delAlert(alertid) {
 		$('#alerts').attr('selectedIndex', aopt.index());
 	} else {
 		$('#alerts').attr('selectedIndex', '0');
+	}
+	return true;
+}
+function useAlert(ringtoneid) {
+	$('#ringtones option[value='+ringtoneid+']').remove();
+}
+function addAlert(ringtoneid) {
+	ringtone = $('#ringtones option[value='+ringtoneid+']');
+	if (ringtone.val() == ringtoneid) {
+		newringtone = ringtone.clone();
+		newringtone.appendTo('#deviceringtones');
+		$('#deviceringtones').attr('selectedIndex', newringtone.index());
+		$('#ringtones').attr('selectedIndex', '0');
+		useAlert(ringtoneid);
+	}
+	return true;
+}
+function delAlert(ringtoneid) {
+	ringtone = $('#deviceringtones option[value='+ringtoneid+']');
+	aopt = ringtone.appendTo('#ringtones');
+	if (aopt) {
+		$('#ringtones').attr('selectedIndex', aopt.index());
+	} else {
+		$('#ringtones').attr('selectedIndex', '0');
 	}
 	return true;
 }
@@ -586,12 +627,19 @@ foreach ($devices as $deviceid=>$device) {
 <hr />
 <div id="editingdevice" style="display: none;">
 <?php
+
+if ($digium_phones->get_dpma_version() < '2.1.') {
+	$pin_voicemail = '';
+} else {
+	$pin_voicemail = '<input type="checkbox" id="pin_voicemail" name="pin_voicemail" /><label for="pin_voicemail"><small>use Voicemail PIN</small></label>';
+}
+
 $table = new CI_Table();
 $table->add_row(array( 'data' => '<input type="hidden" id="device" name="device" />'));
 $table->add_row(array( 'data' => fpbx_label('Phone Name:', 'A named identifier for the phone, such as the person using it.')),
 				array( 'data' => '<input type="text" id="devicename" name="devicename" />'));
 $table->add_row(array( 'data' => fpbx_label('Phone PIN:', 'A numeric identifier associated with this phone. When set, and when enabled in the General Settings page, one must enter this PIN on the phone in order to use this configuration.')),
-				array( 'data' => '<input type="text" id="pin" name="pin" ' . ($config_auth == "pin" ? "" : "readonly") . '/>'));
+				array( 'data' => '<input type="text" id="pin" name="pin" />'.$pin_voicemail));
 $table->add_row(array( 'data' => fpbx_label('Phone MAC Address:', 'When set, and when enabled in the General Settings page, the phone configuration is only available to the device matching this MAC Address.')),
 				array( 'data' => '<input type="text" id="mac" name="mac" ($config_auth == "mac" ? "" : "readonly") />'));
 
@@ -693,7 +741,10 @@ $table->add_row(array( 'data' => fpbx_label('Name Format:', 'Sets the name forma
 				<option value="last_first" ' . ($devices['settings']['name_format'] == 'last_first' ? 'selected' : '') . '>LastName, FirstName</option></select>'));
 
 $tz = '<select id="timezone" name="timezone">';
-$tz .= timezone();
+/* DateTimeZone::listIdentifiers has been in PHP since 2006 */
+foreach (DateTimeZone::listIdentifiers() as $tzid) {
+	$tz .= '<option value="'.$tzid.'">'.$tzid.'</option>'."\n";
+}
 $tz .= '<option value="' . $devices['settings']['timezone'] . '">' . $devices['settings']['timezone'] . '</option>';
 $tz .= '</select>';				
 $table->add_row(array( 'data' => fpbx_label('Timezone:', 'Sets the timezone to be used for the phone.')),
@@ -797,38 +848,75 @@ echo '</div>';
 echo '</div>';	
 echo '<div style="clear:both;" />';
 
-//Statuses
-foreach ($digium_phones->get_statuses() as $data) {
-	$statuses[$data['id']] = $data['name'];
+//Ringtones
+foreach ($digium_phones->get_ringtones() as $data) {
+	if ($data['id'] > 0 ) {
+		$ringtones[$data['id']] = $data['name'];
+	}
 }
-foreach($devices['statuses'] as $data){
-	$statusesSelected[$data['statusid']] = $data['statusid'];
+if(isset($devices['ringtones'])){
+	foreach($devices['ringtones'] as $data){
+		$ringtonesSelected[$data['ringtoneid']] = $data['ringtoneid'];
+	}
 }
 echo '<div class="dragdropFrame">';
 echo '<div class="dragdrop">';
-echo fpbx_label('Available Statuses', 'Displays a listing of statuses that may be assigned to the phone. More than one status should be assigned to a phone.');
-echo '<ul id="availableStatuses" class="statuses ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
-if (isset($statuses)) {
-	foreach ($statuses as $id=>$name){
-		if(empty($statusesSelected[$id])){
-			echo '<li id="devicestatuses_' . $id . '">' . $name . '</li>';
-		}
+echo fpbx_label('Available Ringtones', 'Displays a listing of ringtones that may be assigned to the phone. More than one ringtone may be assigned to a phone.');
+echo '<ul id="availableringtones" class="ringtones ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
+foreach ($ringtones as $id=>$name){
+	if(empty($ringtonesSelected[$id])){
+		echo '<li id="deviceringtones_' . $id . '">' . $name . '</li>';
 	}
 }
 echo '</ul>';
 echo '</div>';
 echo '<div class="dragdrop">';
-echo fpbx_label('Assigned Statuses', 'Displays a listing of statuses currently assigned to a phone.');
-echo '<ul id="devicestatuses" class="statuses ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
-if(isset($statusesSelected)){
-	foreach( $statusesSelected as $id){
-		echo '<li id="devicestatuses_' . $id . '">' . $statuses[$id] . '</li>';
+echo fpbx_label('Assigned Ringtones', 'Displays a listing of ringtones currently assigned to a phone.');
+echo '<ul id="deviceringtones" class="ringtones ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
+if (isset($ringtonesSelected)){
+	foreach( $ringtonesSelected as $id){
+		echo '<li id="deviceringtones_' . $id . '">' . $ringtones[$id] . '</li>';
 	}
 }
 echo '</ul>';
 echo '</div>';
 echo '</div>';	
 echo '<div style="clear:both;" />';
+
+if (!function_exists('presencestate_list_get')) {
+	//Statuses
+	foreach ($digium_phones->get_statuses() as $data) {
+		$statuses[$data['id']] = $data['name'];
+	}
+	foreach($devices['statuses'] as $data){
+		$statusesSelected[$data['statusid']] = $data['statusid'];
+	}
+	echo '<div class="dragdropFrame">';
+	echo '<div class="dragdrop">';
+	echo fpbx_label('Available Statuses', 'Displays a listing of statuses that may be assigned to the phone. More than one status should be assigned to a phone.');
+	echo '<ul id="availableStatuses" class="statuses ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
+	if (isset($statuses)) {
+		foreach ($statuses as $id=>$name){
+			if(empty($statusesSelected[$id])){
+				echo '<li id="devicestatuses_' . $id . '">' . $name . '</li>';
+			}
+		}
+	}
+	echo '</ul>';
+	echo '</div>';
+	echo '<div class="dragdrop">';
+	echo fpbx_label('Assigned Statuses', 'Displays a listing of statuses currently assigned to a phone.');
+	echo '<ul id="devicestatuses" class="statuses ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
+	if(isset($statusesSelected)){
+		foreach( $statusesSelected as $id){
+			echo '<li id="devicestatuses_' . $id . '">' . $statuses[$id] . '</li>';
+		}
+	}
+	echo '</ul>';
+	echo '</div>';
+	echo '</div>';	
+	echo '<div style="clear:both;" />';
+}
 
 //Custom Apps
 foreach ($digium_phones->get_customapps() as $data) {
@@ -872,6 +960,11 @@ $table->add_row(array( 'data' => fpbx_label('Enable Send to Voicemail:', 'Enable
 				array( 'data' => '<select id="send_to_vm" name="send_to_vm">
 					<option value="yes" ' . ($devices['settings']['send_to_vm'] == 'yes' ? 'selected' : '') . '>Enabled (Default)</option>
 					<option value="no" ' . ($devices['settings']['send_to_vm'] == 'no' ? 'selected' : '') . '>Disabled</option></select>'));
+
+$table->add_row(array( 'data' => fpbx_label('Require Pin for Voicemail:', 'Enables or Disables requiring the Phone PIN to access Voicemail. If disabled, Voicemail messages can be viewed and played without entering the PIN first.')),
+				array( 'data' => '<select id="vm_require_pin" name="vm_require_pin">
+					<option value="no" ' . ($devices['settings']['vm_require_pin'] == 'no' ? 'selected' : '') . '>Disabled (Default)</option>
+					<option value="yes" ' . ($devices['settings']['vm_require_pin'] == 'yes' ? 'selected' : '') . '>Enabled</option></select>'));
 
 $table->add_row(array( 'data' => fpbx_label('Rapid Dials on Unused Line Keys:', 'By default, Line keys that do not have an extension assigned to them will be configured with Rapid Dial keys. This behavior may be disabled such that Rapid Dial keys begin assignment on the sidecar keys.')),
 				array( 'data' => '<select id="blf_unused_linekeys" name="blf_unused_linekeys">

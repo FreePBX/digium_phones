@@ -21,6 +21,8 @@ Supported features:
 
   * PHP files
     * `functions.inc.php` - definition of classes and utility functions for managing configuration data and objects, interfacing with Mysql, and building configuration
+	* classes/digium_phones*.php - support classes moved out of functions.inc
+	* conf/*.php - configuration file generators moved out of functions.inc
     * `page.digium_phones.php` - top level page generation code (calls appropriate views/*.php for subpages)
     * `install.php` - steps to run on module first installation to insure database and filesystem is configured with default settings
     * `uninstall.php` - run at removal (not upgrade) of module to erase database tables
@@ -74,6 +76,21 @@ Other locations that are used to store different types of files and information:
     * `user_ringtone_{id}.raw` - ring tone in mono, 16000 samples/sec, 16 bit signed linear, raw (no header)
     * `application_{id}.zip` - json application to run on phone
     * `firmware_{version}_package` - directory containing firmware files for various models
+
+## Changes
+
+  * Cleaned up functions.inc, moved extra classes to classes subdir, config generators to conf subdir
+  * Added pin=voicemail support for DPMA 2.1
+  * Logo improvements: upload most any image format, automatically resized, D45 now supported
+  * Status (presence) will now use FreePBX PreseneceState module settings if it is enabled
+  * Can now download older firmware versions, not just the current one
+  * Ringtones can now be configured individually to the phone without having to be set as default
+  * General status page now shows version of the DPMA module installed in Asterisk
+
+## Support files
+
+  * build_test_module - bash script that creates uploadable tarball for testing
+  * Doxyfile - configuration for doxygen (run 'doxygen' to generate html documentation)
 
 ## Notes:
 

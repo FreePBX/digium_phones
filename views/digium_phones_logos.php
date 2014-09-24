@@ -3,6 +3,24 @@
 
 <script type="text/javascript">
 <?php
+
+// table of phone models & logo sizes
+$phone_models=array(
+	'd40' => array('name' => 'D40', 'size' => '150x45'),
+	'd45' => array('name' => 'D45', 'size' => '150x45'),
+	'd50' => array('name' => 'D50', 'size' => '150x45'),
+	'd70' => array('name' => 'D70', 'size' => '205x85'),
+);
+
+function phone_model_options() {
+	global $phone_models;
+	foreach ($phone_models as $model => $data) {
+		echo '<option value="'.$model.'">'.$data['name'].'</option>'."\n";
+	}
+}
+
+
+
 // we need our logo stash
 $logos = $digium_phones->get_logos();
 
@@ -48,27 +66,19 @@ if (isset($_GET['logo_upload']) && isset($_FILES['logo_upload']) && $_FILES['log
 		}
 	}
 
-	if (!preg_match('/\.png$/', $file['name'])) {
-?>
-		<span style="color: red; ">Uploaded files must be in png format.</span>
-		<br />
-<?php
-	} else {
-		if (!move_uploaded_file($file['tmp_name'], $amp_conf['ASTETCDIR']."/digium_phones/user_image_".$filename.".png")) {
-?>
-			<span style="color: red; ">Uploaded file is not valid.</span>
-			<br />
-<?php
-		} else {
-			needreload();
-?>
-			<span style="color: green; ">File uploaded successfully.</span>
-			<br />
-			<br />
-<?php
-		}
+	if (empty($phone_models[$_POST['logo_model']]['size'])) {
+		echo '<h3 style="color: red;">Error: unknown phone model</h3>';
+		return;
 	}
+	$size=$phone_models[$_POST['logo_model']]['size'];
+	$dest = $amp_conf['ASTETCDIR'].'/digium_phones/user_image_'.$filename.'.png';
+	system('convert '.$file['tmp_name'].' -resize '.$size.' '.$dest);
+	unlink($file['tmp_name']);
+
+
 }
+
+
 ?>
 
 <table style="border-collapse:collapse; border-style:outset; border-width: 1px; margin-bottom: 20px;" cellpadding="5" cellspacing="0">
@@ -109,6 +119,17 @@ foreach ($logos as $logo) {
 }
 ?>
 </table>
+
+<?php
+exec('which convert 2>/dev/null', $out, $rc);
+if ($rc) {
+?>
+	<h3 style="color: red;">Error: ImageMagick package must be installed to upload or edit logos.</h3><br />
+<?php
+	return;
+}
+?>
+
 <input type="submit" name="add_logo_submit" value="Add Logo" onclick="add_logo_clicked();"/>
 
 <div id="divaddlogo" style="display: none;">
@@ -121,12 +142,10 @@ foreach ($logos as $logo) {
 	<td><input type="text" id="logo_name" name="logo_name" /></td>
 </tr>
 <tr>
-	<td><a href="#" class="info">Phone Model<span>Select the Digium phone model which can use this logo.  Logo files should be PNG format, 8-bit, no transparency, and less than 10k in size.  For D40 and D50: 150x45.  For D70: 205x85.</span></a></td>
+	<td><a href="#" class="info">Phone Model<span>Select the Digium phone model which can use this logo.</span></a></td>
 	<td>
 		<select id="logo_model" name="logo_model" />
-			<option value="d40">D40</option>
-			<option value="d50">D50</option>
-			<option value="d70">D70</option>
+		<?php phone_model_options() ?>
 		</select>
 	</td>
 </tr>
@@ -160,9 +179,7 @@ foreach ($logos as $logo) {
 	<td><a href="#" class="info">Phone Model<span>Select the Digium phone model which can use this logo.  Logo files should be PNG format, 8-bit, no transparency, and less than 10k in file size.  Dimensions for D40 and D50 logos: 150x45 pixels.  Dimensions for D70 logos: 205x85 pixels.</span></a></td>
 	<td>
 		<select id="edit_logo_model" name="edit_logo_model" />
-			<option value="d40">D40</option>
-			<option value="d50">D50</option>
-			<option value="d70">D70</option>
+		<?php phone_model_options() ?>
 		</select>
 	</td>
 </tr>

@@ -1,6 +1,7 @@
 <?php
 
 global $astman;
+require_once dirname(__FILE__).'/classes/digium_phones.php';
 $digium_phones = new digium_phones();
 if (isset($_GET['digium_phones_form'])) {
 	$page = $_GET['digium_phones_form'];
@@ -40,10 +41,10 @@ if (!empty($_POST['devicenetworks_'])) {
  * are 2 possible forms: general, editline. These conditions
  * check for each form's submit button value. If none are true, then no form
  * has been submitted. Depending on if the information and updating are
- * successful, $_GET['digium_phones_form'] will be changed to reflect which page to 
+ * successful, $_GET['digium_phones_form'] will be changed to reflect which page to
  * load. Properly submitted forms that update properly will result in returning
  * to the default digium_phones page. Errors with values or updating will result in
- * returning to the form page with the submitted information auto-filled.  
+ * returning to the form page with the submitted information auto-filled.
  */
 if (isset($_POST['general_submit'])) {
 	$gen = array();
@@ -75,6 +76,7 @@ if (isset($_POST['general_submit'])) {
 	$device['externallines'] = array();
 	$device['logos'] = array();
 	$device['alerts'] = array();
+	$device['ringtones'] = array();
 	$device['id'] = $deviceid;
 	$device['name'] = $_POST['devicename'];
 	$settings = array(
@@ -90,6 +92,7 @@ if (isset($_POST['general_submit'])) {
 		'active_ringtone',
 		'login_password',
 		'send_to_vm',
+		'vm_require_pin',
 		'accept_local_calls',
 		'lock_preferences',
 		'display_mc_notification',
@@ -138,7 +141,7 @@ if (isset($_POST['general_submit'])) {
 			$device['lines'][] = $line;
 		}
 	}
-	
+
 	foreach ($_POST['devicephonebooks'] as $phonebookid) {
 		$phonebook = array();
 		$phonebook['phonebookid'] = $phonebookid;
@@ -185,6 +188,18 @@ if (isset($_POST['general_submit'])) {
 			}
 		}
 		$device['alerts'][] = $alert;
+	}
+
+	foreach ($_POST['deviceringtones'] as $ringtoneid) {
+		$ringtone = array();
+		$ringtone['ringtoneid'] = $ringtoneid;
+		foreach ($olddevice['ringtones'] as $a) {
+			if ($a['ringtoneid'] == $ringtoneid) {
+				$ringtone = $a;
+				break;
+			}
+		}
+		$device['ringtones'][] = $ringtone;
 	}
 
 	foreach ($_POST['devicestatuses'] as $statusid) {
@@ -350,7 +365,7 @@ if (isset($_POST['general_submit'])) {
 	$digium_phones->delete_network($network);
 	$digium_phones->read_networks();
 } else if (isset($_POST['editqueue_submit'])) {
-	$manager = explode(',', $_POST['tempManagers'][0]);	
+	$manager = explode(',', $_POST['tempManagers'][0]);
 
 	foreach($manager as $managerID){
 		$_POST['managers'][] = $managerID;
@@ -552,9 +567,27 @@ if (isset($_POST['general_submit'])) {
 	}
 }
 
-function download_firmware($json, $firmware_manager) {
-	$url = $json['path'].$json['tarball'];
-	$md5sum = $json['md5sum'];
+/**
+ * Download the selected firmware and install package.
+ * Shows progress indicator in iframe window.
+ * @return error string describing problem or null
+*/
+function download_firmware($selected, $version_info, $firmware_manager) {
+	$version = null;
+	foreach ($version_info['versions'] as $entry) {
+		if ($entry['version'] == $selected) {
+			$version = $entry;
+			break;
+		}
+	}
+	if (!$version) {
+		return 'selected version '.$selected.' not found in version table';
+	}
+
+	$tarball = str_replace('{version}', $version['version'], $version_info['tarball']);
+	$url = $version_info['path'].$tarball;
+	$md5sum = $version['md5sum'];
+
 	if ($time_limit = ini_get('max_execution_time')) {
 		set_time_limit($time_limit);
 	}
@@ -586,27 +619,27 @@ function download_firmware($json, $firmware_manager) {
 		if (!$dp = @fopen($url,'r')) {
 			return sprintf(_("Error opening %s for reading"), $url);
 		}
-	
+
 		if (!($fp = @fopen($filename,"w"))) {
 			return sprintf(_("Error opening %s for writing"), $filename);
 		}
 
 		$totalread = 0;
+		$last_percent = -1;
 		$max = $headers['content-length'];
 		while (!feof($dp)) {
 			$data = fread($dp, $download_chunk_size);
 			fwrite($fp, $data);
 			$totalread += strlen($data);
 
-			$progress = $totalread.' of '.$max;
-			if ($totalread == 0) {
-				$progress .= ' (0%)';
-			} else {
-				$progress .= ' ('.round($totalread/$max*100).'%)';
+			$percent = round($totalread/$max*100);
+			if ($percent != $last_percent) {
+				$last_percent = $percent;
+				$progress = $totalread.' of '.$max.' ('.$percent.'%)';
+				echo '<script>document.getElementById(\'downloadprogress\').innerHTML = \''.$progress.'\';</script>';
+				@ ob_flush();
+				flush();
 			}
-			echo '<script>document.getElementById(\'downloadprogress\').innerHTML = \''.$progress.'\';</script>';
-			@ ob_flush();
-			flush();
 		}
 		fclose($dp);
 		fclose($fp);
@@ -651,41 +684,33 @@ if (isset($_GET['user_image'])) {
 	echo '<p><a href="config.php?type=setup&display=digium_phones&digium_phones_form=firmware_edit">Return</a></p>';
 } else if (isset($_GET['update_firmware'])) {
 	$firmware_manager = $digium_phones->get_firmware_manager();
-	$json = $firmware_manager->get_new_firmware_info();
-	if ($json == null) {
-		echo '<div>';
-		echo '<span class="failure">Unable to contact download server:</span>';
-		echo '<span class="failure">http://downloads.digium.com/pub/telephony/res_digium_phone/firmware/dpma-firmware.json</span>';
+	$version_info = $firmware_manager->get_firmware_version_info();
+	$versions = $version_info['versions'];
+
+	if ($versions === null) {
+		echo '<div><span class="failure">An error occurred while getting firmware list.</span></div>';
+	} else if (!$versions) {
+		echo '<div><span class="success">All available firmware versions already installed.</span></div>';
+	} else if ($_GET['update_firmware'] == 'check') {
+		echo '<div><span>Select firmware to download:<select id="firmware_select" name="firmware_select">';
+		foreach ($versions as $version) {
+			echo '<option value="'.$version['version'].'">'.$version['version'].' '.$version['date'].' for: '.$version['models'].'</option>';
+		}
+		echo '</select><br />';
+		// jquery is not loaded inside iframe, so go oldschool javascript to get value
+		echo '<input type="button" value="Download" onClick="parent.perform_download(document.getElementById(\'firmware_select\').value);"/>';
 		echo '</div>';
-	} else {
-		if ($_GET['update_firmware'] === 'check') {
-			echo '<div>';
-			echo '<span>Latest firmware version: '.$json['version'].'</span>';
-			echo '</div>';
-		}
-		if ($firmware_manager->version_exists($json['version'])) {
-			echo '<div>';
-			echo '<span class="success">No firmware updates needed.</span>';
-			echo '</div>';
+	} else if ($_GET['update_firmware'] == 'download') {
+		$error = download_firmware($_GET['version'], $version_info, $firmware_manager);
+		if ($error) {
+			echo '<div><span class="failure">'.$error.'</span></div>';
 		} else {
-			if ($_GET['update_firmware'] === 'check') {
-				echo '<div class="btn_container">';
-				echo '<input type="button" value="Download" onClick="parent.perform_download();"/>';
-				echo '</div>';
-			} else {
-				$error = download_firmware($json, $firmware_manager);
-				if ($error) {
-					echo '<div>';
-					echo '<span class="failure">'.$error.'</span>';
-					echo '</div>';
-				} else {
-					echo '<div>';
-					echo '<span class="success">Firmware downloaded successfully</span>';
-					echo '</div>';
-				}
-			}
+			echo '<div><span class="success">Firmware downloaded successfully</span></div>';
 		}
+	} else {
+		echo '<div><span class="failure">An error occurred while getting firmware list.</span></div>';
 	}
+
 	echo '<div class="btn_container">';
 	echo '<input type="button" value="Close" onClick="parent.close_update_firmware(true);"/>';
 	echo '</div>';
@@ -695,8 +720,8 @@ if (isset($_GET['user_image'])) {
 ?>
 	<style type="text/css">
 		/*label { clear: both; display: block; float: left; margin-right: 5px;  text-align: right; width: 255px; }*/
-		th { background: #7aa8f9; } 
-		tr.odd td { background: #fde9d1; } 
+		th { background: #7aa8f9; }
+		tr.odd td { background: #fde9d1; }
 		.alert { background: #fde9d1; border: 2px dashed red; margin: 5px; padding: 5px; }
 		hr { width: 80%; margin-left: 0px; }
 	</style>

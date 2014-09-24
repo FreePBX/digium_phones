@@ -244,6 +244,13 @@ $queries[] = "CREATE TABLE IF NOT EXISTS digium_phones_ringtones (
 	PRIMARY KEY (`id`)
 );";
 
+$queries[] = "CREATE TABLE IF NOT EXISTS digium_phones_device_ringtones (
+	`id` INT NOT NULL,
+	`deviceid` INT NOT NULL,
+	`ringtoneid` INT NOT NULL,
+	PRIMARY KEY (`deviceid`, `ringtoneid`)
+);";
+
 $queries[] = "CREATE TABLE IF NOT EXISTS digium_phones_firmware (
 	`unique_id` VARCHAR(50) NOT NULL,
 	`file_name` VARCHAR(50) NOT NULL,

@@ -172,6 +172,7 @@ function digium_phones_configpageload() {
 		$extdisplay = $ext;
 	}
 
+	require_once dirname(__FILE__).'/classes/digium_phones.php';
 	$digium_phones = new digium_phones();
 
 	if ($action != 'del') {
@@ -223,6 +224,7 @@ function digium_phones_configprocess() {
 		$extdisplay = $ext;
 	}
 
+	require_once dirname(__FILE__).'/classes/digium_phones.php';
 	$digium_phones = new digium_phones();
 
 	$line = $digium_phones->get_extension_settings($extdisplay);

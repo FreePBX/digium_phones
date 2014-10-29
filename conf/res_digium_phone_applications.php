@@ -51,7 +51,7 @@ function res_digium_phone_applications($conf) {
 
 		$table = $conf->digium_phones->get_voicemail_translations($locale);
 		if ($table !== NULL) {
-			$vm_app .= '-{$locale}';
+			$vm_app .= "-{$locale}";
 		}
 
 		// Output a voicemail app and its corresponding translation table only once.

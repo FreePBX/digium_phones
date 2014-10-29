@@ -74,7 +74,7 @@ function res_digium_phone_devices($conf) {
 		}
 		$table = $conf->digium_phones->get_voicemail_translations($locale);
 		if ($table !== NULL) {
-			$vm_app .= '-{$locale}';
+			$vm_app .= "-{$locale}";
 			unset($table);
 		}
 		$doutput[] = "application={$vm_app}";

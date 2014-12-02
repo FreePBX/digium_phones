@@ -1022,6 +1022,11 @@ $table->add_row(array( 'data' => fpbx_label('Accept Only Local Calls:', 'Sets wh
 					<option value="host" ' . ($devices['settings']['accept_local_calls'] == 'host' ? 'selected' : '') . '>Enabled (Default)</option>
 					<option value="any" ' . ($devices['settings']['accept_local_calls'] == 'any' ? 'selected' : '') . '>Disabled</option></select>'));
 
+$table->add_row(array( 'data' => fpbx_label('Enable Call Waiting Tone:', 'If disabled, the phone will not play a call waiting tone when it receives a new call while already on a call.')),
+                                array( 'data' => '<select id="call_waiting_tone" name="call_waiting_tone">
+                                        <option value="yes" ' . ($devices['settings']['call_waiting_tone'] == 'yes' ? 'selected' : '') . '>Enabled</option>
+                                        <option value="no" ' . ($devices['settings']['call_waiting_tone'] == 'no' ? 'selected' : '') . '>Disabled (Default)</option></select>'));
+
 $table->add_row(array( 'data' => fpbx_label('Phone Can Override Preferences:', 'Defines whether or not the phone will be able to override any server-set preferences. By default, any non-default phone preferences set by the server can be overridden by the phone. This option enables the administrator to disable that capability by removing the user\'s preference option for items that the administrator sets to a non-default.')),
 				array( 'data' => '<select id="lock_preferences" name="lock_preferences">
 					<option value="no" ' . ($devices['settings']['lock_preferences'] == 'no' ? 'selected' : '') . '>Enabled (Default)</option>
@@ -1081,6 +1086,9 @@ $table->add_row(array( 'data' => fpbx_label('Backlight Dim Level:', 'Sets the br
 $table->add_row(array( 'data' => fpbx_label('Backlight Timeout:', 'Sets the time, in seconds, before the backlight is set to Backlight Dim Level while phone is idle; setting to 0 disables backlight timeout, defaults to 0.')),
 				array( 'data' => '<input type="text" id="backlight_timeout" name="backlight_timeout"/>'));
 				
+$table->add_row(array( 'data' => fpbx_label('Default Font Size:', 'Sets the default font size for the phone. Caution should be exercised when using this option as larger sizes will cause labels to overrun their allowed space. D40, D45 and D50 default to 10. D70 defaults to 11.')),
+                                array( 'data' => '<input type="text" id="default_fontsize" name="default_fontsize"/>'));
+
 $table->add_row(array( 'data' => fpbx_label('Display Missed Call Notifications:', 'Defines whether the phone will display a notification for missed calls or not.')),
 				array( 'data' => '<select id="display_mc_notification" name="display_mc_notification">
 					<option value="yes" ' . ($devices['settings']['display_mc_notification'] == 'yes' ? 'selected' : '') . '>Enabled (Default)</option>

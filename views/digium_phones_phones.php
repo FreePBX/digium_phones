@@ -976,8 +976,8 @@ $table->add_row(array( 'data' => fpbx_label('Seconds between NTP sync:', 'Define
 
 $table->add_row(array( 'data' => fpbx_label('Enable Web UI:', 'By default, when using the Digium Phone Module for Asterisk, the phone\'s built-in Web UI is disabled. To override this and enable the Web UI anyway, which may result in unpredictable behavior if user settings conflict with the settings provided by the DPMA, enable this option. Do not enable this unless you know what you\'re doing.')),
 				array( 'data' => '<select id="web_ui_enabled" name="web_ui_enabled">
-					<option value="yes" ' . ($devices['settings']['web_ui_enabled'] == 'yes' ? 'selected' : '') . '>Enabled</option>
-					<option value="no" ' . ($devices['settings']['web_ui_enabled'] == 'no' ? 'selected' : '') . '>Disabled (Default)</option></select>'));
+					<option value="no" ' . ($devices['settings']['web_ui_enabled'] == 'no' ? 'selected' : '') . '>Disabled (Default)</option>
+					<option value="yes" ' . ($devices['settings']['web_ui_enabled'] == 'yes' ? 'selected' : '') . '>Enabled</option></select>'));
 
 $packages = $digium_phones->get_firmware_manager()->get_packages();
 
@@ -1024,8 +1024,8 @@ $table->add_row(array( 'data' => fpbx_label('Accept Only Local Calls:', 'Sets wh
 
 $table->add_row(array( 'data' => fpbx_label('Enable Call Waiting Tone:', 'If disabled, the phone will not play a call waiting tone when it receives a new call while already on a call.')),
                                 array( 'data' => '<select id="call_waiting_tone" name="call_waiting_tone">
-                                        <option value="yes" ' . ($devices['settings']['call_waiting_tone'] == 'yes' ? 'selected' : '') . '>Enabled</option>
-                                        <option value="no" ' . ($devices['settings']['call_waiting_tone'] == 'no' ? 'selected' : '') . '>Disabled (Default)</option></select>'));
+                                        <option value="no" ' . ($devices['settings']['call_waiting_tone'] == 'no' ? 'selected' : '') . '>Disabled (Default)</option>
+                                        <option value="yes" ' . ($devices['settings']['call_waiting_tone'] == 'yes' ? 'selected' : '') . '>Enabled</option></select>'));
 
 $table->add_row(array( 'data' => fpbx_label('Phone Can Override Preferences:', 'Defines whether or not the phone will be able to override any server-set preferences. By default, any non-default phone preferences set by the server can be overridden by the phone. This option enables the administrator to disable that capability by removing the user\'s preference option for items that the administrator sets to a non-default.')),
 				array( 'data' => '<select id="lock_preferences" name="lock_preferences">

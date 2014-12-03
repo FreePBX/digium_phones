@@ -1024,8 +1024,9 @@ $table->add_row(array( 'data' => fpbx_label('Accept Only Local Calls:', 'Sets wh
 
 $table->add_row(array( 'data' => fpbx_label('Enable Call Waiting Tone:', 'If disabled, the phone will not play a call waiting tone when it receives a new call while already on a call.')),
                                 array( 'data' => '<select id="call_waiting_tone" name="call_waiting_tone">
-                                        <option value="no" ' . ($devices['settings']['call_waiting_tone'] == 'no' ? 'selected' : '') . '>Disabled (Default)</option>
-                                        <option value="yes" ' . ($devices['settings']['call_waiting_tone'] == 'yes' ? 'selected' : '') . '>Enabled</option></select>'));
+                                        <option value="yes" ' . ($devices['settings']['call_waiting_tone'] == 'yes' ? 'selected' : '') . '>Enabled (Default)</option>
+                                        <option value="no" ' . ($devices['settings']['call_waiting_tone'] == 'no' ? 'selected' : '') . '>Disabled</option>
+				</select>'));
 
 $table->add_row(array( 'data' => fpbx_label('Phone Can Override Preferences:', 'Defines whether or not the phone will be able to override any server-set preferences. By default, any non-default phone preferences set by the server can be overridden by the phone. This option enables the administrator to disable that capability by removing the user\'s preference option for items that the administrator sets to a non-default.')),
 				array( 'data' => '<select id="lock_preferences" name="lock_preferences">

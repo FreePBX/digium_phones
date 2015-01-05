@@ -108,7 +108,9 @@ if (isset($_POST['general_submit'])) {
 		'reset_call_volume',
 		'headset_answer',
 		'firmware_package_id',
-		'active_locale'
+		'active_locale',
+		'default_fontsize',
+		'call_waiting_tone'
 	);
 
 	foreach ($settings as $setting) {

@@ -62,15 +62,23 @@ function res_digium_phone_devices($conf) {
 		$doutput[] = "parking_transfer_type=blind";
 
 		if (isset($device['settings']['active_locale']) === FALSE) {
-			$doutput[] = "active_locale={$default_locale}";
+			$locale = $default_locale;
 		} else {
 			$locale = $device['settings']['active_locale'];
-			$table = $conf->digium_phones->get_voicemail_translations($locale);
-			if ($table !== NULL) {
-				$doutput[] = "application=voicemail-{$locale}";
-			}
+		}
+		$doutput[] = "active_locale={$locale}";
+
+		$vm_app = 'voicemail';
+		if (!empty($device['settings']['vm_require_pin']) && $device['settings']['vm_require_pin'] == 'yes') {
+			$vm_app .= '-pin';
+		}
+		$table = $conf->digium_phones->get_voicemail_translations($locale);
+		if ($table !== NULL) {
+			$vm_app .= "-{$locale}";
 			unset($table);
 		}
+		$doutput[] = "application={$vm_app}";
+
 		foreach ($device['settings'] as $key=>$val) {
 			if ($key == 'rapiddial') {
 				if ($val == '') {
@@ -109,6 +117,8 @@ function res_digium_phone_devices($conf) {
 					}
 					continue;
 				}
+			} elseif ($key == 'vm_require_pin') {
+				continue;
 			}
 
 			$doutput[] = "{$key}={$val}";

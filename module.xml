@@ -11,7 +11,7 @@
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
 	<changelog>
-		*2.11.2.2* Added options for default_fontsize and call_waiting_tone
+		*2.11.2.2* Added options for default_fontsize and call_waiting_tone, fixed locale and device id
 		*2.11.2.1* Fix for class loading problem
 		*2.11.2.0* Cleanup, support for DPMA 2.1, D45, Logo upload, firmware download enhanced, Ringtones configured to phone
 		*2.11.1.1* update to correct GPL v3 license and move all copyright into proper functions.inc.php file.

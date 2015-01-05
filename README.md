@@ -88,6 +88,7 @@ Other locations that are used to store different types of files and information:
   * General status page now shows version of the DPMA module installed in Asterisk
   * Corrected setting of Locale and voicemail require pin 
   * Added Call Waiting disable and font size (thanks MattBrown52!)
+  * Fixed Device ID to track with extension number
 
 ## Support files
 

@@ -871,6 +871,25 @@ class digium_phones {
 
 		$deviceid = $device['id'];
 
+		$lineid = False;
+		if (!empty($device['lines'][0]['extension'])) {
+			$lineid = $device['lines'][0]['extension'];
+		}
+		if ($lineid && $deviceid != $lineid) {
+			// can we reassign the deviceid to match without a conflict?
+			$sql = "SELECT * FROM digium_phones_devices WHERE id=\"{$db->escapeSimple($lineid)}\"";
+			$results = $db->getAll($sql, DB_FETCHMODE_ASSOC);
+			if (DB::IsError($results)) {
+				die_freepbx($results->getDebugInfo());
+				return false;
+			}
+			if (!$results) {
+				// yes, $lineid does not exist, use it
+				$deviceid = $lineid;
+				$device['id'] = $deviceid;
+			}
+		}
+
 		// Devices
 		$sql = "INSERT INTO digium_phones_devices (id, name) VALUES(\"{$db->escapeSimple($device['id'])}\", \"{$db->escapeSimple($device['name'])}\")";
 		$result = $db->query($sql);

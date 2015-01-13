@@ -32,36 +32,55 @@ function res_digium_phone_applications($conf) {
 	global $amp_conf;
 
 	$output = array();
-	$locales = array();
+	$vm_apps = array();
+	$translations = array();
 
 	foreach ($conf->digium_phones->get_devices() as $deviceid=>$device) {
 		if (isset($device['settings']['active_locale']) === FALSE) {
-			continue;
-		}
-		$locale = $device['settings']['active_locale'];
-		$table = $conf->digium_phones->get_voicemail_translations($locale);
-		if ($table === NULL) {
-			continue;
+			$locale = $conf->digium_phones->get_general('active_locale');
+		} else {
+			$locale = $device['settings']['active_locale'];
 		}
 
-		if (in_array($locale, $locales)) {
+		$vm_app = 'voicemail';
+		$require_password = FALSE;
+		if (!empty($device['settings']['vm_require_pin']) && $device['settings']['vm_require_pin'] == 'yes') {
+			$vm_app .= '-pin';
+			$require_password = 'yes';
+		}
+
+		$table = $conf->digium_phones->get_voicemail_translations($locale);
+		if ($table !== NULL) {
+			$vm_app .= "-{$locale}";
+		}
+
+		// Output a voicemail app and its corresponding translation table only once.
+		if (in_array($vm_app, $vm_apps)) {
 			unset($table);
 			continue;
 		}
-		$locales[] = $locale;
+		$vm_apps[] = $vm_app;
 
-		// We only need to print a voicemail table and its
-		// corresponding translation table once.
-		$output[] = "[voicemail-{$locale}]";
+		$output[] = "[{$vm_app}]";
 		$output[] = "type=application";
 		$output[] = "application=voicemail";
-		$output[] = "translation=translation-{$locale}";
-		$output[] = "\n";
+		if ($require_password) {
+			$output[] = "require_password={$require_password}";
+		}
+		$translation = "translation-{$locale}";
+		$output[] = "translation={$translation}";
+		$output[] = "";
 
-		$output[] = "[translation-{$locale}]";
-		$output[] = "type=translation";
-		foreach ($table as $key=>$value) {
-			$output[] = "{$key}={$value}";
+		if (!in_array($translation, $translations)) {
+			$translations[] = $translation;
+			$output[] = "[translation-{$locale}]";
+			$output[] = "type=translation";
+			if ($table !== NULL) {
+				foreach ($table as $key=>$value) {
+					$output[] = "{$key}={$value}";
+				}
+			}
+			$output[] = "";
 		}
 		unset($table);
 	}

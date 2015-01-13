@@ -86,6 +86,8 @@ Other locations that are used to store different types of files and information:
   * Can now download older firmware versions, not just the current one
   * Ringtones can now be configured individually to the phone without having to be set as default
   * General status page now shows version of the DPMA module installed in Asterisk
+  * Corrected setting of Locale and voicemail require pin 
+  * Added Call Waiting disable and font size (thanks MattBrown52!)
 
 ## Support files
 

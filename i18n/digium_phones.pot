@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-11 18:58-0500\n"
+"POT-Creation-Date: 2015-02-20 19:22-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,212 +17,224 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /usr/src/freepbx/digium_phones/views/rnav.php:14
+#: views/rnav.php:14
 msgid "Alerts"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/page.digium_phones.php:651
+#: page.digium_phones.php:651
 #, php-format
 msgid "Checksum error retrieving %s"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:195
+#: digium_phones.i18n.php:4
+msgid "Connectivity"
+msgstr ""
+
+#: functions.inc.php:195
 msgid "Digit Map"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:181
+#: digium_phones.i18n.php:5
+msgid "Digium Phones"
+msgstr ""
+
+#: digium_phones.i18n.php:3
+msgid "Digium Phones Config"
+msgstr ""
+
+#: functions.inc.php:181
 msgid "Digium Phones Contacts Options"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:193
+#: functions.inc.php:193
 msgid "Digium Phones Line Options"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:190
+#: functions.inc.php:190
 msgid "E-Mail Address"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/page.digium_phones.php:618
-#: /usr/src/freepbx/digium_phones/page.digium_phones.php:622
+#: page.digium_phones.php:618
+#: page.digium_phones.php:622
 #, php-format
 msgid "Error opening %s for reading"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/page.digium_phones.php:626
+#: page.digium_phones.php:626
 #, php-format
 msgid "Error opening %s for writing"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/views/rnav.php:34
+#: views/rnav.php:34
 msgid "External Lines"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/views/rnav.php:42
+#: views/rnav.php:42
 msgid "Firmware"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:183
+#: functions.inc.php:183
 msgid "First Name"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/views/rnav.php:38
+#: views/rnav.php:38
 msgid "General Settings"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:188
+#: functions.inc.php:188
 msgid "Job Title"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:185
+#: functions.inc.php:185
 msgid "Last Name"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:194
+#: functions.inc.php:194
 msgid "Line Label"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:189
+#: functions.inc.php:189
 msgid "Location"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/views/rnav.php:26
+#: views/rnav.php:26
 msgid "Logos"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:184
+#: functions.inc.php:184
 msgid "Middle Name"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/views/rnav.php:30
+#: views/rnav.php:30
 msgid "Networks"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:191
+#: functions.inc.php:191
 msgid "Notes"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:191
+#: functions.inc.php:191
 msgid "Notes about the user, for use in Contacts application."
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:187
+#: functions.inc.php:187
 msgid "Organization"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/views/rnav.php:22
+#: views/rnav.php:22
 msgid "Phone Applications"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/views/rnav.php:10
+#: views/rnav.php:10
 msgid "Phonebooks"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/views/rnav.php:5
+#: views/rnav.php:5
 msgid "Phones"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:182
+#: functions.inc.php:182
 msgid "Prefix"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:201
+#: functions.inc.php:201
 msgid "Re-registration TImeout"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:203
+#: functions.inc.php:203
 msgid "Registration Max Retries"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:202
+#: functions.inc.php:202
 msgid "Registration Retry Interval"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/views/rnav.php:18
+#: views/rnav.php:18
 msgid "Ringtones"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:186
+#: functions.inc.php:186
 msgid "Suffix"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:198
+#: functions.inc.php:198
 msgid "TCP"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:195
+#: functions.inc.php:195
 msgid "The Digit Map for this extension."
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:190
+#: functions.inc.php:190
 msgid "The E-Mail Address for use in Contacts application."
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:183
+#: functions.inc.php:183
 msgid "The First Name for use in Contacts application."
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:188
+#: functions.inc.php:188
 msgid "The Job Title for use in Contacts application."
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:185
+#: functions.inc.php:185
 msgid "The Last Name for use in Contacts application."
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:194
+#: functions.inc.php:194
 msgid "The Line Label for this extension."
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:189
+#: functions.inc.php:189
 msgid "The Location for use in Contacts application."
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:184
+#: functions.inc.php:184
 msgid "The Middle Name for use in Contacts application."
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:187
+#: functions.inc.php:187
 msgid "The Organization for use in Contacts application."
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:182
+#: functions.inc.php:182
 msgid "The Prefix for use in Contacts application."
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:201
+#: functions.inc.php:201
 msgid "The Re-registration Timeout for this extension."
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:203
+#: functions.inc.php:203
 msgid "The Registration Max Retries for this extension."
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:202
+#: functions.inc.php:202
 msgid "The Registration Retry Interval for this extension."
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:186
+#: functions.inc.php:186
 msgid "The Suffix for use in Contacts application."
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:200
+#: functions.inc.php:200
 msgid "The Transport for this extension."
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:196
+#: functions.inc.php:196
 msgid ""
 "The Voicemail URI for this extension.  Note that setting this option on a "
 "phone's primary line will disable visual voicemail."
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:200
+#: functions.inc.php:200
 msgid "Transport"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:197
+#: functions.inc.php:197
 msgid "UDP (Default)"
 msgstr ""
 
-#: /usr/src/freepbx/digium_phones/functions.inc.php:196
+#: functions.inc.php:196
 msgid "Voicemail URI"
 msgstr ""

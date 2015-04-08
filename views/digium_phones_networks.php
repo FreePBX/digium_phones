@@ -8,7 +8,7 @@ $().ready(function() {
 $networks = $digium_phones->get_networks();
 
 if (isset($_GET['network']) and !isset($_GET['deletenetwork_submit'])) {
-	$editnetwork = $_GET['network'];
+	$editnetwork = htmlspecialchars($_GET['network']);
 }
 
 if ($editnetwork != null) {

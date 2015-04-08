@@ -8,7 +8,7 @@ $().ready(function() {
 $customapps = $digium_phones->get_customapps();
 
 if (isset($_GET['customappid']) and !isset($_GET['deletecustomapp_submit'])) {
-	$editcustomapp = $_GET['customappid'];
+	$editcustomapp = htmlspecialchars($_GET['customappid']);
 }
 
 if ($editcustomapp != null) {

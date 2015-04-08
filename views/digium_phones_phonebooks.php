@@ -3,10 +3,10 @@
 
 <?php
 if (isset($_GET['phonebook']) and !isset($_GET['deletephonebook_submit'])) {
-	$editpb = $_GET['phonebook'];
+	$editpb = htmlspecialchars($_GET['phonebook']);
 
 	if (isset($_GET['edittype'])) {
-		$edittype = $_GET['edittype'];
+		$edittype = htmlspecialchars($_GET['edittype']);
 	}
 }
 ?>
@@ -19,11 +19,11 @@ $phonebooks = $digium_phones->get_phonebooks();
 
 if ($editpb != null) {
 	if (isset($_GET['entry']) and !isset($_GET['deletephonebookentry_submit']) and !isset($_GET['movephonebookentry_submit'])) {
-		$editentry = $_GET['entry'];
+		$editentry = htmlspecialchars($_GET['entry']);
 
 		if (isset($_GET['type'])) {
 ?>
-			$('#type').val('<?php echo $_GET['type']?>');
+			$('#type').val('<?php echo htmlspecialchars($_GET['type']); ?>');
 <?php
 		}
 	}

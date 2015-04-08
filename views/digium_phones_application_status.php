@@ -59,7 +59,7 @@ $().ready(function() {
 $statuses = $digium_phones->get_statuses();
 
 if (isset($_GET['statusid']) and !isset($_GET['deletestatus_submit'])) {
-	$editstatus = $_GET['statusid'];
+	$editstatus = htmlspecialchars($_GET['statusid']);
 }
 
 if ($editstatus != null) {

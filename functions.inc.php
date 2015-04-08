@@ -15,6 +15,22 @@ global $db;
 global $amp_conf;
 
 /**
+ * Sanitize path/file name input
+ */
+function digium_phones_sanitize_filepath($pathfile)
+{
+	$path = dirname($pathfile).'/';
+	$file = basename($pathfile);
+
+	$path = str_replace('..', '', $path);
+	$path = str_replace('//', '/', $path);
+	if (substr($path, 0, 2) == './') {
+		$path = substr($path, 2);
+	}
+	return $path.preg_replace('/[^a-zA-Z0-9 _\-\.]/', '', $file);
+}
+
+/**
  * Get the path to the publicly accessible
  * http location to store files for phones
  * to download.
@@ -209,10 +225,10 @@ function digium_phones_configpageload() {
  * Updates changes in custom fields to digium_phones databases.
 */
 function digium_phones_configprocess() {
-	$action = isset($_REQUEST['action'])?$_REQUEST['action']:null;
-	$ext = isset($_REQUEST['extdisplay'])?$_REQUEST['extdisplay']:null;
-	$extn = isset($_REQUEST['extension'])?$_REQUEST['extension']:null;
-	$display = isset($_REQUEST['display'])?$_REQUEST['display']:null;
+	$action = isset($_REQUEST['action'])?htmlspecialchars($_REQUEST['action']):null;
+	$ext = isset($_REQUEST['extdisplay'])?htmlspecialchars($_REQUEST['extdisplay']):null;
+	$extn = isset($_REQUEST['extension'])?htmlspecialchars($_REQUEST['extension']):null;
+	$display = isset($_REQUEST['display'])?htmlspecialchars($_REQUEST['display']):null;
 
 	if ($action == null) {
 		return true;

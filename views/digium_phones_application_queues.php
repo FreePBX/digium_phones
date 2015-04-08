@@ -9,7 +9,7 @@ $queues = $digium_phones->get_queues();
 $devices = $digium_phones->get_devices();
 
 if (isset($_GET['queue']) and !isset($_GET['deletequeue_submit'])) {
-	$editqueue = $_GET['queue'];
+	$editqueue = htmlspecialchars($_GET['queue']);
 }
 
 if ($editqueue != null) {

@@ -26,7 +26,7 @@ $().ready(function() {
 		$selected_package = $firmware_manager->get_package_by_id($firmware_package_id);
 	}
 	if (isset($_GET['optype'])) {
-		$op_type = $_GET['optype'];
+		$op_type = htmlspecialchars($_GET['optype']);
 	}
 	// Check if we need to display a form
 	if ($op_type != null and $op_type !== 'delete_firmware') {

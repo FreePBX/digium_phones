@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-20 19:22-0500\n"
+"POT-Creation-Date: 2015-04-20 19:44-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,31 +26,31 @@ msgstr ""
 msgid "Checksum error retrieving %s"
 msgstr ""
 
-#: digium_phones.i18n.php:4
+#: digium_phones.i18n.php:6 digium_phones.i18n.php:10
 msgid "Connectivity"
 msgstr ""
 
-#: functions.inc.php:195
+#: functions.inc.php:211
 msgid "Digit Map"
 msgstr ""
 
-#: digium_phones.i18n.php:5
+#: digium_phones.i18n.php:8
 msgid "Digium Phones"
 msgstr ""
 
-#: digium_phones.i18n.php:3
+#: digium_phones.i18n.php:4
 msgid "Digium Phones Config"
 msgstr ""
 
-#: functions.inc.php:181
+#: functions.inc.php:197
 msgid "Digium Phones Contacts Options"
 msgstr ""
 
-#: functions.inc.php:193
+#: functions.inc.php:209
 msgid "Digium Phones Line Options"
 msgstr ""
 
-#: functions.inc.php:190
+#: functions.inc.php:206
 msgid "E-Mail Address"
 msgstr ""
 
@@ -72,7 +72,7 @@ msgstr ""
 msgid "Firmware"
 msgstr ""
 
-#: functions.inc.php:183
+#: functions.inc.php:199
 msgid "First Name"
 msgstr ""
 
@@ -80,19 +80,19 @@ msgstr ""
 msgid "General Settings"
 msgstr ""
 
-#: functions.inc.php:188
+#: functions.inc.php:204
 msgid "Job Title"
 msgstr ""
 
-#: functions.inc.php:185
+#: functions.inc.php:201
 msgid "Last Name"
 msgstr ""
 
-#: functions.inc.php:194
+#: functions.inc.php:210
 msgid "Line Label"
 msgstr ""
 
-#: functions.inc.php:189
+#: functions.inc.php:205
 msgid "Location"
 msgstr ""
 
@@ -100,7 +100,7 @@ msgstr ""
 msgid "Logos"
 msgstr ""
 
-#: functions.inc.php:184
+#: functions.inc.php:200
 msgid "Middle Name"
 msgstr ""
 
@@ -108,15 +108,15 @@ msgstr ""
 msgid "Networks"
 msgstr ""
 
-#: functions.inc.php:191
+#: functions.inc.php:207
 msgid "Notes"
 msgstr ""
 
-#: functions.inc.php:191
+#: functions.inc.php:207
 msgid "Notes about the user, for use in Contacts application."
 msgstr ""
 
-#: functions.inc.php:187
+#: functions.inc.php:203
 msgid "Organization"
 msgstr ""
 
@@ -132,19 +132,19 @@ msgstr ""
 msgid "Phones"
 msgstr ""
 
-#: functions.inc.php:182
+#: functions.inc.php:198
 msgid "Prefix"
 msgstr ""
 
-#: functions.inc.php:201
+#: functions.inc.php:217
 msgid "Re-registration TImeout"
 msgstr ""
 
-#: functions.inc.php:203
+#: functions.inc.php:219
 msgid "Registration Max Retries"
 msgstr ""
 
-#: functions.inc.php:202
+#: functions.inc.php:218
 msgid "Registration Retry Interval"
 msgstr ""
 
@@ -152,88 +152,88 @@ msgstr ""
 msgid "Ringtones"
 msgstr ""
 
-#: functions.inc.php:186
+#: functions.inc.php:202
 msgid "Suffix"
 msgstr ""
 
-#: functions.inc.php:198
+#: functions.inc.php:214
 msgid "TCP"
 msgstr ""
 
-#: functions.inc.php:195
+#: functions.inc.php:211
 msgid "The Digit Map for this extension."
 msgstr ""
 
-#: functions.inc.php:190
+#: functions.inc.php:206
 msgid "The E-Mail Address for use in Contacts application."
 msgstr ""
 
-#: functions.inc.php:183
+#: functions.inc.php:199
 msgid "The First Name for use in Contacts application."
 msgstr ""
 
-#: functions.inc.php:188
+#: functions.inc.php:204
 msgid "The Job Title for use in Contacts application."
 msgstr ""
 
-#: functions.inc.php:185
+#: functions.inc.php:201
 msgid "The Last Name for use in Contacts application."
 msgstr ""
 
-#: functions.inc.php:194
+#: functions.inc.php:210
 msgid "The Line Label for this extension."
 msgstr ""
 
-#: functions.inc.php:189
+#: functions.inc.php:205
 msgid "The Location for use in Contacts application."
 msgstr ""
 
-#: functions.inc.php:184
+#: functions.inc.php:200
 msgid "The Middle Name for use in Contacts application."
 msgstr ""
 
-#: functions.inc.php:187
+#: functions.inc.php:203
 msgid "The Organization for use in Contacts application."
 msgstr ""
 
-#: functions.inc.php:182
+#: functions.inc.php:198
 msgid "The Prefix for use in Contacts application."
 msgstr ""
 
-#: functions.inc.php:201
+#: functions.inc.php:217
 msgid "The Re-registration Timeout for this extension."
 msgstr ""
 
-#: functions.inc.php:203
+#: functions.inc.php:219
 msgid "The Registration Max Retries for this extension."
 msgstr ""
 
-#: functions.inc.php:202
+#: functions.inc.php:218
 msgid "The Registration Retry Interval for this extension."
 msgstr ""
 
-#: functions.inc.php:186
+#: functions.inc.php:202
 msgid "The Suffix for use in Contacts application."
 msgstr ""
 
-#: functions.inc.php:200
+#: functions.inc.php:216
 msgid "The Transport for this extension."
 msgstr ""
 
-#: functions.inc.php:196
+#: functions.inc.php:212
 msgid ""
 "The Voicemail URI for this extension.  Note that setting this option on a "
 "phone's primary line will disable visual voicemail."
 msgstr ""
 
-#: functions.inc.php:200
+#: functions.inc.php:216
 msgid "Transport"
 msgstr ""
 
-#: functions.inc.php:197
+#: functions.inc.php:213
 msgid "UDP (Default)"
 msgstr ""
 
-#: functions.inc.php:196
+#: functions.inc.php:212
 msgid "Voicemail URI"
 msgstr ""

@@ -51,8 +51,8 @@ function edit_logo_clicked(id)
 <?php
 // deal with uploaded images
 if (isset($_GET['logo_upload']) && isset($_FILES['logo_upload']) && $_FILES['logo_upload']['size'] > 0) {
-	$file = $_FILES['logo_upload'];
-	$filename = basename($_GET['logo_upload']);
+	$tmp_file = digium_phones_sanitize_filepath($_FILES['logo_upload']['tmp_name']);
+	$filename = basename(digium_phones_sanitize_filepath($_GET['logo_upload']));
 
 	// we need to get the id for our new logo
 	foreach ($logos as $logo) {
@@ -72,8 +72,8 @@ if (isset($_GET['logo_upload']) && isset($_FILES['logo_upload']) && $_FILES['log
 	}
 	$size=$phone_models[$_POST['logo_model']]['size'];
 	$dest = $amp_conf['ASTETCDIR'].'/digium_phones/user_image_'.$filename.'.png';
-	system('convert '.$file['tmp_name'].' -resize '.$size.' '.$dest);
-	unlink($file['tmp_name']);
+	system('convert '.$tmp_file.' -resize '.$size.' '.$dest);
+	unlink($tmp_file);
 
 
 }

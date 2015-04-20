@@ -8,7 +8,7 @@ $().ready(function() {
 $externallines = $digium_phones->get_externallines();
 
 if (isset($_GET['externalline']) and !isset($_GET['deleteexternalline_submit'])) {
-	$editexternalline = $_GET['externalline'];
+	$editexternalline = htmlspecialchars($_GET['externalline']);
 }
 
 if ($editexternalline != null) {

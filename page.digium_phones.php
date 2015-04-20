@@ -58,7 +58,7 @@ if (isset($_POST['general_submit'])) {
 			continue;
 		}
 
-		$gen[$k] = $_POST[$k];
+		$gen[$k] = htmlspecialchars($_POST[$k]);
 	}
 
 	$digium_phones->update_general($gen);
@@ -482,7 +482,7 @@ if (isset($_POST['general_submit'])) {
 	$digium_phones->edit_logos($logo);
 	$digium_phones->read_logos();
 } else if (isset($_GET['deletepng'])) {
-	$digium_phones->delete_logo($_GET['deletepng']);
+	$digium_phones->delete_logo(digium_phones_sanitize_filepath($_GET['deletepng']));
 	$digium_phones->read_logos();
 } else if (isset($_POST['ringtoneAddSubmit'])) {
         $ringtone = array();
@@ -497,7 +497,7 @@ if (isset($_POST['general_submit'])) {
         $digium_phones->edit_ringtone($ringtone);
         $digium_phones->read_ringtones();
 } else if (isset($_POST['ringtoneDelSubmit'])) {
-        $digium_phones->delete_ringtone($_POST['hiddenIdDel']);
+        $digium_phones->delete_ringtone(digium_phones_sanitize_filepath($_POST['hiddenIdDel']));
         $digium_phones->read_ringtones();
 } else if (isset($_POST['editexternalline_submit'])) {
 	$externallineid = $_POST['externalline'];
@@ -664,15 +664,15 @@ if (isset($_GET['user_image'])) {
 	download_file($png_file);
 } else if (isset($_POST['uploadfirmware_submit'])) {
 	$allowed_exts = array('tar', 'gz', 'tgz');
-	$original_filename = $_FILES['upload_firmware_location']['name'];
+	$original_filename = digium_phones_sanitize_filepath($_FILES['upload_firmware_location']['name']);
 	$http_path = digium_phones_get_http_path();
-	$archive  = $http_path . $original_filename;
-	$temp_file = $_FILES['upload_firmware_location']['tmp_name'];
+	$archive  = digium_phones_sanitize_filepath($http_path . $original_filename);
+	$temp_file = digium_phones_sanitize_filepath($_FILES['upload_firmware_location']['tmp_name']);
 	$ext = end(explode('.', $original_filename));
 	if ($_FILES["upload_firmware_location"]["error"] > 0) {
-		echo "Error uploading file: " . $_FILES["upload_firmware_location"]["error"];
+		echo "Error uploading file: " . htmlspecialchars($_FILES["upload_firmware_location"]["error"]);
 	} else if (!in_array($ext, $allowed_exts)) {
-		echo 'Error uploading file: '.$ext.' is not a valid extension.';
+		echo 'Error uploading file: '.htmlspecialchars($ext).' is not a valid extension.';
 	} else if (!move_uploaded_file($temp_file, $archive)) {
 		echo 'Error moving uploaded file to '.$archive;
 	} else {

@@ -31,7 +31,7 @@ $editdev = null;
 
 if (isset($_GET['device'])) {
 	if (!isset($_GET['deletedevice_submit']) && !isset($_GET['reconfiguredevice_submit'])) {
-		$editdev = $_GET['device'];
+		$editdev = htmlspecialchars($_GET['device']);
 	}
 }
 

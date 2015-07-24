@@ -62,7 +62,7 @@ foreach ($phonebooks as $phonebookid=>$phonebook) {
 		continue;
 	}
 	if ($editpb == $phonebookid) {
-		foreach ($phonebook['entries'] as $entryid=>$entry) {
+		if (!empty($phonebook['entries'])) foreach ($phonebook['entries'] as $entryid=>$entry) {
 			if ($editentry != null && $editentry == $entryid) {
 ?>
 				$('#extension').val('<?php echo $entry['extension']?>');
@@ -197,7 +197,7 @@ foreach ($phonebooks as $phonebookid=>$phonebook) {
 			continue;
 		}
 
-		foreach ($phonebook['entries'] as $entryid=>$entry) {
+		if (!empty($phonebook['entries'])) foreach ($phonebook['entries'] as $entryid=>$entry) {
 ?>
 	<tr>
 	<td valign="top" style="width: 200px; border-style:inset; border-width: 1px; ">

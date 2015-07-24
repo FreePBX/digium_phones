@@ -117,7 +117,7 @@ if (isset($_POST['general_submit'])) {
 		$device['settings'][$setting] = $_POST[$setting];
 	}
 
-	foreach ($_POST['lines'] as $exten) {
+	if (!empty($_POST['lines'])) foreach ($_POST['lines'] as $exten) {
 		$line = array();
 		if (substr($exten, 0, 9) == "external:") {
 			$exten = substr($exten, 9);
@@ -144,7 +144,7 @@ if (isset($_POST['general_submit'])) {
 		}
 	}
 
-	foreach ($_POST['devicephonebooks'] as $phonebookid) {
+	if (!empty($_POST['devicephonebooks'])) foreach ($_POST['devicephonebooks'] as $phonebookid) {
 		$phonebook = array();
 		$phonebook['phonebookid'] = $phonebookid;
 		foreach ($olddevice['phonebooks'] as $p) {
@@ -156,7 +156,7 @@ if (isset($_POST['general_submit'])) {
 		$device['phonebooks'][] = $phonebook;
 	}
 
-	foreach ($_POST['devicenetworks'] as $networkid) {
+	if (!empty($_POST['devicenetworks'])) foreach ($_POST['devicenetworks'] as $networkid) {
 		$network = array();
 		$network['networkid'] = $networkid;
 		foreach ($olddevice['networks'] as $n) {
@@ -168,7 +168,7 @@ if (isset($_POST['general_submit'])) {
 		$device['networks'][] = $network;
 	}
 
-	foreach ($_POST['devicelogos'] as $logoid) {
+	if (!empty($_POST['devicelogos'])) foreach ($_POST['devicelogos'] as $logoid) {
 		$logo = array();
 		$logo['logoid'] = $logoid;
 		foreach ($olddevice['logos'] as $l) {
@@ -180,7 +180,7 @@ if (isset($_POST['general_submit'])) {
 		$device['logos'][] = $logo;
 	}
 
-	foreach ($_POST['devicealerts'] as $alertid) {
+	if (!empty($_POST['devicealerts'])) foreach ($_POST['devicealerts'] as $alertid) {
 		$alert = array();
 		$alert['alertid'] = $alertid;
 		foreach ($olddevice['alerts'] as $a) {
@@ -192,7 +192,7 @@ if (isset($_POST['general_submit'])) {
 		$device['alerts'][] = $alert;
 	}
 
-	foreach ($_POST['deviceringtones'] as $ringtoneid) {
+	if (!empty($_POST['deviceringtones'])) foreach ($_POST['deviceringtones'] as $ringtoneid) {
 		$ringtone = array();
 		$ringtone['ringtoneid'] = $ringtoneid;
 		foreach ($olddevice['ringtones'] as $a) {
@@ -204,7 +204,7 @@ if (isset($_POST['general_submit'])) {
 		$device['ringtones'][] = $ringtone;
 	}
 
-	foreach ($_POST['devicestatuses'] as $statusid) {
+	if (!empty($_POST['devicestatuses'])) foreach ($_POST['devicestatuses'] as $statusid) {
 		$status = array();
 		$status['statusid'] = $statusid;
 		foreach ($olddevice['statuses'] as $s) {
@@ -216,7 +216,7 @@ if (isset($_POST['general_submit'])) {
 		$device['statuses'][] = $status;
 	}
 
-	foreach ($_POST['devicecustomapps'] as $customappid) {
+	if (!empty($_POST['devicecustomapps'])) foreach ($_POST['devicecustomapps'] as $customappid) {
 		$customapp = array();
 		$customapp['customappid'] = $customappid;
 		foreach ($olddevice['customapps'] as $c) {
@@ -378,7 +378,7 @@ if (isset($_POST['general_submit'])) {
 	$queue = array();
 	$queue['id'] = $queueid;
 
-	foreach ($_POST['managers'] as $manager) {
+	if (!empty($_POST['managers'])) foreach ($_POST['managers'] as $manager) {
 		$entry = array();
 		$entry['deviceid'] = $manager;
 		$entry['permission'] = "details";
@@ -386,7 +386,7 @@ if (isset($_POST['general_submit'])) {
 		$queue['entries'][] = $entry;
 	}
 
-	foreach ($_POST['permissions'] as $deviceid=>$perm) {
+	if (!empty($_POST['permissions'])) foreach ($_POST['permissions'] as $deviceid=>$perm) {
 		if ($perm == "none") {
 			// There's no need to write this out.
 			continue;
@@ -411,7 +411,7 @@ if (isset($_POST['general_submit'])) {
 
 	$status['entries'] = array();
 
-	foreach ($_POST['entries'] as $entry) {
+	if (!empty($_POST['entries'])) foreach ($_POST['entries'] as $entry) {
 		$status['entries'][] = $entry;
 	}
 
@@ -447,7 +447,7 @@ if (isset($_POST['general_submit'])) {
 		$customapp['settings'][$setting] = $_POST[$setting];
 	}
 
-	foreach ($_POST['entries'] as $entry) {
+	if (!empty($_POST['entries'])) foreach ($_POST['entries'] as $entry) {
 		$kv = preg_split('/=/', $entry);
 
 		if (in_array($kv[0], $settings)) {

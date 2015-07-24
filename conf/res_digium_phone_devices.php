@@ -35,6 +35,8 @@ function res_digium_phone_devices($conf) {
 	$firmware_manager = $conf->digium_phones->get_firmware_manager();
 	$default_locale = $conf->digium_phones->get_general('active_locale');
 	$output = array();
+	$doutput = array();
+	$loutput = array();
 
 	foreach ($conf->digium_phones->get_devices() as $deviceid=>$device) {
 		$doutput[] = "[{$deviceid}]";
@@ -79,7 +81,7 @@ function res_digium_phone_devices($conf) {
 		}
 		$doutput[] = "application={$vm_app}";
 
-		foreach ($device['settings'] as $key=>$val) {
+		if (!empty($device['settings'])) foreach ($device['settings'] as $key=>$val) {
 			if ($key == 'rapiddial') {
 				if ($val == '') {
 					continue;
@@ -125,7 +127,7 @@ function res_digium_phone_devices($conf) {
 		}
 
 		$doutput[] = "use_local_storage=yes";
-		foreach ($device['phonebooks'] as $phonebook) {
+		if (!empty($device['phonebooks'])) foreach ($device['phonebooks'] as $phonebook) {
 			if ($phonebook['phonebookid'] == $device['settings']['rapiddial']) {
 				continue;
 			}
@@ -136,16 +138,16 @@ function res_digium_phone_devices($conf) {
 			}
 		}
 
-		foreach ($device['networks'] as $network) {
+		if (!empty($device['networks'])) foreach ($device['networks'] as $network) {
 			$doutput[] = "network=network-{$network['networkid']}";
 		}
 
-		foreach ($device['logos'] as $dl) {
+		if (!empty($device['logos'])) foreach ($device['logos'] as $dl) {
 			$logo = $conf->digium_phones->get_logo($dl['logoid']);
 
 			$doutput[] = "{$logo['model']}_logo_file=user_image_{$logo['id']}.png";
 		}
-		foreach ($device['alerts'] as $alert) {
+		if (!empty($device['alerts'])) foreach ($device['alerts'] as $alert) {
 			$doutput[] = "alert=alert-{$alert['alertid']}";
 			$alerts = $conf->digium_phones->get_alerts();
 			$ringtone_id = $alerts[$alert['alertid']]['ringtone_id'];
@@ -153,7 +155,7 @@ function res_digium_phone_devices($conf) {
 				$ringtones[$alerts[$alert['alertid']]['ringtone_id']] = true;
 			}
 		}
-		foreach ($device['ringtones'] as $ringtone) {
+		if (!empty($device['ringtones'])) foreach ($device['ringtones'] as $ringtone) {
 			$ringtones[$ringtone['ringtoneid']] = true;
 		}
 		foreach ($ringtones as $id => $istrue) {
@@ -165,7 +167,7 @@ function res_digium_phone_devices($conf) {
 			$doutput[] = "blf_contact_group=internal-{$device['id']}";
 		}
 */
-		foreach ($device['lines'] as $lineid=>$line) {
+		if (!empty($device['lines'])) foreach ($device['lines'] as $lineid=>$line) {
 			$doutput[] = "line={$line['extension']}";
 			$loutput[] = "[{$line['extension']}]";
 			$loutput[] = "type=line";
@@ -183,7 +185,7 @@ function res_digium_phone_devices($conf) {
 			$loutput[] = "";
 		}
 
-		foreach ($device['externallines'] as $externalline) {
+		if (!empty($device['externallines'])) foreach ($device['externallines'] as $externalline) {
 			$doutput[] = "external_line=externalline-{$externalline['externallineid']}";
 		}
 
@@ -200,12 +202,12 @@ function res_digium_phone_devices($conf) {
 				$doutput[] = "application=status-{$type}";
 			}
 		} else {
-			foreach ($device['statuses'] as $status) {
+			if (!empty($device['statuses'])) foreach ($device['statuses'] as $status) {
 				$doutput[] = "application=status-{$status['statusid']}";
 			}
 		}
 
-		foreach ($device['customapps'] as $customapp) {
+		if (!empty($device['customapps'])) foreach ($device['customapps'] as $customapp) {
 			$doutput[] = "application=customapp-{$customapp['customappid']}";
 		}
 

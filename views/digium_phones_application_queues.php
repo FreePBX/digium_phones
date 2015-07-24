@@ -180,7 +180,7 @@ foreach ($queues as $queueid=>$queue) {
 	echo '<ul id="managersS" class="devices ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
 
 	
-	foreach( $queues[$editqueue]['entries'] as $id=>$details){
+	if (!empty($queues[$editqueue]['entries'])) foreach( $queues[$editqueue]['entries'] as $id=>$details){
 		if($details['permission'] == 'details'){echo '<li id="' . $id . '">' . $devices[$id]['name'] . '</li>';}
 	}
 

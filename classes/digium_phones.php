@@ -99,8 +99,11 @@ class digium_phones {
 	}
 
 	public function cache_core_devices_list() {
-		foreach(core_devices_list('all', 'full') as $device) {
-			$this->core_devices[$device['id']] = $device;
+		$devices = core_devices_list('all', 'full');
+		if (!empty($devices) && is_array($devices)) {
+			foreach($devices as $device) {
+				$this->core_devices[$device['id']] = $device;
+			}
 		}
 	}
 
@@ -917,7 +920,7 @@ class digium_phones {
 
 		// Device settings
 		$devicesettings = array();
-		foreach ($device['settings'] as $key=>$val) {
+		if (!empty($device['settings'])) foreach ($device['settings'] as $key=>$val) {
 			if ($val != '') {
 				$devicesettings[] = '\''.$db->escapeSimple($deviceid).'\',\''.$db->escapeSimple($key).'\',\''.$db->escapeSimple($val).'\'';
 			}
@@ -936,7 +939,7 @@ class digium_phones {
 
 		// Lines
 		$lines = array();
-		foreach ($device['lines'] as $lineid=>$line) {
+		if (!empty($device['lines'])) foreach ($device['lines'] as $lineid=>$line) {
 			$lines[] = '\''.$db->escapeSimple($lineid).'\',\''.$db->escapeSimple($deviceid).'\',\''.$db->escapeSimple($line['extension']).'\'';
 		}
 
@@ -953,7 +956,7 @@ class digium_phones {
 
 		// Device phonebooks
 		$phonebooks = array();
-		foreach ($device['phonebooks'] as $phonebookentryid=>$phonebook) {
+		if (!empty($device['phonebooks'])) foreach ($device['phonebooks'] as $phonebookentryid=>$phonebook) {
 			$phonebooks[] = '\''.$db->escapeSimple($phonebookentryid).'\',\''.$db->escapeSimple($deviceid).'\',\''.$db->escapeSimple($phonebook['phonebookid']).'\'';
 		}
 
@@ -970,7 +973,7 @@ class digium_phones {
 
 		// Device networks
 		$networks = array();
-		foreach ($device['networks'] as $networkentryid=>$network) {
+		if (!empty($device['networks'])) foreach ($device['networks'] as $networkentryid=>$network) {
 			$networks[] = '\''.$db->escapeSimple($networkentryid).'\',\''.$db->escapeSimple($deviceid).'\',\''.$db->escapeSimple($network['networkid']).'\'';
 		}
 
@@ -987,7 +990,7 @@ class digium_phones {
 
 		// Device external lines
 		$externallines = array();
-		foreach ($device['externallines'] as $externallineentryid=>$externalline) {
+		if (!empty($device['externallines'])) foreach ($device['externallines'] as $externallineentryid=>$externalline) {
 			$externallines[] = '\''.$db->escapeSimple($externallineentryid).'\',\''.$db->escapeSimple($deviceid).'\',\''.$db->escapeSimple($externalline['externallineid']).'\'';
 		}
 
@@ -1004,7 +1007,7 @@ class digium_phones {
 
 		// Device logos
 		$logos = array();
-		foreach ($device['logos'] as $logoentryid=>$logo) {
+		if (!empty($device['logos'])) foreach ($device['logos'] as $logoentryid=>$logo) {
 			$logos[] = '\''.$db->escapeSimple($logoentryid).'\',\''.$db->escapeSimple($deviceid).'\',\''.$db->escapeSimple($logo['logoid']).'\'';
 		}
 
@@ -1021,7 +1024,7 @@ class digium_phones {
 
 		// Device alerts
 		$alerts = array();
-		foreach ($device['alerts'] as $alertentryid=>$alert) {
+		if (!empty($device['alerts'])) foreach ($device['alerts'] as $alertentryid=>$alert) {
 			$alerts[] = '\''.$db->escapeSimple($alertentryid).'\',\''.$db->escapeSimple($deviceid).'\',\''.$db->escapeSimple($alert['alertid']).'\'';
 		}
 
@@ -1038,7 +1041,7 @@ class digium_phones {
 
 		// Device ringtones
 		$ringtones = array();
-		foreach ($device['ringtones'] as $ringtoneentryid=>$ringtone) {
+		if (!empty($device['ringtones'])) foreach ($device['ringtones'] as $ringtoneentryid=>$ringtone) {
 			$ringtones[] = '\''.$db->escapeSimple($ringtoneentryid).'\',\''.$db->escapeSimple($deviceid).'\',\''.$db->escapeSimple($ringtone['ringtoneid']).'\'';
 		}
 
@@ -1055,7 +1058,7 @@ class digium_phones {
 
 		// Device statuses
 		$statuses = array();
-		foreach ($device['statuses'] as $statusentryid=>$status) {
+		if (!empty($device['statuses'])) foreach ($device['statuses'] as $statusentryid=>$status) {
 			$statuses[] = '\''.$db->escapeSimple($statusentryid).'\',\''.$db->escapeSimple($deviceid).'\',\''.$db->escapeSimple($status['statusid']).'\'';
 		}
 
@@ -1072,7 +1075,7 @@ class digium_phones {
 
 		// Device customapps
 		$customapps = array();
-		foreach ($device['customapps'] as $customappentryid=>$customapp) {
+		if (!empty($device['customapps'])) foreach ($device['customapps'] as $customappentryid=>$customapp) {
 			$customapps[] = '\''.$db->escapeSimple($customappentryid).'\',\''.$db->escapeSimple($deviceid).'\',\''.$db->escapeSimple($customapp['customappid']).'\'';
 		}
 
@@ -1278,7 +1281,7 @@ class digium_phones {
 		$entries = array();
 		$settings = array();
 		$newid = 0;
-		foreach ($phonebook['entries'] as $entryid=>$entry) {
+		if (!empty($phonebook['entries'])) foreach ($phonebook['entries'] as $entryid=>$entry) {
 			if ($entry == null) {
 				continue;
 			}

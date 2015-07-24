@@ -174,7 +174,7 @@ class digium_phones_firmware_package {
 			return false;
 		}
 		unset($result);
-		rmdir($this->file_path);
+		@rmdir($this->file_path);
 		$this->file_path = $value;
 		needreload();
 		return true;

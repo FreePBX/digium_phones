@@ -384,7 +384,7 @@ class digium_phones_conf {
 			$files[] = 'digium_phones/contacts-internal-' . $device['id'] . '.xml';
 		}
 
-		mkdir("{$amp_conf['ASTETCDIR']}/digium_phones/", 0755);
+		@mkdir("{$amp_conf['ASTETCDIR']}/digium_phones/", 0755);
 		foreach (glob("{$amp_conf['ASTETCDIR']}/digium_phones/contacts-internal-*.xml") as $file) {
 			unlink($file);
 		}

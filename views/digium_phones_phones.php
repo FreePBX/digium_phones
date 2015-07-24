@@ -64,7 +64,7 @@ if ($editdev == 0) {
 }
 
 
-foreach ($devices as $deviceid=>$device) {
+if (!empty($devices)) foreach ($devices as $deviceid=>$device) {
 	if ($editdev == $deviceid) {
 		if (isset($device['settings']['active_locale']) === FALSE) {
 			$general_locale = $digium_phones->get_general('active_locale');
@@ -72,7 +72,7 @@ foreach ($devices as $deviceid=>$device) {
 				$device['settings']['active_locale'] = $general_locale;
 			}
 		}
-		foreach ($device['settings'] as $key=>$val) {
+		if (!empty($device['settings'])) foreach ($device['settings'] as $key=>$val) {
 ?>
 			if ($('#<?php echo $key?>') != null) {
 				$('#<?php echo $key?>').val('<?php echo $val?>');
@@ -86,7 +86,7 @@ foreach ($devices as $deviceid=>$device) {
 <?php
 		}
 	}
-	foreach ($device["lines"] as $line) {
+	if (!empty($device['lines'])) foreach ($device["lines"] as $line) {
 		if ($editdev == $deviceid) {
 ?>
 			addEntry("<?php echo $line['extension']?>");
@@ -97,7 +97,7 @@ foreach ($devices as $deviceid=>$device) {
 <?php
 		}
 	}
-	foreach ($device["externallines"] as $externalline) {
+	if (!empty($device['externallines'])) foreach ($device["externallines"] as $externalline) {
 		if ($editdev == $deviceid) {
 ?>
 			addEntry("external:<?php echo $externalline['externallineid']?>");
@@ -105,7 +105,7 @@ foreach ($devices as $deviceid=>$device) {
 		}
 	}
 
-	foreach ($device["phonebooks"] as $phonebook) {
+	if (!empty($device['phonebooks'])) foreach ($device["phonebooks"] as $phonebook) {
 		if ($editdev == $deviceid) {
 ?>
 			addPhonebook("<?php echo $phonebook['phonebookid']?>");
@@ -113,7 +113,7 @@ foreach ($devices as $deviceid=>$device) {
 		}
 	}
 
-	foreach ($device["networks"] as $network) {
+	if (!empty($device['networks'])) foreach ($device["networks"] as $network) {
 		if ($editdev == $deviceid) {
 ?>
 			addNetwork("<?php echo $network['networkid']?>");
@@ -121,7 +121,7 @@ foreach ($devices as $deviceid=>$device) {
 		}
 	}
 
-	foreach ($device["logos"] as $logo) {
+	if (!empty($device['logos'])) foreach ($device["logos"] as $logo) {
 		if ($editdev == $deviceid) {
 ?>
 			addLogo("<?php echo $logo['logoid']?>");
@@ -129,14 +129,14 @@ foreach ($devices as $deviceid=>$device) {
 		}
 	}
 
-	foreach ($device["alerts"] as $alert) {
+	if (!empty($device['alerts'])) foreach ($device["alerts"] as $alert) {
 		if ($editdev == $deviceid) {
 ?>
 			addAlert("<?php echo $alert['alertid']?>");
 <?php
 		}
 	}
-	foreach ($device["ringtones"] as $ringtone) {
+	if (!empty($device['ringtones'])) foreach ($device["ringtones"] as $ringtone) {
 		if ($editdev == $deviceid) {
 ?>
 			addAlert("<?php echo $ringtone['ringtoneid']?>");
@@ -144,7 +144,7 @@ foreach ($devices as $deviceid=>$device) {
 		}
 	}
 
-	foreach ($device["statuses"] as $status) {
+	if (!empty($device['statuses'])) foreach ($device["statuses"] as $status) {
 		if ($editdev == $deviceid) {
 ?>
 			addStatus("<?php echo $status['statusid']?>");
@@ -152,7 +152,7 @@ foreach ($devices as $deviceid=>$device) {
 		}
 	}
 
-	foreach ($device["customapps"] as $customapp) {
+	if (!empty($device['customapps'])) foreach ($device["customapps"] as $customapp) {
 		if ($editdev == $deviceid) {
 ?>
 			addCustomApp("<?php echo $customapp['customappid']?>");
@@ -452,7 +452,7 @@ if ($response && array_key_exists('data', $response)) {
 	$sessions = preg_split('/\n/', $response['data']);
 }
 
-foreach ($devices as $deviceid=>$device) {
+if (!empty($devices)) foreach ($devices as $deviceid=>$device) {
 ?>
 <tr>
 	<td style="border-style:inset; border-width: 1px; ">
@@ -463,7 +463,7 @@ foreach ($devices as $deviceid=>$device) {
 <?php
 	$first_internal_line = null;
 	$linecount=0;
-	foreach ($device['lines'] as $line) {
+	if (!empty($device['lines'])) foreach ($device['lines'] as $line) {
 		$linecount++;
 ?>
 		<tr>
@@ -490,7 +490,7 @@ foreach ($devices as $deviceid=>$device) {
 <?php
 	}
 
-	foreach ($device['externallines'] as $externalline) {
+	if (!empty($device['externallines'])) foreach ($device['externallines'] as $externalline) {
 		$el = $digium_phones->get_externalline($externalline['externallineid']);
 
 		if ($el == null) {
@@ -649,10 +649,10 @@ echo $table->generate();
 $table->clear();
 
 $devices = $digium_phones->get_device($editdev);
-foreach( $devices['lines'] as $device){
+if (!empty($devices['lines'])) foreach( $devices['lines'] as $device){
 	$used[$device['extension']] = $device['extension'];
 }
-foreach( $devices['externallines'] as $device){
+if (!empty($devices['externallines'])) foreach( $devices['externallines'] as $device){
 	$usedE[$device['externallineid']] = $device['externallineid'];
 }
 
@@ -680,7 +680,7 @@ echo '<div class="dragdrop">';
 echo fpbx_label('Assigned Extensions', 'Displays a listing of extensions, ordered by Line number, beginning with the first line, assigned to the phone.');
 echo '<ul id="lines" class="ext ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
 echo 'Internal';
-foreach( $devices['lines'] as $device){
+if (!empty($devices['lines'])) foreach( $devices['lines'] as $device){
 	echo '<li id="lines_' . $device['extension'] . '">' . $device['extension'] . '</li>';
 }
 
@@ -688,7 +688,7 @@ echo '<br />External';
 
 $externals = $digium_phones->get_externallines();
 
-foreach($devices['externallines'] as $external){
+if (!empty($devices['externallines'])) foreach($devices['externallines'] as $external){
 	foreach($externals as $vals){
 		if($vals['id'] == $external['externallineid']){$name = $vals['name'];}
 	}
@@ -701,7 +701,7 @@ echo '<div style="clear:both;" />';
 
 //phonebooks
 $phonebooks = $digium_phones->get_phonebooks();
-foreach($devices['phonebooks'] as $pb){
+if (!empty($devices['phonebooks'])) foreach($devices['phonebooks'] as $pb){
 	$phonebooksSelected[$pb['phonebookid']] = $pb['phonebookid'];
 }
 echo '<div class="dragdropFrame">';
@@ -757,7 +757,7 @@ $table->clear();
 foreach ($digium_phones->get_networks() as $network) {
 	$networks[$network['id']] = $network['name'];
 }
-foreach($devices['networks'] as $net){
+if (!empty($devices['networks'])) foreach($devices['networks'] as $net){
 	$networksSelected[$net['networkid']] = $net['networkid'];
 }
 echo '<div class="dragdropFrame">';
@@ -774,7 +774,7 @@ echo '</div>';
 echo '<div class="dragdrop">';
 echo fpbx_label('Assigned Networks', 'Displays a listing of networks currently assigned to a phone. By default, a Default Network is assigned to the phone.');
 echo '<ul id="devicenetworks" class="networks ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
-foreach( $networksSelected as $net){
+if ($networksSelected) foreach( $networksSelected as $net){
 	echo '<li id="devicenetworks_' . $net . '">' . $networks[$net] . '</li>';
 }
 echo '</ul>';
@@ -795,7 +795,7 @@ echo '<div class="dragdropFrame">';
 echo '<div class="dragdrop">';
 echo fpbx_label('Available Logos', 'Displays a listing of logos that may be assigned to the phone. More than one logo may be assigned to a phone.');
 echo '<ul id="availableLogos" class="logos ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
-foreach ($logos as $id=>$logo){
+if ($logos) foreach ($logos as $id=>$logo){
 	if(empty($logosSelected[$id])){
 		echo '<li id="devicelogos_' . $id . '">' . $logo . '</li>';
 	}
@@ -828,7 +828,7 @@ echo '<div class="dragdropFrame">';
 echo '<div class="dragdrop">';
 echo fpbx_label('Available Alerts', 'Displays a listing of alerts that may be assigned to the phone. More than one alert may be assigned to a phone.');
 echo '<ul id="availableAlerts" class="alerts ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
-foreach ($alerts as $id=>$name){
+if ($alerts) foreach ($alerts as $id=>$name){
 	if(empty($alertsSelected[$id])){
 		echo '<li id="devicealerts_' . $id . '">' . $name . '</li>';
 	}
@@ -863,7 +863,7 @@ echo '<div class="dragdropFrame">';
 echo '<div class="dragdrop">';
 echo fpbx_label('Available Ringtones', 'Displays a listing of ringtones that may be assigned to the phone. More than one ringtone may be assigned to a phone.');
 echo '<ul id="availableringtones" class="ringtones ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
-foreach ($ringtones as $id=>$name){
+if ($ringtones) foreach ($ringtones as $id=>$name){
 	if(empty($ringtonesSelected[$id])){
 		echo '<li id="deviceringtones_' . $id . '">' . $name . '</li>';
 	}
@@ -922,7 +922,7 @@ if (!function_exists('presencestate_list_get')) {
 foreach ($digium_phones->get_customapps() as $data) {
 	$customapps[$data['id']] = $data['name'];
 }
-foreach($devices['customapps'] as $data){
+if (!empty($devices['customapps'])) foreach($devices['customapps'] as $data){
 	$customappsSelected[$data['customappid']] = $data['customappid'];
 }
 echo '<div class="dragdropFrame">';
@@ -1171,5 +1171,17 @@ $table->clear();
 	<input type="button" value="Cancel" onclick="location.href='config.php?type=setup&display=digium_phones&digium_phones_form=phones_edit'"/>
 	<input type="hidden" name="editdevice_submit" value="Save"/>
 	<input type="submit" name="editdevice_submit" value="Save"/>
+
+<!-- This is a very long page - add several extra blank lines to insure buttons aren't hidden under logos -->
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
 </div>
 </form>

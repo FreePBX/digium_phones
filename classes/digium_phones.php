@@ -99,8 +99,11 @@ class digium_phones {
 	}
 
 	public function cache_core_devices_list() {
-		foreach(core_devices_list('all', 'full') as $device) {
-			$this->core_devices[$device['id']] = $device;
+		$devices = core_devices_list('all', 'full');
+		if (!empty($devices) && is_array($devices)) {
+			foreach($devices as $device) {
+				$this->core_devices[$device['id']] = $device;
+			}
 		}
 	}
 

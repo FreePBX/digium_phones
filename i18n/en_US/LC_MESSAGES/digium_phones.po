@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-20 19:44-0400\n"
+"POT-Creation-Date: 2015-07-28 14:48-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,20 +26,8 @@ msgstr ""
 msgid "Checksum error retrieving %s"
 msgstr ""
 
-#: digium_phones.i18n.php:6 digium_phones.i18n.php:10
-msgid "Connectivity"
-msgstr ""
-
 #: functions.inc.php:211
 msgid "Digit Map"
-msgstr ""
-
-#: digium_phones.i18n.php:8
-msgid "Digium Phones"
-msgstr ""
-
-#: digium_phones.i18n.php:4
-msgid "Digium Phones Config"
 msgstr ""
 
 #: functions.inc.php:197

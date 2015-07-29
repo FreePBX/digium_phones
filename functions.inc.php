@@ -127,7 +127,7 @@ function digium_phones_configpageinit($pagename) {
 	global $amp_conf;
 	global $astman;
 
-	if (!isset($astman)) { // Called in a 'reload', astman explicitly undefined.
+	if ($astman->connected()) { // Called in a 'reload', astman explicitly undefined.
 		return;
 	}
 
@@ -311,6 +311,10 @@ class digium_phones_conf {
 	public function get_filename() {
 		global $amp_conf;
 		global $astman;
+
+		if (!$astman->connected()) { // Called in a 'reload', astman explicitly undefined.
+			return array();
+		}
 
 		$dpmalicensestatus = $astman->send_request('DPMALicenseStatus');
 		if (empty($dpmalicensestatus['Response']) || $dpmalicensestatus['Response'] != "Success") {

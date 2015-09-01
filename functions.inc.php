@@ -127,7 +127,7 @@ function digium_phones_configpageinit($pagename) {
 	global $amp_conf;
 	global $astman;
 
-	if ($astman->connected()) { // Called in a 'reload', astman explicitly undefined.
+	if (!is_object($astman) || $astman->connected()) { // Called in a 'reload', astman explicitly undefined.
 		return;
 	}
 
@@ -312,7 +312,7 @@ class digium_phones_conf {
 		global $amp_conf;
 		global $astman;
 
-		if (!$astman->connected()) { // Called in a 'reload', astman explicitly undefined.
+		if (!is_object($astman) || !$astman->connected()) { // Called in a 'reload', astman explicitly undefined.
 			return array();
 		}
 

@@ -246,7 +246,7 @@ class digium_phones_firmware_manager {
 	 * This replaces get_new_firmware_info()
 	 * @return contents of dpma-firmware.json as nested array
 	 */
-	public function get_firmware_version_info() {
+	public function get_firmware_version_info($dpma_version) {
 		$url = "http://downloads.digium.com/pub/telephony/res_digium_phone/firmware/dpma-firmware.json";
 		$request = file_get_contents($url);
 		$json = json_decode($request, true);
@@ -254,6 +254,21 @@ class digium_phones_firmware_manager {
 		if (empty($json['versions'])) {
 			$json['versions'] = null;
 			return $json;
+		}
+
+		$dpma_version=explode('.', $dpma_version);
+		$is_22_or_later = False;
+		if ($dpma_version[0] > 2) {
+			$is_22_or_later = True;
+		} else if ($dpma_version[0] == 2 && $dpma_version[1] >= 2) {
+			$is_22_or_later = True;
+		}
+
+		if ($is_22_or_later && !empty($json['versions2'])) {
+			/* include 2.0 fw versions for 2.2 or later dpma */
+			foreach (array_reverse($json['versions2']) as $version) {
+				array_unshift($json['versions'], $version);
+			}
 		}
 
 		foreach ($json['versions'] as $index => $version) {

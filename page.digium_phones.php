@@ -686,7 +686,7 @@ if (isset($_GET['user_image'])) {
 	echo '<p><a href="config.php?type=setup&display=digium_phones&digium_phones_form=firmware_edit">Return</a></p>';
 } else if (isset($_GET['update_firmware'])) {
 	$firmware_manager = $digium_phones->get_firmware_manager();
-	$version_info = $firmware_manager->get_firmware_version_info();
+	$version_info = $firmware_manager->get_firmware_version_info($digium_phones->get_dpma_version());
 	$versions = $version_info['versions'];
 
 	if ($versions === null) {

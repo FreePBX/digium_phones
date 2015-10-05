@@ -122,7 +122,7 @@ if (isset($_POST['general_submit'])) {
 		if (substr($exten, 0, 9) == "external:") {
 			$exten = substr($exten, 9);
 			$line['externallineid'] = $exten;
-			foreach ($olddevice['externallines'] as $l) {
+			if (!empty($olddevice['externallines'])) foreach ($olddevice['externallines'] as $l) {
 				if ($l['externallineid'] == $exten) {
 					$line = $l;
 					break;
@@ -133,7 +133,7 @@ if (isset($_POST['general_submit'])) {
 		} else {
 			$line['extension'] = $exten;
 			$line['settings'] = array();
-			foreach ($olddevice['lines'] as $l) {
+			if (!empty($olddevice['lines'])) foreach ($olddevice['lines'] as $l) {
 				if ($l['extension'] == $exten) {
 					$line = $l;
 					break;
@@ -147,7 +147,7 @@ if (isset($_POST['general_submit'])) {
 	if (!empty($_POST['devicephonebooks'])) foreach ($_POST['devicephonebooks'] as $phonebookid) {
 		$phonebook = array();
 		$phonebook['phonebookid'] = $phonebookid;
-		foreach ($olddevice['phonebooks'] as $p) {
+		if (!empty($olddevice['phonebooks'])) foreach ($olddevice['phonebooks'] as $p) {
 			if ($p['phonebookid'] == $phonebookid) {
 				$phonebook = $p;
 				break;
@@ -159,7 +159,7 @@ if (isset($_POST['general_submit'])) {
 	if (!empty($_POST['devicenetworks'])) foreach ($_POST['devicenetworks'] as $networkid) {
 		$network = array();
 		$network['networkid'] = $networkid;
-		foreach ($olddevice['networks'] as $n) {
+		if (!empty($olddevice['networks'])) foreach ($olddevice['networks'] as $n) {
 			if ($n['networkid'] == $networkid) {
 				$network = $n;
 				break;
@@ -171,7 +171,7 @@ if (isset($_POST['general_submit'])) {
 	if (!empty($_POST['devicelogos'])) foreach ($_POST['devicelogos'] as $logoid) {
 		$logo = array();
 		$logo['logoid'] = $logoid;
-		foreach ($olddevice['logos'] as $l) {
+		if (!empty($olddevice['logos'])) foreach ($olddevice['logos'] as $l) {
 			if ($l['logoid'] == $logoid) {
 				$logo = $l;
 				break;
@@ -183,7 +183,7 @@ if (isset($_POST['general_submit'])) {
 	if (!empty($_POST['devicealerts'])) foreach ($_POST['devicealerts'] as $alertid) {
 		$alert = array();
 		$alert['alertid'] = $alertid;
-		foreach ($olddevice['alerts'] as $a) {
+		if (!empty($olddevice['alerts'])) foreach ($olddevice['alerts'] as $a) {
 			if ($a['alertid'] == $alertid) {
 				$alert = $a;
 				break;
@@ -195,7 +195,7 @@ if (isset($_POST['general_submit'])) {
 	if (!empty($_POST['deviceringtones'])) foreach ($_POST['deviceringtones'] as $ringtoneid) {
 		$ringtone = array();
 		$ringtone['ringtoneid'] = $ringtoneid;
-		foreach ($olddevice['ringtones'] as $a) {
+		if (!empty($olddevice['ringtones'])) foreach ($olddevice['ringtones'] as $a) {
 			if ($a['ringtoneid'] == $ringtoneid) {
 				$ringtone = $a;
 				break;
@@ -207,7 +207,7 @@ if (isset($_POST['general_submit'])) {
 	if (!empty($_POST['devicestatuses'])) foreach ($_POST['devicestatuses'] as $statusid) {
 		$status = array();
 		$status['statusid'] = $statusid;
-		foreach ($olddevice['statuses'] as $s) {
+		if (!empty($olddevice['statuses'])) foreach ($olddevice['statuses'] as $s) {
 			if ($s['statusid'] == $statusid) {
 				$status = $s;
 				break;
@@ -219,7 +219,7 @@ if (isset($_POST['general_submit'])) {
 	if (!empty($_POST['devicecustomapps'])) foreach ($_POST['devicecustomapps'] as $customappid) {
 		$customapp = array();
 		$customapp['customappid'] = $customappid;
-		foreach ($olddevice['customapps'] as $c) {
+		if (!empty($olddevice['customapps'])) foreach ($olddevice['customapps'] as $c) {
 			if ($c['customappid'] == $customappid) {
 				$customapp = $c;
 				break;

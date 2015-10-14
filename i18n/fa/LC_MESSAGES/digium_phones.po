@@ -10,218 +10,224 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-28 14:48-0700\n"
-"PO-Revision-Date: 2015-07-28 14:48-0700\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2015-10-14 12:55+0200\n"
+"Last-Translator: Media <mousavi.media@gmail.com>\n"
+"Language-Team: Persian "
+"<http://weblate.freepbx.org/projects/freepbx/digium_phones/fa/>\n"
+"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.2-dev\n"
 
 #: views/rnav.php:14
 msgid "Alerts"
-msgstr ""
+msgstr "هشدارها"
 
 #: page.digium_phones.php:651
 #, php-format
 msgid "Checksum error retrieving %s"
-msgstr ""
+msgstr "بازیابی خطا کنترلی %s"
 
 #: functions.inc.php:211
 msgid "Digit Map"
-msgstr ""
+msgstr "نقشه Digit"
 
 #: functions.inc.php:197
 msgid "Digium Phones Contacts Options"
-msgstr ""
+msgstr "گزینه های تماس تلفن های Digium"
 
 #: functions.inc.php:209
 msgid "Digium Phones Line Options"
-msgstr ""
+msgstr "گزینه های خط تلفن های Digium"
 
 #: functions.inc.php:206
 msgid "E-Mail Address"
-msgstr ""
+msgstr "آدرس ایمیل"
 
 #: page.digium_phones.php:618 page.digium_phones.php:622
 #, php-format
 msgid "Error opening %s for reading"
-msgstr ""
+msgstr "خطا در باز کردن و خواندن %s"
 
 #: page.digium_phones.php:626
 #, php-format
 msgid "Error opening %s for writing"
-msgstr ""
+msgstr "خطا در باز کردن و نوشتن %s"
 
 #: views/rnav.php:34
 msgid "External Lines"
-msgstr ""
+msgstr "خطوط خارجی"
 
 #: views/rnav.php:42
 msgid "Firmware"
-msgstr ""
+msgstr "فریمور"
 
 #: functions.inc.php:199
 msgid "First Name"
-msgstr ""
+msgstr "نام"
 
 #: views/rnav.php:38
 msgid "General Settings"
-msgstr ""
+msgstr "تنظیمات عمومی"
 
 #: functions.inc.php:204
 msgid "Job Title"
-msgstr ""
+msgstr "عنوان شغل"
 
 #: functions.inc.php:201
 msgid "Last Name"
-msgstr ""
+msgstr "نام خانوادگی"
 
 #: functions.inc.php:210
 msgid "Line Label"
-msgstr ""
+msgstr "خط برچسب"
 
 #: functions.inc.php:205
 msgid "Location"
-msgstr ""
+msgstr "مکان"
 
 #: views/rnav.php:26
 msgid "Logos"
-msgstr ""
+msgstr "لوگوها"
 
 #: functions.inc.php:200
 msgid "Middle Name"
-msgstr ""
+msgstr "نام میانی"
 
 #: views/rnav.php:30
 msgid "Networks"
-msgstr ""
+msgstr "شبکه ها"
 
 #: functions.inc.php:207
 msgid "Notes"
-msgstr ""
+msgstr "نکات"
 
 #: functions.inc.php:207
 msgid "Notes about the user, for use in Contacts application."
-msgstr ""
+msgstr "نکات درمورد کاربر, برای استفاده در برنامه های مخاطبین."
 
 #: functions.inc.php:203
 msgid "Organization"
-msgstr ""
+msgstr "سازمان"
 
 #: views/rnav.php:22
 msgid "Phone Applications"
-msgstr ""
+msgstr "برنامه های کاربردی تلفن"
 
 #: views/rnav.php:10
 msgid "Phonebooks"
-msgstr ""
+msgstr "دفترچه تلفن"
 
 #: views/rnav.php:5
 msgid "Phones"
-msgstr ""
+msgstr "تلفن ها"
 
 #: functions.inc.php:198
 msgid "Prefix"
-msgstr ""
+msgstr "پیشوند"
 
 #: functions.inc.php:217
 msgid "Re-registration TImeout"
-msgstr ""
+msgstr "اتمام مهلت ثبت نام مجدد"
 
 #: functions.inc.php:219
 msgid "Registration Max Retries"
-msgstr ""
+msgstr "بیشترین ثبت نام مجدد"
 
 #: functions.inc.php:218
 msgid "Registration Retry Interval"
-msgstr ""
+msgstr "فاصله بین تلاش برای ثبت نام"
 
 #: views/rnav.php:18
 msgid "Ringtones"
-msgstr ""
+msgstr "صدای زنگ"
 
 #: functions.inc.php:202
 msgid "Suffix"
-msgstr ""
+msgstr "پسوند"
 
 #: functions.inc.php:214
 msgid "TCP"
-msgstr ""
+msgstr "TCP"
 
 #: functions.inc.php:211
 msgid "The Digit Map for this extension."
-msgstr ""
+msgstr "نقشه Digit برای این داخلی."
 
 #: functions.inc.php:206
 msgid "The E-Mail Address for use in Contacts application."
-msgstr ""
+msgstr "آدرس ایمیل برای استفاده در برنامه تماس."
 
 #: functions.inc.php:199
 msgid "The First Name for use in Contacts application."
-msgstr ""
+msgstr "نام برای استفاده در تماس برنامه‌."
 
 #: functions.inc.php:204
 msgid "The Job Title for use in Contacts application."
-msgstr ""
+msgstr "شغل برای استفاده در تماس برنامه‌."
 
 #: functions.inc.php:201
 msgid "The Last Name for use in Contacts application."
-msgstr ""
+msgstr "نام خانوادگی برای استفاده در تماس برنامه‌."
 
 #: functions.inc.php:210
 msgid "The Line Label for this extension."
-msgstr ""
+msgstr "خط برچسب برای این داخلی."
 
 #: functions.inc.php:205
 msgid "The Location for use in Contacts application."
-msgstr ""
+msgstr "مکان برای استفاده در تماس برنامه‌."
 
 #: functions.inc.php:200
 msgid "The Middle Name for use in Contacts application."
-msgstr ""
+msgstr "نام میانی برای استفاده در تماس برنامه‌."
 
 #: functions.inc.php:203
 msgid "The Organization for use in Contacts application."
-msgstr ""
+msgstr "سازمان برای استفاده در تماس برنامه‌."
 
 #: functions.inc.php:198
 msgid "The Prefix for use in Contacts application."
-msgstr ""
+msgstr "پیشوند برای استفاده در تماس برنامه‌."
 
 #: functions.inc.php:217
 msgid "The Re-registration Timeout for this extension."
-msgstr ""
+msgstr "اتمام مهلت ثبت نام مجدد برای این داخلی."
 
 #: functions.inc.php:219
 msgid "The Registration Max Retries for this extension."
-msgstr ""
+msgstr "بیشترین ثبت نام برای این داخلی."
 
 #: functions.inc.php:218
 msgid "The Registration Retry Interval for this extension."
-msgstr ""
+msgstr "فاصله بین تلاش برای ثبت نام مجدد برای این داخلی."
 
 #: functions.inc.php:202
 msgid "The Suffix for use in Contacts application."
-msgstr ""
+msgstr "پسوند برای استفاده در تماس برنامه‌."
 
 #: functions.inc.php:216
 msgid "The Transport for this extension."
-msgstr ""
+msgstr "انتقال این داخلی."
 
 #: functions.inc.php:212
 msgid ""
 "The Voicemail URI for this extension.  Note that setting this option on a "
 "phone's primary line will disable visual voicemail."
 msgstr ""
+"URI منو صوتی برای این داخلی. نکته تنظیمات این گزینه در خط اصلی تلفن منو صوتی "
+"تصویری را غیرفعال میکند."
 
 #: functions.inc.php:216
 msgid "Transport"
-msgstr ""
+msgstr "انتقال"
 
 #: functions.inc.php:213
 msgid "UDP (Default)"
-msgstr ""
+msgstr "UDP (پیشفرض)"
 
 #: functions.inc.php:212
 msgid "Voicemail URI"
-msgstr ""
+msgstr "URI منو صوتی"

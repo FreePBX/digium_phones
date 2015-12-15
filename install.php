@@ -4,16 +4,8 @@ global $db;
 global $amp_conf;
 global $asterisk_conf;
 
-if (! function_exists('out')) {
-	function out ($text) {
-		echo $text."<br />";
-	}
-}
-
-if (! function_exists('outn')) {
-	function outn ($text) {
-		echo $text;
-	}
+if (version_compare_freepbx(getVersion(), '12', '>=')) {
+	FreePBX::create()->ModulesConf->removenoload('res_digium_phone.so');
 }
 
 $sql = "CREATE TABLE IF NOT EXISTS digium_phones_general (

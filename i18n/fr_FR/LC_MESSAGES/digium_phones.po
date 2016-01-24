@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-14 18:26-0800\n"
-"PO-Revision-Date: 2016-01-23 06:23+0200\n"
+"PO-Revision-Date: 2016-01-24 06:32+0200\n"
 "Last-Translator: Nicolas <forums@riendeau.org>\n"
 "Language-Team: French "
 "<http://weblate.freepbx.org/projects/freepbx/digium_phones/fr_FR/>\n"
@@ -32,7 +32,7 @@ msgstr ""
 
 #: digium_phones.i18n.php:6 digium_phones.i18n.php:10
 msgid "Connectivity"
-msgstr ""
+msgstr "Connectivité"
 
 #: functions.inc.php:211
 msgid "Digit Map"

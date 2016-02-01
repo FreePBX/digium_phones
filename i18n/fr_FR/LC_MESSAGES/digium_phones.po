@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-14 18:26-0800\n"
-"PO-Revision-Date: 2016-01-24 06:32+0200\n"
-"Last-Translator: Nicolas <forums@riendeau.org>\n"
+"PO-Revision-Date: 2016-02-01 02:58+0200\n"
+"Last-Translator: Nicolas Riendeau <freepbx@riendeau.org>\n"
 "Language-Team: French "
 "<http://weblate.freepbx.org/projects/freepbx/digium_phones/fr_FR/>\n"
 "Language: fr_FR\n"
@@ -82,7 +82,7 @@ msgstr "Prénom"
 
 #: views/rnav.php:38
 msgid "General Settings"
-msgstr ""
+msgstr "Paramètres généraux"
 
 #: functions.inc.php:204
 msgid "Job Title"

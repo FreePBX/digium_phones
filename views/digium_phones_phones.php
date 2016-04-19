@@ -888,8 +888,10 @@ if (!function_exists('presencestate_list_get')) {
 	foreach ($digium_phones->get_statuses() as $data) {
 		$statuses[$data['id']] = $data['name'];
 	}
-	foreach($devices['statuses'] as $data){
-		$statusesSelected[$data['statusid']] = $data['statusid'];
+	if (!empty($devices['statuses'])) {
+		foreach($devices['statuses'] as $data){
+			$statusesSelected[$data['statusid']] = $data['statusid'];
+		}
 	}
 	echo '<div class="dragdropFrame">';
 	echo '<div class="dragdrop">';

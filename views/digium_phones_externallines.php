@@ -68,16 +68,16 @@ $('form').submit(function() {
 foreach ($externallines as $externallineid=>$externalline) {
 ?>
 <tr>
-<td valign="top" style="width: 200px; border-style:inset; border-width: 1px; ">
+<td style="width: 200px; border-style:inset; border-width: 1px; ">
 	<span id="line<?php echo $externallineid?>name"><?php echo $externalline['name']?></span>
 </td>
-<td valign="top" style="border-style:inset; border-width:1px; ">
+<td style="border-style:inset; border-width:1px; ">
 	<?php echo $externalline['settings']['userid']?>
 </td>
-<td valign="top" style="border-style:inset; border-width:1px; ">
+<td style="border-style:inset; border-width:1px; ">
 	<?php echo $externalline['settings']['server_address']?>
 </td>
-<td valign="top" style="border-style:inset; border-width:1px; white-space: nowrap; ">
+<td style="border-style:inset; border-width:1px; white-space: nowrap; ">
 	<input type="button" value="Edit" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=externallines_edit&externalline=<?php echo $externallineid?>'">
 	<input type="button" value="Delete" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=externallines_edit&deleteexternalline_submit=Delete&externalline=<?php echo $externallineid?>'">
 </td>
@@ -126,8 +126,8 @@ echo $table->generate();
 $table->clear();
 
 echo '<hr>';
-echo '<table border="0" cellpadding="4" cellspacing="0"><tbody>';
-echo '<tr class="guielToggle" data-toggle_class="advanced"><td><h5><span class="guielToggleBut">+ </span>Advanced</h5><hr></td></tr>';
+echo '<table style="border-spacing: 4px;"><tbody>';
+echo '<tr class="guielToggle" data-toggle_class="advanced"><td><h5><span class="guielToggleBut">+ </span>Advanced</h5><hr></td><td></td></tr>';
 
 echo '<tr class="advanced"><td><a href="#" class="info">Secondary Server Address<span>The address of the secondary server this external line will use to place calls in the event that the server configured above can not be reached.</span></a></td><td>
 			<input type="text" id="secondary_server_address" name="secondary_server_address" /></td></tr>';

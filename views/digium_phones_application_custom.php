@@ -84,8 +84,7 @@ function delEntry(entry) {
 	return true;
 }
 </script>
-<input type="button" value="Add Custom Application" onclick="location.href='config.php?type=setup&display=digium_phones&digium_phones_form=application_custom_edit&customappid=0'" />
-<p>
+	<input type="button" value="Add Custom Application" onclick="location.href='config.php?type=setup&display=digium_phones&digium_phones_form=application_custom_edit&customappid=0'" />
 
 <?php
 function typeDisplay($type) {
@@ -106,29 +105,29 @@ function typeDisplay($type) {
 }
 ?>
 
-<table style="border-collapse:collapse; border-style:outset; border-width: 1px; ">
-<tr>
-<th style="border-style:inset; border-width:1px; "><a href="#" class="info">Custom Application Name<span>A name for this Custom Application.</span></a></th>
-<th style="border-style:inset; border-width:1px; "><a href="#" class="info">Actions<span>"Edit" provides additional editing control over a selected Custom Application. "Delete" removes the specified Custom Application.</span></a></th>
-</tr>
+	<table style="border-collapse:collapse; border-style:outset; border-width: 1px; ">
+		<tr>
+			<th style="border-style:inset; border-width:1px; "><a href="#" class="info">Custom Application Name<span>A name for this Custom Application.</span></a></th>
+			<th style="border-style:inset; border-width:1px; "><a href="#" class="info">Actions<span>"Edit" provides additional editing control over a selected Custom Application. "Delete" removes the specified Custom Application.</span></a></th>
+		</tr>
 <?php
 foreach ($customapps as $customappid=>$customapp) {
 ?>
-<tr>
-<td valign="top" style="width: 200px; border-style:inset; border-width: 1px; ">
-	<span id="customapp<?php echo $customappid?>name"><?php echo $customapp['name']?></span>
-</td>
-<td valign="top" style="border-style:inset; border-width:1px; white-space: nowrap; ">
-	<input type="button" value="Edit Custom Application" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=application_custom_edit&customappid=<?php echo $customappid?>'">
-	<input type="button" value="Delete" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=application_custom_edit&deletecustomapp_submit=Delete&customappid=<?php echo $customappid?>'">
-</td>
-</tr>
+		<tr>
+			<td valign="top" style="width: 200px; border-style:inset; border-width: 1px; ">
+				<span id="customapp<?php echo $customappid?>name"><?php echo $customapp['name']?></span>
+			</td>
+			<td valign="top" style="border-style:inset; border-width:1px; white-space: nowrap; ">
+				<input type="button" value="Edit Custom Application" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=application_custom_edit&customappid=<?php echo $customappid?>'">
+				<input type="button" value="Delete" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=application_custom_edit&deletecustomapp_submit=Delete&customappid=<?php echo $customappid?>'">
+			</td>
+		</tr>
 <?php
 }
 ?>
-</table>
+	</table>
 
-<hr />
+	<hr />
 
 <?php
 $table = new CI_Table();
@@ -138,11 +137,11 @@ $table->add_row(array( 'data' => fpbx_label('Custom Application Name:', 'A named
 	);
 	
 $table->add_row(array( 'data' => fpbx_label('File:', ''), 'class' => 'template_name'),
-	array( 'data' => '<input type="file" id="customappfile" name="customappfile" value="Upload" />')
+	array( 'data' => '<input type="file" id="customappfile" name="customappfile" />')
 	);
 	
 $table->add_row(array( 'data' => fpbx_label('Automatically Start Application:', 'Controls whether the Custom Application starts on phone boot.'), 'class' => 'template_name'),
-	array( 'data' => '<select id="autostart" name="autostart" />
+	array( 'data' => '<select id="autostart" name="autostart">
 			<option value="no" selected>No (Default)</option>
 			<option value="yes">Yes</option>
 		</select>')
@@ -154,38 +153,36 @@ $table->clear();
 ?>
 	<br />
 
-	<table border="1">
-	<tr>
-	<th><a href="#" class="info">Settings:<span>Allows for entry of custom keypair values to be applied to an application to be loaded onto a phone.  A weather application, for example, might include a key of postal_code and a value of 90210.</span></a></th>
-	<td></td>
-	<th><a href="#" class="info">Assigned Settings:<span>Displays a listing of settings currently assigned to a Custom Application.</span></a></th>
-	<td></td>
-	</tr>
-	<tr>
-	<td>
-		<div class="setting">
-			<label for="settingkey"><a href="#" class="info">Custom Key:<span>A custom key to be sent to the specified Custom Application.</span></a>&nbsp;&nbsp;&nbsp;</label>
-			<input type="text" id="settingkey" />
-		</div>
-		<div class="setting">
-			<label for="settingval"><a href="#" class="info">Custom Value:<span>A custom value to be sent to the specified Custom Application.</span></a></label>
-			<input type="text" id="settingval" />
-		</div>
-	</td>
-	<td>
-		<img alt="Remove" src="images/resultset_left.png" onclick="delEntry($('#entries').val());" style="width: 24px; height: 24px; "/>
-		<img alt="Add" src="images/resultset_right.png" onclick="addEntry($('#settingkey').val()+'='+$('#settingval').val());$('#settingkey').val('');$('#settingval').val('');" style="width: 24px; height: 24px; " />
-	</td>
-	<td>
-		<select size="8" id="entries" name="entries[]" style="width: 200px; " ondblclick="delEntry($('#entries').val());">
-		</select>
-	</td>
-	</tr>
+	<table>
+		<tr>
+			<th><a href="#" class="info">Settings:<span>Allows for entry of custom keypair values to be applied to an application to be loaded onto a phone.  A weather application, for example, might include a key of postal_code and a value of 90210.</span></a></th>
+			<th></th>
+			<th><a href="#" class="info">Assigned Settings:<span>Displays a listing of settings currently assigned to a Custom Application.</span></a></th>
+		</tr>
+		<tr>
+			<td>
+				<div class="setting">
+					<label for="settingkey"><a href="#" class="info">Custom Key:<span>A custom key to be sent to the specified Custom Application.</span></a>&nbsp;&nbsp;&nbsp;</label>
+					<input type="text" id="settingkey" />
+				</div>
+				<div class="setting">
+					<label for="settingval"><a href="#" class="info">Custom Value:<span>A custom value to be sent to the specified Custom Application.</span></a></label>
+					<input type="text" id="settingval" />
+				</div>
+			</td>
+			<td>
+				<img alt="Remove" src="images/resultset_left.png" onclick="delEntry($('#entries').val());" style="width: 24px; height: 24px; "/>
+				<img alt="Add" src="images/resultset_right.png" onclick="addEntry($('#settingkey').val()+'='+$('#settingval').val());$('#settingkey').val('');$('#settingval').val('');" style="width: 24px; height: 24px; " />
+			</td>
+			<td>
+				<select size="8" id="entries" name="entries[]" style="width: 200px; " ondblclick="delEntry($('#entries').val());">
+				</select>
+			</td>
+		</tr>
 	</table>
 
 	<br />
 
 	<input type="button" value="Cancel" onclick="location.href='config.php?type=setup&display=digium_phones&digium_phones_form=application_custom_edit'"/>
 	<input type="submit" name="editcustomapp_submit" value="Save"/>
-</div>
 </form>

@@ -205,6 +205,9 @@ class digium_phones {
 	 * @return array
 	 */
 	public function get_phonebooks() {
+		if (empty($this->phonebooks)) {
+			return(array());
+		}
 		return $this->phonebooks;
 	}
 

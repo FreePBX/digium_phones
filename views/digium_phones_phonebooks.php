@@ -133,13 +133,13 @@ foreach ($phonebooks as $phonebookid=>$phonebook) {
 	}
 ?>
 <tr>
-<td valign="top" style="width: 200px; border-style:inset; border-width: 1px; ">
+<td style="vertical-align: middle; width: 200px; border-style:inset; border-width: 1px; ">
 	<span id="phonebook<?php echo $phonebookid?>name"><?php echo $phonebook['name']?></span>
 </td>
-<td valign="top" style="border-style:inset; border-width:1px; ">
+<td style="vertical-align: middle; border-style:inset; border-width:1px; ">
 	<?php echo count($phonebook['entries'])?>
 </td>
-<td valign="top" style="border-style:inset; border-width:1px; white-space: nowrap; ">
+<td style="vertical-align: middle; border-style:inset; border-width:1px; white-space: nowrap; ">
 	<input type="button" value="Edit Phonebook" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=phonebooks_edit&phonebook=<?php echo $phonebookid?>&edittype=phonebook'">
 	<input type="button" value="Edit Entries" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=phonebooks_edit&phonebook=<?php echo $phonebookid?>&edittype=entries'">
 	<input type="button" value="Delete" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=phonebooks_edit&deletephonebook_submit=Delete&phonebook=<?php echo $phonebookid?>'">
@@ -154,7 +154,7 @@ foreach ($phonebooks as $phonebookid=>$phonebook) {
 
 <input type="hidden" id="phonebook" name="phonebook" />
 <div id="editingphonebook" style="display: none;">
-	<div style="width:300px" align="right">
+	<div style="width:300px; float:right;">
 		<div>
 			<a href="#" class="info">Phonebook Name:<span>A named identifier for the phonebook.</span></a>
 			<input type="text" id="phonebookname" name="phonebookname"/>
@@ -200,7 +200,7 @@ foreach ($phonebooks as $phonebookid=>$phonebook) {
 		if (!empty($phonebook['entries'])) foreach ($phonebook['entries'] as $entryid=>$entry) {
 ?>
 	<tr>
-	<td valign="top" style="width: 200px; border-style:inset; border-width: 1px; ">
+	<td style="vertical-align: middle; width: 200px; border-style:inset; border-width: 1px; ">
 		<span id="entry<?php echo $entryid?>name">
 <?php
 		if ($entry['settings']['type'] == "internal") {
@@ -216,13 +216,13 @@ foreach ($phonebooks as $phonebookid=>$phonebook) {
 ?>
 		</span>
 	</td>
-	<td valign="top" style="border-style:inset; border-width:1px; ">
+	<td style="vertical-align: middle; border-style:inset; border-width:1px; ">
 		<?php echo $entry['extension']?>
 	</td>
-	<td valign="top" style="border-style:inset; border-width:1px; ">
+	<td style="vertical-align: middle; border-style:inset; border-width:1px; ">
 		<?php echo $entry['settings']['type'] == "internal" ? "Internal" : "External"?>
 	</td>
-	<td valign="top" align="right" style="border-style:inset; border-width:1px; white-space: nowrap; height: 24px; ">
+	<td style="vertical-align: middle; float:right; border-style:inset; border-width:1px; white-space: nowrap; height: 24px; ">
 <?php
 		if ($entryid > 0) {
 ?>
@@ -260,7 +260,7 @@ foreach ($phonebooks as $phonebookid=>$phonebook) {
 		$table = new CI_Table();
 
 		$extension = '<select id="internalextension">
-				<option value=""></option>';
+				<option value="">&nbsp;</option>';
 		foreach ($digium_phones->get_core_devices() as $user) {
 			$extension .= '<option value="' . $user[0] . '">' . $user[0] . ' | ' . $user[1] . '</option>';
 		}

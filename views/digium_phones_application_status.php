@@ -37,10 +37,10 @@ if (function_exists('presencestate_list_get')) {
 	foreach ($list as $status) {
 ?>
 		<tr>
-		<td valign="top" style="width: 200px; border-style:inset; border-width: 1px; ">
+		<td style="vertical-align: top; width: 200px; border-style:inset; border-width: 1px; ">
 			<span id="status<?php echo $statusid?>type"><?php echo type_display($status['type'])?></span>
 		</td>
-		<td valign="top" style="border-style:inset; border-width:1px; ">
+		<td style="vertical-align: top; border-style:inset; border-width:1px; ">
 			<?php echo $status['message']?>
 		</td>
 		</tr>
@@ -140,16 +140,16 @@ function delEntry(entry) {
 foreach ($statuses as $statusid=>$status) {
 ?>
 		<tr>
-			<td valign="top" style="width: 200px; border-style:inset; border-width: 1px; ">
+			<td style="vertical-align: top; width: 200px; border-style:inset; border-width: 1px; ">
 				<span id="status<?php echo $statusid?>name"><?php echo $status['name']?></span>
 			</td>
-			<td valign="top" style="width: 200px; border-style:inset; border-width: 1px; ">
+			<td style="vertical-align: top; width: 200px; border-style:inset; border-width: 1px; ">
 				<span id="status<?php echo $statusid?>type"><?php echo type_display($status['settings']['status'])?></span>
 			</td>
-			<td valign="top" style="border-style:inset; border-width:1px; ">
+			<td style="vertical-align: top; border-style:inset; border-width:1px; ">
 				<?php echo count($status['entries'])?>
 			</td>
-			<td valign="top" style="border-style:inset; border-width:1px; white-space: nowrap; ">
+			<td style="vertical-align: top; border-style:inset; border-width:1px; white-space: nowrap; ">
 				<input type="button" value="Edit Status" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=application_status_edit&statusid=<?php echo $statusid?>'">
 				<input type="button" value="Delete" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=application_status_edit&deletestatus_submit=Delete&statusid=<?php echo $statusid?>'">
 			</td>

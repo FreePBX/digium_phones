@@ -99,7 +99,7 @@ function perform_download(version) {
 
 </script>
 
-<table style="width:450px; border-collapse:collapse; border-style:outset; border-width: 1px; " width="100%">
+<table style="width:450px; border-collapse:collapse; border-style:outset; border-width: 1px; ">
 	<tr>
 		<th style="border-style:inset; border-width:1px; "><a href="#" class="info">Firmware Package<span>The name of the available firmware package.</span></a></th>
 		<th style="border-style:inset; border-width:1px; width:75px; "><a href="#" class="info">Actions<span>"Edit" renames the specified firmware. "Info" shows information about the firmware. "Delete" removes the specified firmware.</span></a></th>
@@ -109,10 +109,10 @@ function perform_download(version) {
 	foreach ($packages as $package) {
 ?>
 	<tr>
-		<td valign="top" style="width: 250px; border-style:inset; border-width: 1px; ">
+		<td style="vertical-align: top; width: 250px; border-style:inset; border-width: 1px; ">
 			<span id="firmware_<?php echo $package->get_name()?>"><?php echo $package->get_name()?></span>
 		</td>
-		<td valign="top" style="border-style:inset; border-width:1px; white-space: nowrap; ">
+		<td style="vertical-align: top; border-style:inset; border-width:1px; white-space: nowrap; ">
 			<input type="button" value="Edit" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=firmware_edit&firmware_package_id=<?php echo $package->get_unique_id()?>&optype=edit_firmware'">
 			<input type="button" value="Info" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=firmware_edit&firmware_package_id=<?php echo $package->get_unique_id()?>&optype=info_firmware'">
 			<input type="button" value="Delete" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=firmware_edit&firmware_package_id=<?php echo $package->get_unique_id()?>&optype=delete_package'">

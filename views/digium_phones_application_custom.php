@@ -114,10 +114,10 @@ function typeDisplay($type) {
 foreach ($customapps as $customappid=>$customapp) {
 ?>
 		<tr>
-			<td valign="top" style="width: 200px; border-style:inset; border-width: 1px; ">
+			<td style="vertical-align: middle; width: 200px; border-style:inset; border-width: 1px; ">
 				<span id="customapp<?php echo $customappid?>name"><?php echo $customapp['name']?></span>
 			</td>
-			<td valign="top" style="border-style:inset; border-width:1px; white-space: nowrap; ">
+			<td style="vertical-align: middle; border-style:inset; border-width:1px; white-space: nowrap; ">
 				<input type="button" value="Edit Custom Application" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=application_custom_edit&customappid=<?php echo $customappid?>'">
 				<input type="button" value="Delete" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=application_custom_edit&deletecustomapp_submit=Delete&customappid=<?php echo $customappid?>'">
 			</td>

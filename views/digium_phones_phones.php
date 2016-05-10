@@ -660,14 +660,12 @@ echo '<div class="dragdropFrame">';
 echo '<div class="dragdrop">';
 echo fpbx_label('Available Extensions', 'Displays FreePBX extensions that may be assigned to a phone. Extensions that are greyed out are in use by another phone already and may not be re-assigned without being first unassigned.');
 echo '<ul id="availableExtensions" class="ext ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
-echo '<li>Internal</li>';
 foreach ($digium_phones->get_core_devices() as $user) {
 	if (strtolower($user['tech']) == 'sip' && empty($used[$user[0]])) {
 		echo '<li id="lines_' . $user[0] . '">' . $user[0] . '</li>';
 	}
 }
 
-echo '<li>External</li>';
 foreach ($digium_phones->get_externallines() as $externalline) {
 	if(empty($usedE[$externalline['id']])){
 		echo '<li id="lines_external:' . $externalline['id'] . '">' . $externalline['name'] . '</li>';
@@ -680,12 +678,10 @@ echo '</div>'."\n";
 echo '<div class="dragdrop">';
 echo fpbx_label('Assigned Extensions', 'Displays a listing of extensions, ordered by Line number, beginning with the first line, assigned to the phone.');
 echo '<ul id="lines" class="ext ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
-echo '<li>Internal</li>';
 if (!empty($devices['lines'])) foreach( $devices['lines'] as $device){
 	echo '<li id="lines_' . $device['extension'] . '">' . $device['extension'] . '</li>';
 }
 
-echo '<li>External</li>';
 
 $externals = $digium_phones->get_externallines();
 

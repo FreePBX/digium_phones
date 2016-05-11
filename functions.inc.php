@@ -357,15 +357,17 @@ class digium_phones_conf {
 
 				$queue = array();
 				$queue['id'] = $queueid;
-				foreach ($oldqueue['entries'] as $entryid=>$oldentry) {
-					if ($oldentry['member'] == false) {
-						/* Purge all the managers */
-						continue;
+				if (!empty($oldqueue['entries'])) {
+					foreach ($oldqueue['entries'] as $entryid=>$oldentry) {
+						if ($oldentry['member'] == false) {
+							/* Purge all the managers */
+							continue;
+						}
+						$entry = array();
+						$entry['deviceid'] = $entryid;
+						$entry['permission'] = "details";
+						$queue['entries'][] = $entry;
 					}
-					$entry = array();
-					$entry['deviceid'] = $entryid;
-					$entry['permission'] = "details";
-					$queue['entries'][] = $entry;
 				}
 				$this->digium_phones->add_queue($queue);
 			}

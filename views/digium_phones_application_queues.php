@@ -51,7 +51,7 @@ function addMember(deviceid, permission) {
 		permission = "none";
 	}
 
-	$device = $('#devices option:[value="' + deviceid + '"]');
+	$device = $('#availableDevices li[value="' + deviceid + '"]');
 	tr = $('<tr id="member' + $device.val() + '"></tr>');
 	tr.append($('<td>' + deviceid + '</td>'));
 	select = $('<select name="permissions[' + deviceid + ']" style="width: 100px; "></select>');

@@ -1154,6 +1154,12 @@ $table->add_row(array( 'data' => fpbx_label('Headset Volume:', 'Sets the headset
 					<option value="9" ' . ($devices['settings']['headset_volume'] == '9' ? 'selected' : '') . '>9</option>
 					<option value="10" ' . ($devices['settings']['headset_volume'] == '10' ? 'selected' : '') . '>10</option></select>'));
 
+$table->add_row(array( 'data' => fpbx_label('Handset Sidetone:', 'Sets the gain, in negative whole integer dBs, for a sidetone presented on the phone\'s handset.  Defaults to -25.  Digium cautions against changing this value.')),
+				array( 'data' => '<input type="text" id="handset_sidetone_db" name="handset_sidetone_db"/>'));
+
+$table->add_row(array( 'data' => fpbx_label('Headset Sidetone:', 'Sets the gain, in negative whole integer dBs, for a sidetone presented on the phone\'s headset.  Defaults to -15.  Digium cautions against changing this value.')),
+				array( 'data' => '<input type="text" id="headset_sidetone_db" name="headset_sidetone_db"/>'));
+
 $table->add_row(array( 'data' => fpbx_label('Call Volume Persistent Across Calls:', 'If enabled, volume changes made during a call do not persist to the next call, defaults to disabled.')),
 				array( 'data' => '<select id="reset_call_volume" name="reset_call_volume">
 					<option value="" ' . ($devices['settings']['reset_call_volume'] == '' ? 'selected' : '') . '>Disabled (Default)</option>

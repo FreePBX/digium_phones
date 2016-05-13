@@ -86,6 +86,9 @@ function res_digium_phone_applications($conf) {
 	}
 
 	foreach ($conf->digium_phones->get_queues() as $queueid=>$queue) {
+		if (empty($queue['entries'])) {
+			continue;
+		}
 		foreach($queue['entries'] as $entry) {
 			if ($entry['deviceid'] == null) {
 				continue;

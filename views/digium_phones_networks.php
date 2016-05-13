@@ -67,13 +67,13 @@ $('form').submit(function() {
 foreach ($networks as $networkid=>$network) {
 ?>
 <tr>
-<td valign="top" style="width: 200px; border-style:inset; border-width: 1px; ">
+<td style="width: 200px; border-style:inset; border-width: 1px; ">
 	<span id="network<?php echo $networkid?>name"><?php echo $network['name']?></span>
 </td>
-<td valign="top" style="border-style:inset; border-width:1px; ">
+<td style="border-style:inset; border-width:1px; ">
 	<?php echo $network['settings']['cidr']?>
 </td>
-<td valign="top" style="border-style:inset; border-width:1px; white-space: nowrap; ">
+<td style="border-style:inset; border-width:1px; white-space: nowrap; ">
 	<input type="button" value="Edit" onClick="parent.location='config.php?type=setup&display=digium_phones&digium_phones_form=networks_edit&network=<?php echo $networkid?>'">
 <?php
 	if ($networkid != -1) {
@@ -110,8 +110,8 @@ foreach ($networks as $networkid=>$network) {
 	echo $table->generate();
 	$table->clear();
 	echo '<hr>';
-	echo '<table border="0" cellpadding="4" cellspacing="0"><tbody>';
-	echo '<tr class="guielToggle" data-toggle_class="advanced"><td><h5><span class="guielToggleBut">+ </span>Advanced</h5><hr></td></tr>';
+	echo '<table style="border-spacing: 4px;"><tbody>';
+	echo '<tr class="guielToggle" data-toggle_class="advanced"><td><h5><span class="guielToggleBut">+ </span>Advanced</h5><hr></td><td></td></tr>';
 	
 	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">File URL Prefix:<span>Defines the URL prefix used by the phone to retrieve firmware and ringtones.</span></a></td><td>
 		<input type="text" id="file_url_prefix" name="file_url_prefix" /></td></tr>';

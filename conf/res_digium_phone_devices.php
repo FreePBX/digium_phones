@@ -190,6 +190,9 @@ function res_digium_phone_devices($conf) {
 		}
 
 		foreach ($queues as $queueid=>$queue) {
+			if (empty($queue['entries'])) {
+				continue;
+			}
 			foreach ($queue['entries'] as $entry) {
 				if ($entry['deviceid'] == $deviceid) {
 					$doutput[] = "application=queue-{$queueid}-{$deviceid}";

@@ -635,13 +635,13 @@ if ($digium_phones->get_dpma_version() < '2.1.') {
 }
 
 $table = new CI_Table();
-$table->add_row(array( 'data' => '<input type="hidden" id="device" name="device" />'));
+$table->add_row(array( 'data' => '<input type="hidden" id="device" name="device" />'), array());
 $table->add_row(array( 'data' => fpbx_label('Phone Name:', 'A named identifier for the phone, such as the person using it.')),
 				array( 'data' => '<input type="text" id="devicename" name="devicename" />'));
 $table->add_row(array( 'data' => fpbx_label('Phone PIN:', 'A numeric identifier associated with this phone. When set, and when enabled in the General Settings page, one must enter this PIN on the phone in order to use this configuration.')),
 				array( 'data' => '<input type="text" id="pin" name="pin" />'.$pin_voicemail));
 $table->add_row(array( 'data' => fpbx_label('Phone MAC Address:', 'When set, and when enabled in the General Settings page, the phone configuration is only available to the device matching this MAC Address.')),
-				array( 'data' => '<input type="text" id="mac" name="mac" ($config_auth == "mac" ? "" : "readonly") />'));
+				array( 'data' => '<input type="text" id="mac" name="mac" '.($config_auth == "mac" ? "" : "readonly ").'/>'));
 
 				
 				
@@ -660,31 +660,28 @@ echo '<div class="dragdropFrame">';
 echo '<div class="dragdrop">';
 echo fpbx_label('Available Extensions', 'Displays FreePBX extensions that may be assigned to a phone. Extensions that are greyed out are in use by another phone already and may not be re-assigned without being first unassigned.');
 echo '<ul id="availableExtensions" class="ext ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
-echo 'Internal';
 foreach ($digium_phones->get_core_devices() as $user) {
 	if (strtolower($user['tech']) == 'sip' && empty($used[$user[0]])) {
 		echo '<li id="lines_' . $user[0] . '">' . $user[0] . '</li>';
 	}
 }
 
-echo '<br />External';
 foreach ($digium_phones->get_externallines() as $externalline) {
 	if(empty($usedE[$externalline['id']])){
 		echo '<li id="lines_external:' . $externalline['id'] . '">' . $externalline['name'] . '</li>';
+echo "\n";
 	}
 }
 echo '</ul>';
-echo '</div>';
+echo '</div>'."\n";
 
 echo '<div class="dragdrop">';
 echo fpbx_label('Assigned Extensions', 'Displays a listing of extensions, ordered by Line number, beginning with the first line, assigned to the phone.');
 echo '<ul id="lines" class="ext ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
-echo 'Internal';
 if (!empty($devices['lines'])) foreach( $devices['lines'] as $device){
 	echo '<li id="lines_' . $device['extension'] . '">' . $device['extension'] . '</li>';
 }
 
-echo '<br />External';
 
 $externals = $digium_phones->get_externallines();
 
@@ -696,8 +693,8 @@ if (!empty($devices['externallines'])) foreach($devices['externallines'] as $ext
 }
 echo '</ul>';
 echo '</div>';
-echo '</div>';	
-echo '<div style="clear:both;" />';
+echo '</div>'."\n"; // dragdropFrame
+echo '<div style="clear:both;"></div>'."\n";
 
 //phonebooks
 $phonebooks = $digium_phones->get_phonebooks();
@@ -714,7 +711,7 @@ foreach ($phonebooks as $pb){
 	}
 }
 echo '</ul>';
-echo '</div>';
+echo '</div>'."\n";
 echo '<div class="dragdrop">';
 echo fpbx_label('Assigned Phonebooks', 'Displays a listing of phonebooks currently assigned to a Phone. By default, an Internal Phonebook, containing a listing of all system extensions, is assigned to the phone.');
 echo '<ul id="devicephonebooks" class="pb ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
@@ -725,8 +722,8 @@ if(isset($phonebooksSelected)){
 }
 echo '</ul>';
 echo '</div>';
-echo '</div>';
-echo '<div style="clear:both;" />';
+echo '</div>'."\n"; // dragdropFrame
+echo '<div style="clear:both;"></div>'."\n";
 
 $rapiddial = '<select id="rapiddial" name="rapiddial"><option value="">(none)</option>';
 foreach($phonebooks as $pb){
@@ -745,8 +742,8 @@ $tz = '<select id="timezone" name="timezone">';
 foreach (DateTimeZone::listIdentifiers() as $tzid) {
 	$tz .= '<option value="'.$tzid.'">'.$tzid.'</option>'."\n";
 }
-$tz .= '<option value="' . $devices['settings']['timezone'] . '">' . $devices['settings']['timezone'] . '</option>';
-$tz .= '</select>';				
+$tz .= '<option value="' . $devices['settings']['timezone'] . '">' . $devices['settings']['timezone'] . '&nbsp;</option>';
+$tz .= '</select>';
 $table->add_row(array( 'data' => fpbx_label('Timezone:', 'Sets the timezone to be used for the phone.')),
 				array( 'data' => $tz));
 
@@ -770,7 +767,7 @@ foreach ($networks as $id=>$net){
 	}
 }
 echo '</ul>';
-echo '</div>';
+echo '</div>'."\n";
 echo '<div class="dragdrop">';
 echo fpbx_label('Assigned Networks', 'Displays a listing of networks currently assigned to a phone. By default, a Default Network is assigned to the phone.');
 echo '<ul id="devicenetworks" class="networks ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
@@ -779,8 +776,8 @@ if ($networksSelected) foreach( $networksSelected as $net){
 }
 echo '</ul>';
 echo '</div>';
-echo '</div>';	
-echo '<div style="clear:both;" />';
+echo '</div>'."\n"; // dragdropFrame
+echo '<div style="clear:both;"></div>'."\n";
 
 //Logos
 foreach ($digium_phones->get_logos() as $logo) {
@@ -801,7 +798,7 @@ if ($logos) foreach ($logos as $id=>$logo){
 	}
 }
 echo '</ul>';
-echo '</div>';
+echo '</div>'."\n";
 echo '<div class="dragdrop">';
 echo fpbx_label('Assigned Logos', 'Displays a listing of logos currently assigned to a phone.');
 echo '<ul id="devicelogos" class="logos ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
@@ -812,8 +809,8 @@ if(isset($logosSelected)){
 }
 echo '</ul>';
 echo '</div>';
-echo '</div>';	
-echo '<div style="clear:both;" />';
+echo '</div>'."\n"; // dragdropFrame
+echo '<div style="clear:both;"></div>'."\n";
 
 //Alerts
 foreach ($digium_phones->get_alerts() as $data) {
@@ -834,7 +831,7 @@ if ($alerts) foreach ($alerts as $id=>$name){
 	}
 }
 echo '</ul>';
-echo '</div>';
+echo '</div>'."\n";
 echo '<div class="dragdrop">';
 echo fpbx_label('Assigned Alerts', 'Displays a listing of alerts currently assigned to a phone.');
 echo '<ul id="devicealerts" class="alerts ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
@@ -845,8 +842,8 @@ if (isset($alertsSelected)){
 }
 echo '</ul>';
 echo '</div>';
-echo '</div>';	
-echo '<div style="clear:both;" />';
+echo '</div>'."\n"; // dragdropFrame
+echo '<div style="clear:both;"></div>'."\n";
 
 //Ringtones
 foreach ($digium_phones->get_ringtones() as $data) {
@@ -869,7 +866,7 @@ if ($ringtones) foreach ($ringtones as $id=>$name){
 	}
 }
 echo '</ul>';
-echo '</div>';
+echo '</div>'."\n";
 echo '<div class="dragdrop">';
 echo fpbx_label('Assigned Ringtones', 'Displays a listing of ringtones currently assigned to a phone.');
 echo '<ul id="deviceringtones" class="ringtones ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
@@ -880,16 +877,18 @@ if (isset($ringtonesSelected)){
 }
 echo '</ul>';
 echo '</div>';
-echo '</div>';	
-echo '<div style="clear:both;" />';
+echo '</div>'."\n"; // dragdropFrame
+echo '<div style="clear:both;"></div>'."\n";
 
 if (!function_exists('presencestate_list_get')) {
 	//Statuses
 	foreach ($digium_phones->get_statuses() as $data) {
 		$statuses[$data['id']] = $data['name'];
 	}
-	foreach($devices['statuses'] as $data){
-		$statusesSelected[$data['statusid']] = $data['statusid'];
+	if (!empty($devices['statuses'])) {
+		foreach($devices['statuses'] as $data){
+			$statusesSelected[$data['statusid']] = $data['statusid'];
+		}
 	}
 	echo '<div class="dragdropFrame">';
 	echo '<div class="dragdrop">';
@@ -903,7 +902,7 @@ if (!function_exists('presencestate_list_get')) {
 		}
 	}
 	echo '</ul>';
-	echo '</div>';
+	echo '</div>'."\n";
 	echo '<div class="dragdrop">';
 	echo fpbx_label('Assigned Statuses', 'Displays a listing of statuses currently assigned to a phone.');
 	echo '<ul id="devicestatuses" class="statuses ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
@@ -914,8 +913,8 @@ if (!function_exists('presencestate_list_get')) {
 	}
 	echo '</ul>';
 	echo '</div>';
-	echo '</div>';	
-	echo '<div style="clear:both;" />';
+	echo '</div>'."\n"; // dragdropFrame
+	echo '<div style="clear:both;"></div>'."\n";
 }
 
 //Custom Apps
@@ -937,7 +936,7 @@ if(isset($customapps)){
 	}
 }
 echo '</ul>';
-echo '</div>';
+echo '</div>'."\n";
 echo '<div class="dragdrop">';
 echo fpbx_label('Assigned Custom Apps', 'Displays a listing of custom applications currently assigned to a phone.');
 echo '<ul id="devicecustomapps" class="customapps ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
@@ -948,8 +947,8 @@ if(isset($customappsSelected)){
 }
 echo '</ul>';
 echo '</div>';
-echo '</div>';	
-echo '<div style="clear:both;" />';
+echo '</div>'."\n"; // dragdropFrame
+echo '<div style="clear:both;"></div>'."\n";
 
 $table->add_row(array( 'data' => fpbx_label('Enable Call Recording:', 'Enables or Disables Call Recording. If disabled, the Record softkey will not show for in-progress calls.')),
 				array( 'data' => '<select id="record_own_calls" name="record_own_calls">
@@ -997,7 +996,7 @@ $firmware = '<select id="firmware_package_id" name="firmware_package_id"><option
 $table->add_row(array( 'data' => fpbx_label('Select Firmware:', 'Pick the firmware to load on the phone.')),
 				array( 'data' => $firmware));
 
-$localeOptions = '<select id="active_locale" name="active_locale"><option value="" selected></option>';
+$localeOptions = '<select id="active_locale" name="active_locale"><option value="" selected>&nbsp;</option>';
 $locales = $digium_phones->get_locales();
 foreach ($locales as $locale) {
 	$localeOptions .= '<option value="' . $locale . '">' . $locale . '</option>';
@@ -1006,7 +1005,7 @@ $localeOptions .= '</select>';
 $table->add_row(array( 'data' => fpbx_label('Active Locale:', 'Set the default active locale')),
 				array( 'data' => $localeOptions));
 
-$ringtoneOptions = '<select id="active_ringtone" name="active_ringtone"><option value=""></option>';
+$ringtoneOptions = '<select id="active_ringtone" name="active_ringtone"><option value="">&nbsp;</option>';
 foreach ($digium_phones->get_ringtones() as $ringtone) {
 	$ringtoneOptions .= '<option value="' . $ringtone['id'] . '">' . $ringtone['name'] . '</option>';
 }
@@ -1171,17 +1170,6 @@ $table->clear();
 	<input type="button" value="Cancel" onclick="location.href='config.php?type=setup&display=digium_phones&digium_phones_form=phones_edit'"/>
 	<input type="hidden" name="editdevice_submit" value="Save"/>
 	<input type="submit" name="editdevice_submit" value="Save"/>
-
-<!-- This is a very long page - add several extra blank lines to insure buttons aren't hidden under logos -->
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
 
 </div>
 </form>

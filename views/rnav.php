@@ -1,45 +1,45 @@
 <?php
 $easymode = ($digium_phones->get_general('easy_mode') == "yes"?true:false);
 $show['Phones']		= '<li><a ' 
-				. ($_REQUEST['digium_phones_form'] == 'phones_edit' ? 'class="current ui-state-highlight"' : '') 
-				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=phones_edit">' . _("Phones") . '</a></li>';
+				. ($_REQUEST['digium_phones_form'] == 'phones_edit' ? 'class="current ui-state-highlight" ' : '') 
+				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=phones_edit">' . _("Phones") . '</a></li>'."\n";
 
 if (!$easymode) {
 	$show['Phonebooks']		= '<li><a ' 
-				. ($_REQUEST['digium_phones_form'] == 'phonebooks_edit' ? 'class="current ui-state-highlight"' : '') 
-				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=phonebooks_edit">' . _("Phonebooks") . '</a></li>';
+				. ($_REQUEST['digium_phones_form'] == 'phonebooks_edit' ? 'class="current ui-state-highlight" ' : '') 
+				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=phonebooks_edit">' . _("Phonebooks") . '</a></li>'."\n";
 
 $show['Alerts']		= '<li><a ' 
-				. ($_REQUEST['digium_phones_form'] == 'alerts_edit' ? 'class="current ui-state-highlight"' : '') 
-				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=alerts_edit">' . _("Alerts") . '</a></li>';
+				. ($_REQUEST['digium_phones_form'] == 'alerts_edit' ? 'class="current ui-state-highlight" ' : '') 
+				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=alerts_edit">' . _("Alerts") . '</a></li>'."\n";
 
 $show['Ringtones']		= '<li><a ' 
-				. ($_REQUEST['digium_phones_form'] == 'ringtones_edit' ? 'class="current ui-state-highlight"' : '') 
-				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=ringtones_edit">' . _("Ringtones") . '</a></li>';
+				. ($_REQUEST['digium_phones_form'] == 'ringtones_edit' ? 'class="current ui-state-highlight" ' : '') 
+				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=ringtones_edit">' . _("Ringtones") . '</a></li>'."\n";
 
 $show['Phone Applications']		= '<li><a ' 
-				. ($_REQUEST['digium_phones_form'] == 'applications_edit' ? 'class="current ui-state-highlight"' : '') 
-				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=applications_edit">' . _("Phone Applications") . '</a></li>';
+				. ($_REQUEST['digium_phones_form'] == 'applications_edit' ? 'class="current ui-state-highlight" ' : '') 
+				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=applications_edit">' . _("Phone Applications") . '</a></li>'."\n";
 
 $show['Logos']		= '<li><a ' 
-				. ($_REQUEST['digium_phones_form'] == 'logos_edit' ? 'class="current ui-state-highlight"' : '') 
-				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=logos_edit">' . _("Logos") . '</a></li>';
+				. ($_REQUEST['digium_phones_form'] == 'logos_edit' ? 'class="current ui-state-highlight" ' : '') 
+				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=logos_edit">' . _("Logos") . '</a></li>'."\n";
 }
 $show['Networks']		= '<li><a ' 
-				. ($_REQUEST['digium_phones_form'] == 'networks_edit' ? 'class="current ui-state-highlight"' : '') 
-				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=networks_edit">' . _("Networks") . '</a></li>';
+				. ($_REQUEST['digium_phones_form'] == 'networks_edit' ? 'class="current ui-state-highlight" ' : '') 
+				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=networks_edit">' . _("Networks") . '</a></li>'."\n";
 	
 $show['External Lines']		= '<li><a ' 
-				. ($_REQUEST['digium_phones_form'] == 'externallines_edit' ? 'class="current ui-state-highlight"' : '') 
-				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=externallines_edit">' . _("External Lines") . '</a></li>';
+				. ($_REQUEST['digium_phones_form'] == 'externallines_edit' ? 'class="current ui-state-highlight" ' : '') 
+				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=externallines_edit">' . _("External Lines") . '</a></li>'."\n";
 
 $show['General Settings']		= '<li><a ' 
-				. ($_REQUEST['digium_phones_form'] == 'general_edit' ? 'class="current ui-state-highlight"' : '') 
-				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=general_edit">' . _("General Settings") . '</a></li>';
+				. ($_REQUEST['digium_phones_form'] == 'general_edit' ? 'class="current ui-state-highlight" ' : '') 
+				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=general_edit">' . _("General Settings") . '</a></li>'."\n";
 
 $show['Firmware']		= '<li><a ' 
-				. ($_REQUEST['digium_phones_form'] == 'firmware_edit' ? 'class="current ui-state-highlight"' : '') 
-				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=firmware_edit">' . _("Firmware") . '</a></li>';
+				. ($_REQUEST['digium_phones_form'] == 'firmware_edit' ? 'class="current ui-state-highlight" ' : '') 
+				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=firmware_edit">' . _("Firmware") . '</a></li>'."\n";
 
 
 //show the page
@@ -83,6 +83,6 @@ echo '</ul><div style="width:251px; padding-top:220px;" >';
    if (document.context) document.write ("&context=" + escape(document.context));
    if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
    document.write ("'><\/scr"+"ipt>");
-//]]>--></script><noscript><a href='http://ads.schmoozecom.net/www/delivery/ck.php?n=af78148f&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://ads.schmoozecom.net/www/delivery/avw.php?zoneid=112&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=af78148f' border='0' alt='' /></a></noscript>
+//]]>--></script><noscript><a href='http://ads.schmoozecom.net/www/delivery/ck.php?n=af78148f&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://ads.schmoozecom.net/www/delivery/avw.php?zoneid=112&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=af78148f' alt='' /></a></noscript>
 
 </div></div>

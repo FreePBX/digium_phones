@@ -205,6 +205,9 @@ class digium_phones {
 	 * @return array
 	 */
 	public function get_phonebooks() {
+		if (empty($this->phonebooks)) {
+			return(array());
+		}
 		return $this->phonebooks;
 	}
 
@@ -1670,8 +1673,10 @@ class digium_phones {
 		$this->queues[$queueid] = $queue;
 
 		$entries = array();
-		foreach ($queue['entries'] as $entryid=>$entry) {
-			$entries[] = '\''.$db->escapeSimple($queueid).'\',\''.$db->escapeSimple($entry['deviceid']).'\',\''.$db->escapeSimple($entry['permission']).'\'';
+		if (!empty($queue['entries'])) {
+			foreach ($queue['entries'] as $entryid=>$entry) {
+				$entries[] = '\''.$db->escapeSimple($queueid).'\',\''.$db->escapeSimple($entry['deviceid']).'\',\''.$db->escapeSimple($entry['permission']).'\'';
+			}
 		}
 
 		if (count($entries) > 0) {

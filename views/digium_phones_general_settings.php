@@ -60,7 +60,7 @@ echo $table->generate();
 $table->clear();
 
 $selected_locale = $digium_phones->get_general('active_locale');
-$locale = '<select id="active_locale" name="active_locale"><option value="" ' . ($selected_locale === NULL ? ' selected ' : '') . '></option>';
+$locale = '<select id="active_locale" name="active_locale"><option value="" ' . ($selected_locale === NULL ? ' selected ' : '') . '>&nbsp;</option>';
 $locales = $digium_phones->get_locales();
 
 foreach ($locales as $localeT) {
@@ -69,12 +69,12 @@ foreach ($locales as $localeT) {
 
 $locale .=	'</select>';
 //hacking as there is no way to add a class to a row using table
-echo '<table border="0" cellpadding="4" cellspacing="0"><tbody>';
-echo '<tr class="guielToggle" data-toggle_class="advanced"><td><h5><span class="guielToggleBut">+ </span>Advanced</h5><hr></td></tr>';
-echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Active Locale:<span>Set the default active locale</span></a></td><td>' . $locale . '</td></tr>';
-echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">mDNS Service Name:<span>Defines the registration server name for this server, provided to the phone during its mDNS server discovery.</span></a></td><td><input type="text" id="service_name" name="service_name" value="' . $digium_phones->get_general('service_name') . '" placeholder="mDNS Service Name"/></td></tr>';
-echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">mDNS Discovery Address:<span>Defines the SIP UDP signaling address or hostname of this server, provided to the phone during its mDNS server discovery.</span></a></td><td><input type="text" id="mdns_address" name="mdns_address" value="' . $digium_phones->get_general('mdns_address') . '" placeholder="mDNS Discovery Address"/></td></tr>';
-echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">mDNS Discovery Port:<span>Defines the SIP UDP signaling port for this server, provided to the phone during its mDNS server discovery. Defaults to "5060".</span></a></td><td><input type="text" id="mdns_port" name="mdns_port" value="' . $digium_phones->get_general('mdns_port') . '" placeholder="mDNS Discovery Port"/></td></tr></tbody></table>';
+echo '<table style="border-style: none; border-spacing: 4px;"><tbody>';
+echo '<tr class="guielToggle" data-toggle_class="advanced"><td><h5><span class="guielToggleBut">+ </span>Advanced</h5><hr></td><td>&nbsp;</td></tr>'."\n";
+echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Active Locale:<span>Set the default active locale</span></a></td><td>' . $locale . '</td></tr>'."\n";
+echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">mDNS Service Name:<span>Defines the registration server name for this server, provided to the phone during its mDNS server discovery.</span></a></td><td><input type="text" id="service_name" name="service_name" value="' . $digium_phones->get_general('service_name') . '" placeholder="mDNS Service Name"/></td></tr>'."\n";
+echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">mDNS Discovery Address:<span>Defines the SIP UDP signaling address or hostname of this server, provided to the phone during its mDNS server discovery.</span></a></td><td><input type="text" id="mdns_address" name="mdns_address" value="' . $digium_phones->get_general('mdns_address') . '" placeholder="mDNS Discovery Address"/></td></tr>'."\n";
+echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">mDNS Discovery Port:<span>Defines the SIP UDP signaling port for this server, provided to the phone during its mDNS server discovery. Defaults to "5060".</span></a></td><td><input type="text" id="mdns_port" name="mdns_port" value="' . $digium_phones->get_general('mdns_port') . '" placeholder="mDNS Discovery Port"/></td></tr>'."\n".'</tbody></table>'."\n";
 ?>
 
 <div class="btn_container">

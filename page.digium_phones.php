@@ -720,7 +720,7 @@ if (isset($_GET['user_image'])) {
 	flush();
 } else {
 ?>
-	<style type="text/css">
+	<style scoped type="text/css">
 		/*label { clear: both; display: block; float: left; margin-right: 5px;  text-align: right; width: 255px; }*/
 		th { background: #7aa8f9; }
 		tr.odd td { background: #fde9d1; }
@@ -807,5 +807,6 @@ if (isset($_GET['user_image'])) {
 			break;
 		}
 	}
+	echo '</div>'; // content
 }
 ?>

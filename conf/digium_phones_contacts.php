@@ -65,6 +65,7 @@ function digium_phones_contacts($conf, $internal, $extension) {
 	$output[] = '  editable="0"';
 	$output[] = '>';
 
+	if (!empty($phonebook['entries']))
 	foreach ($phonebook['entries'] as $entryid=>$entry) {
 		$extension=$entry['extension'];
 

@@ -154,12 +154,10 @@ foreach ($phonebooks as $phonebookid=>$phonebook) {
 
 <input type="hidden" id="phonebook" name="phonebook" />
 <div id="editingphonebook" style="display: none;">
-	<div style="width:300px; float:right;">
 		<div>
 			<a href="#" class="info">Phonebook Name:<span>A named identifier for the phonebook.</span></a>
 			<input type="text" id="phonebookname" name="phonebookname"/>
 		</div>
-	</div>
 
 	<br />
 

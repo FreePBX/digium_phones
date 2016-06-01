@@ -102,7 +102,9 @@ class digium_phones {
 		$devices = core_devices_list('all', 'full');
 		if (!empty($devices) && is_array($devices)) {
 			foreach($devices as $device) {
-				$this->core_devices[$device['id']] = $device;
+				if (substr($device['description'],0,6) != "WebRTC") {
+					$this->core_devices[$device['id']] = $device;
+				}
 			}
 		}
 	}

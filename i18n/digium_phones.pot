@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-13 15:07-0700\n"
+"POT-Creation-Date: 2016-06-10 15:25-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Alerts"
 msgstr ""
 
-#: page.digium_phones.php:651
+#: page.digium_phones.php:653
 #, php-format
 msgid "Checksum error retrieving %s"
 msgstr ""
@@ -55,13 +55,13 @@ msgstr ""
 msgid "E-Mail Address"
 msgstr ""
 
-#: page.digium_phones.php:618
-#: page.digium_phones.php:622
+#: page.digium_phones.php:620
+#: page.digium_phones.php:624
 #, php-format
 msgid "Error opening %s for reading"
 msgstr ""
 
-#: page.digium_phones.php:626
+#: page.digium_phones.php:628
 #, php-format
 msgid "Error opening %s for writing"
 msgstr ""

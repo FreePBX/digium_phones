@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-13 15:07-0700\n"
+"POT-Creation-Date: 2016-06-10 15:25-0700\n"
 "PO-Revision-Date: 2016-04-14 12:34+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Alerts"
 msgstr "هشدارها"
 
-#: page.digium_phones.php:651
+#: page.digium_phones.php:653
 #, php-format
 msgid "Checksum error retrieving %s"
 msgstr "بازیابی خطا کنترلی %s"
@@ -57,12 +57,12 @@ msgstr "گزینه های خط تلفن های Digium"
 msgid "E-Mail Address"
 msgstr "آدرس ایمیل"
 
-#: page.digium_phones.php:618 page.digium_phones.php:622
+#: page.digium_phones.php:620 page.digium_phones.php:624
 #, php-format
 msgid "Error opening %s for reading"
 msgstr "خطا در باز کردن و خواندن %s"
 
-#: page.digium_phones.php:626
+#: page.digium_phones.php:628
 #, php-format
 msgid "Error opening %s for writing"
 msgstr "خطا در باز کردن و نوشتن %s"

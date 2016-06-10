@@ -120,7 +120,7 @@ class digium_phones {
 	}
 
 	public function cache_core_users_list() {
-		foreach(core_users_list() as $user) {
+		foreach(\FreePBX::Core()->listUsers() as $user) {
 			$newuser['extension'] = $user[0];
 			$newuser['name'] = $user[1];
 			$newuser['voicemail'] = $user[2];

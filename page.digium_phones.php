@@ -105,6 +105,8 @@ if (isset($_POST['general_submit'])) {
 		'speaker_volume',
 		'handset_volume',
 		'headset_volume',
+		'handset_sidetone_db',
+		'headset_sidetone_db',
 		'reset_call_volume',
 		'headset_answer',
 		'firmware_package_id',

@@ -102,7 +102,9 @@ class digium_phones {
 		$devices = core_devices_list('all', 'full');
 		if (!empty($devices) && is_array($devices)) {
 			foreach($devices as $device) {
-				$this->core_devices[$device['id']] = $device;
+				if (substr($device['description'],0,6) != "WebRTC") {
+					$this->core_devices[$device['id']] = $device;
+				}
 			}
 		}
 	}
@@ -118,7 +120,7 @@ class digium_phones {
 	}
 
 	public function cache_core_users_list() {
-		foreach(core_users_list() as $user) {
+		foreach(\FreePBX::Core()->listUsers() as $user) {
 			$newuser['extension'] = $user[0];
 			$newuser['name'] = $user[1];
 			$newuser['voicemail'] = $user[2];

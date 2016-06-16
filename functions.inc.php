@@ -327,7 +327,7 @@ class digium_phones_conf {
 			}
 
 			foreach ($this->digium_phones->get_core_devices() as $user) {
-				if (strtolower($user['tech']) != 'sip') {
+				if (strtolower($user['tech']) != 'sip' && strtolower($user['tech']) != 'pjsip') {
 					continue;
 				}
 				$device = array();

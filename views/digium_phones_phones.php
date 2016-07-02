@@ -661,7 +661,7 @@ echo '<div class="dragdrop">';
 echo fpbx_label('Available Extensions', 'Displays FreePBX extensions that may be assigned to a phone. Extensions that are greyed out are in use by another phone already and may not be re-assigned without being first unassigned.');
 echo '<ul id="availableExtensions" class="ext ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
 foreach ($digium_phones->get_core_devices() as $user) {
-	if (strtolower($user['tech']) == 'sip' && empty($used[$user[0]])) {
+	if ((strtolower($user['tech']) == 'sip' || strtolower($user['tech']) == 'pjsip') && empty($used[$user[0]])) {
 		echo '<li id="lines_' . $user[0] . '">' . $user[0] . '</li>';
 	}
 }

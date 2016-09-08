@@ -4,18 +4,14 @@
 <script type="text/javascript">
 <?php
 
-// table of phone models & logo sizes
-$phone_models=array(
-	'd40' => array('name' => 'D40', 'size' => '150x45'),
-	'd45' => array('name' => 'D45', 'size' => '150x45'),
-	'd50' => array('name' => 'D50', 'size' => '150x45'),
-	'd70' => array('name' => 'D70', 'size' => '205x85'),
-);
+require_once 'modules/digium_phones/classes/digium_phones_models.php';
+global $models;
+$models = new digium_phones_models();
 
 function phone_model_options() {
-	global $phone_models;
-	foreach ($phone_models as $model => $data) {
-		echo '<option value="'.$model.'">'.$data['name'].'</option>'."\n";
+	global $models;
+	foreach ($models->get_models() as $model) {
+		echo '<option value="'.$model.'">'.$models->get_name($model).'</option>'."\n";
 	}
 }
 
@@ -66,11 +62,12 @@ if (isset($_GET['logo_upload']) && isset($_FILES['logo_upload']) && $_FILES['log
 		}
 	}
 
-	if (empty($phone_models[$_POST['logo_model']]['size'])) {
+	$size = $models->get_logo_size($_POST['logo_model']);
+
+	if (empty($size)) {
 		echo '<h3 style="color: red;">Error: unknown phone model</h3>';
 		return;
 	}
-	$size=$phone_models[$_POST['logo_model']]['size'];
 	$dest = $amp_conf['ASTETCDIR'].'/digium_phones/user_image_'.$filename.'.png';
 	system('convert '.$tmp_file.' -resize '.$size.' '.$dest);
 	unlink($tmp_file);
@@ -176,7 +173,7 @@ if ($rc) {
 				<td><input type="text" id="edit_logo_name" name="edit_logo_name" /></td>
 			</tr>
 			<tr>
-				<td><a href="#" class="info">Phone Model<span>Select the Digium phone model which can use this logo.  Logo files should be PNG format, 8-bit, no transparency, and less than 10k in file size.  Dimensions for D40 and D50 logos: 150x45 pixels.  Dimensions for D70 logos: 205x85 pixels.</span></a></td>
+				<td><a href="#" class="info">Phone Model<span>Select the Digium phone model which can use this logo.</span></a></td>
 				<td>
 					<select id="edit_logo_model" name="edit_logo_model">
 					<?php phone_model_options() ?>

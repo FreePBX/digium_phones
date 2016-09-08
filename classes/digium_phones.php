@@ -2343,7 +2343,7 @@ class digium_phones {
 		unset($result);
 
 		// remove from disk
-		unlink($amp_conf['ASTETCDIR']."/digium_phones/user_image_{$db->escapeSimple($logo_id)}.png");
+		@unlink($amp_conf['ASTETCDIR']."/digium_phones/user_image_{$db->escapeSimple($logo_id)}.png");
 
 		needreload();
 

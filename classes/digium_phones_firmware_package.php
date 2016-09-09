@@ -183,6 +183,16 @@ class digium_phones_firmware_package {
 	public function get_name() {
 		return $this->name;
 	}
+	public function get_models() {
+		$models = '';
+		foreach ($this->firmware as $firmware) {
+			if (!empty($models)) {
+				$models .= ',';
+			}
+			$models .= $firmware->get_phone_model();
+		}
+		return $models;
+	}
 
 	public function set_name($value) {
 		global $db;

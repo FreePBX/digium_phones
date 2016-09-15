@@ -142,6 +142,10 @@ function res_digium_phone_devices($conf) {
 			$doutput[] = "network=network-{$network['networkid']}";
 		}
 
+		if (!empty($device['mcpages'])) foreach ($device['mcpages'] as $mcpage) {
+			$doutput[] = "multicastpage=mcpage-{$mcpage['mcpageid']}";
+		}
+
 		if (!empty($device['logos'])) foreach ($device['logos'] as $dl) {
 			$logo = $conf->digium_phones->get_logo($dl['logoid']);
 
@@ -235,6 +239,18 @@ function res_digium_phone_devices($conf) {
 		$output[] = "alias={$network['name']}";
 
 		foreach ($network['settings'] as $key=>$val) {
+			$output[] = "{$key}={$val}";
+		}
+
+		$output[] = "";
+	}
+
+	foreach ($conf->digium_phones->get_mcpages() as $mcpageid=>$mcpage) {
+		$output[] = "[mcpage-{$mcpage['name']}]";
+		$output[] = "type=multicastpage";
+		$output[] = "alias={$mcpage['name']}";
+
+		foreach ($mcpage['settings'] as $key=>$val) {
 			$output[] = "{$key}={$val}";
 		}
 

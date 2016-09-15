@@ -60,6 +60,7 @@ class digium_phones {
 		$this->read_ringtones();
 		$this->read_externallines();
 		$this->read_firmware();
+		$this->read_mcpages();
 	}
 	private $core_devices = array();
 	private $core_users = array();
@@ -79,6 +80,7 @@ class digium_phones {
 	private $voicemail_translations = array();
 	private $locales = NULL;
 	private $firmware_manager = NULL;
+	private $mcpages = array();
 
 	private $error_msg = '';		// The latest error message
 
@@ -304,6 +306,27 @@ class digium_phones {
 	 */
 	public function get_network($id) {
 		return $this->networks[$id];
+	}
+
+	/**
+	 * Get mcpages
+	 *
+	 * Get the mcpages
+	 *
+	 * @access public
+	 * @return array
+	 */
+	public function get_mcpages() {
+		return $this->mcpages;
+	}
+
+	/**
+	 * Get mcpage
+	 * 
+	 * Get a mcpage and all its settings
+	 */
+	public function get_mcpage($id) {
+		return $this->mcpages[$id];
 	}
 
 	/**
@@ -594,6 +617,30 @@ class digium_phones {
 				$n = $d['networks'][-1];
 				$n['networkid'] = -1;
 				$d['networks'][-1] = $n;
+			}
+
+			$devices[$row['deviceid']] = $d;
+		}
+
+		// Get mcpages on devices.
+		$sql = "SELECT dns.id, ds.id as deviceid, dns.mcpageid FROM digium_phones_devices AS ds ";
+		$sql = $sql . "  LEFT JOIN digium_phones_device_mcpages AS dns ON (ds.id = dns.deviceid) ";
+		$sql = $sql . "  LEFT JOIN digium_phones_mcpages AS ns ON (dns.mcpageid = ns.id) ";
+		$sql = $sql . "ORDER BY ds.id, dns.id ";
+
+		$results = $db->getAll($sql, DB_FETCHMODE_ASSOC);
+		if (DB::IsError($results)) {
+			die_freepbx($results->getDebugInfo());
+			return false;
+		}
+
+		foreach ($results as $row) {
+			$d = $devices[$row['deviceid']];
+
+			if ($row['id'] != null) {
+				$n = $d['mcpages'][$row['id']];
+				$n['mcpageid'] = $row['mcpageid'];
+				$d['mcpages'][$row['id']] = $n;
 			}
 
 			$devices[$row['deviceid']] = $d;
@@ -985,6 +1032,23 @@ class digium_phones {
 		if (count($networks) > 0) {
 			/* Multiple INSERT */
 			$sql = "INSERT INTO digium_phones_device_networks (id, deviceid, networkid) VALUES (" . implode('),(', $networks) . ")";
+			$result = $db->query($sql);
+			if (DB::IsError($result)) {
+				echo $result->getDebugInfo();
+				return false;
+			}
+			unset($result);
+		}
+
+		// Device mcpages
+		$mcpages = array();
+		if (!empty($device['mcpages'])) foreach ($device['mcpages'] as $mcpageentryid=>$mcpage) {
+			$mcpages[] = '\''.$db->escapeSimple($mcpageentryid).'\',\''.$db->escapeSimple($deviceid).'\',\''.$db->escapeSimple($mcpage['mcpageid']).'\'';
+		}
+
+		if (count($mcpages) > 0) {
+			/* Multiple INSERT */
+			$sql = "INSERT INTO digium_phones_device_mcpages (id, deviceid, mcpageid) VALUES (" . implode('),(', $mcpages) . ")";
 			$result = $db->query($sql);
 			if (DB::IsError($result)) {
 				echo $result->getDebugInfo();
@@ -2348,5 +2412,127 @@ class digium_phones {
 		needreload();
 
 	}
+
+	public function read_mcpages() {
+		global $db;
+
+		$mcpages = array();
+		$this->mcpages = array();
+
+		$sql = "SELECT ns.id as mcpageid, ns.name, nss.keyword, nss.val FROM digium_phones_mcpages AS ns ";
+		$sql = $sql . "  LEFT JOIN digium_phones_mcpage_settings AS nss ON (ns.id = nss.mcpageid)";
+
+		$results = $db->getAll($sql, DB_FETCHMODE_ASSOC);
+		if (DB::IsError($results)) {
+			die_freepbx($results->getDebugInfo());
+			return false;
+		}
+
+		foreach ($results as $row) {
+			$n = $this->mcpages[$row['mcpageid']];
+			$n['id'] = $row['mcpageid'];
+			$n['name'] = $row['name'];
+			if ($row['keyword'] != null) {
+				$n['settings'][$row['keyword']] = $row['val'];
+			}
+
+			$this->mcpages[$row['mcpageid']] = $n;
+		}
+
+	}
+
+	public function update_mcpage($mcpage) {
+		$this->delete_mcpage($mcpage, false);
+		$this->add_mcpage($mcpage);
+	}
+
+	public function delete_mcpage($mcpage, $deletefromdevice = true) {
+		global $amp_conf;
+		global $db;
+
+		$mcpageid = $mcpage['id'];
+
+		$this->mcpages[$mcpageid] = $mcpage;
+
+		if ($deletefromdevice) {
+			$sql = "DELETE FROM digium_phones_device_mcpages WHERE mcpageid = \"{$db->escapeSimple($mcpage['id'])}\"";
+			$result = $db->query($sql);
+			if (DB::IsError($result)) {
+				echo $result->getDebugInfo();
+				return false;
+			}
+			unset($result);
+		}
+
+		$sql = "DELETE FROM digium_phones_mcpage_settings WHERE mcpageid = \"{$db->escapeSimple($mcpage['id'])}\"";
+		$result = $db->query($sql);
+		if (DB::IsError($result)) {
+			echo $result->getDebugInfo();
+			return false;
+		}
+		unset($result);
+
+		$sql = "DELETE FROM digium_phones_mcpages WHERE id = \"{$db->escapeSimple($mcpage['id'])}\"";
+		$result = $db->query($sql);
+		if (DB::IsError($result)) {
+			echo $result->getDebugInfo();
+			return false;
+		}
+		unset($result);
+
+		needreload();
+	}
+	public function add_mcpage($mcpage) {
+		global $db;
+
+		$mcpageid = $mcpage['id'];
+
+		// mcpages
+		$sql = "INSERT INTO digium_phones_mcpages (id, name) VALUES(\"{$db->escapeSimple($mcpage['id'])}\", \"{$db->escapeSimple($mcpage['name'])}\")";
+		$result = $db->query($sql);
+		if (DB::IsError($result)) {
+			echo $result->getDebugInfo();
+			return false;
+		}
+		unset($result);
+
+		if ($mcpageid == 0) {
+			$sql = "SELECT LAST_INSERT_ID()";
+
+			$results = $db->getAll($sql, DB_FETCHMODE_ASSOC);
+			if (DB::IsError($results)) {
+				die_freepbx($results->getDebugInfo());
+				return false;
+			}
+
+			foreach ($results as $row) {
+				$mcpageid = $row['LAST_INSERT_ID()'];
+			}
+		}
+
+		$this->mcpages[$mcpageid] = $mcpage;
+
+		// Network settings
+		$mcpagesettings = array();
+		foreach ($mcpage['settings'] as $key=>$val) {
+			if ($val != '') {
+				$mcpagesettings[] = '\''.$db->escapeSimple($mcpageid).'\',\''.$db->escapeSimple($key).'\',\''.$db->escapeSimple($val).'\'';
+			}
+		}
+
+		if (count($mcpagesettings) > 0) {
+			/* Multiple INSERT */
+			$sql = "INSERT INTO digium_phones_mcpage_settings (mcpageid, keyword, val) VALUES (" . implode('),(', $mcpagesettings) . ")";
+			$result = $db->query($sql);
+			if (DB::IsError($result)) {
+				echo $result->getDebugInfo();
+				return false;
+			}
+			unset($result);
+		}
+
+		needreload();
+	}
+
 }
 

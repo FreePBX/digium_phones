@@ -207,6 +207,32 @@ $(function() {
     }).disableSelection();
 });
 
+//for mcpages
+$(function() {
+    $( "#devicemcpages" ).sortable({
+        connectWith: '.mcpages',
+        create: function(event, ui) {
+			$(this).children().removeClass('filled');
+        },
+        
+        receive: function(event,ui) {
+			$(this).children().removeClass('filled');
+		},
+        
+		remove: function(ui){
+			$(this).children().removeClass('filled');
+			$(this).removeClass('dontDrop');
+		}
+		}).disableSelection();
+    
+    $('#availablemcpages').sortable({
+        connectWith: '.mcpages',
+        remove: function(ui){
+			$(this).children().removeClass('filled');
+        }
+    }).disableSelection();
+});
+
 $('#digium_phones_editdevice').submit(function(e) {
 	e.preventDefault();
 	var form = $('form').serialize();
@@ -218,6 +244,7 @@ $('#digium_phones_editdevice').submit(function(e) {
 	var ringtones = $("#deviceringtones").sortable("serialize");
 	var statuses = $("#devicestatuses").sortable("serialize");
 	var customapps = $("#devicecustomapps").sortable("serialize");
+	var mcpages = $("#devicemcpages").sortable("serialize");
 	var postvar = form 
 	postvar = postvar + '&' + lines;
 	if (phonebooks) {
@@ -240,6 +267,9 @@ $('#digium_phones_editdevice').submit(function(e) {
 	}
 	if (customapps) {
 		postvar = postvar + '&' + customapps;
+	}
+	if (mcpages) {
+		postvar = postvar + '&' + mcpages; 
 	}
 	if ($('#pin_voicemail').is(':checked')) {
 		postvar = postvar + '&pin=voicemail';

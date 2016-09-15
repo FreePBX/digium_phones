@@ -266,6 +266,29 @@ $queries[] = "CREATE TABLE IF NOT EXISTS digium_phones_voicemail_translations (
 	PRIMARY KEY (`locale`, `keyword`)
 );";
 
+
+$queries[] = "CREATE TABLE IF NOT EXISTS digium_phones_mcpages (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(30),
+	PRIMARY KEY (`id`)
+);";
+
+$queries[] = "CREATE TABLE IF NOT EXISTS digium_phones_mcpage_settings (
+	`mcpageid` INT NOT NULL,
+	`keyword` VARCHAR(30),
+	`val` VARCHAR(255),
+	PRIMARY KEY (`mcpageid`, `keyword`)
+);";
+
+$queries[] = "CREATE TABLE IF NOT EXISTS digium_phones_device_mcpages (
+	`id` INT NOT NULL,
+	`deviceid` INT NOT NULL,
+	`mcpageid` INT NOT NULL,
+	PRIMARY KEY (`deviceid`, `mcpageid`)
+);";
+
+
+
 foreach ($queries as $sql) {
 	$result = $db->query($sql);
 	if (DB::IsError($result)) {

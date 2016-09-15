@@ -35,6 +35,16 @@ if (!empty($_POST['devicenetworks_'])) {
 	unset($_POST['devicenetworks_']);
 }
 
+if (!empty($_POST['devicemcpages_'])) {
+
+	if (empty($_POST['devicemcpages']))
+		$_POST['devicemcpages']=array();
+
+	array_unshift($_POST['devicemcpages'],-1);
+	unset($_POST['devicemcpages_']);
+}
+
+
 
 /**
  * The following if statements check for when a form has been submitted. There
@@ -73,6 +83,7 @@ if (isset($_POST['general_submit'])) {
 	$device['lines'] = array();
 	$device['phonebooks'] = array();
 	$device['networks'] = array();
+	$device['mcpages'] = array();
 	$device['externallines'] = array();
 	$device['logos'] = array();
 	$device['alerts'] = array();
@@ -168,6 +179,18 @@ if (isset($_POST['general_submit'])) {
 			}
 		}
 		$device['networks'][] = $network;
+	}
+
+	if (!empty($_POST['devicemcpages'])) foreach ($_POST['devicemcpages'] as $mcpageid) {
+		$mcpage = array();
+		$mcpage['mcpageid'] = $mcpageid;
+		if (!empty($olddevice['mcpages'])) foreach ($olddevice['mcpages'] as $n) {
+			if ($n['mcpageid'] == $mcpageid) {
+				$mcpage = $n;
+				break;
+			}
+		}
+		$device['mcpages'][] = $mcpage;
 	}
 
 	if (!empty($_POST['devicelogos'])) foreach ($_POST['devicelogos'] as $logoid) {
@@ -368,6 +391,32 @@ if (isset($_POST['general_submit'])) {
 	$network['id'] = $networkid;
 	$digium_phones->delete_network($network);
 	$digium_phones->read_networks();
+} else if (isset($_POST['editmcpage_submit'])) {
+	$mcpageid = $_POST['mcpage'];
+
+	$mcpage = array();
+	$mcpage['id'] = $mcpageid;
+	$mcpage['name'] = $_POST['mcpagename'];
+
+	$settings = array(
+		'address',
+		'port',
+		'priority',
+		'interrupt'
+	);
+	foreach ($settings as $setting) {
+		$mcpage['settings'][$setting] = $_POST[$setting];
+	}
+
+	$digium_phones->update_mcpage($mcpage);
+	$digium_phones->read_mcpages();
+} else if (isset($_GET['deletemcpage_submit'])) {
+	$mcpageid = $_GET['mcpage'];
+
+	$mcpage = array();
+	$mcpage['id'] = $mcpageid;
+	$digium_phones->delete_mcpage($mcpage);
+	$digium_phones->read_mcpages();
 } else if (isset($_POST['editqueue_submit'])) {
 	$manager = explode(',', $_POST['tempManagers'][0]);
 
@@ -806,6 +855,9 @@ if (isset($_GET['user_image'])) {
 			break;
 		case 'ringtones_edit':
 			require 'modules/digium_phones/views/digium_phones_ringtones.php';
+			break;
+		case 'mcpages_edit':
+			require 'modules/digium_phones/views/digium_phones_mcpages.php';
 			break;
 		}
 	}

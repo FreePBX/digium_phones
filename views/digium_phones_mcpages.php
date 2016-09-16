@@ -117,53 +117,6 @@ foreach ($mcpages as $mcpageid=>$mcpage) {
 	echo $table->generate();
 	$table->clear();
 
-/*
-	echo '<hr>';
-	echo '<table style="border-spacing: 4px;"><tbody>';
-	echo '<tr class="guielToggle" data-toggle_class="advanced"><td><h5><span class="guielToggleBut">+ </span>Advanced</h5><hr></td><td></td></tr>';
-
-	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">File URL Prefix:<span>Defines the URL prefix used by the phone to retrieve firmware and ringtones.</span></a></td><td>
-		<input type="text" id="file_url_prefix" name="file_url_prefix" /></td></tr>';
-	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Alternate Registration Address:<span>Optional.  Sets an alternate host to which the phone will register itself simultaneously.  DPMA Application function is not maintained with the alternate host, but basic call functionality is maintained.</span></a></td><td>
-		<input type="text" id="alternate_registration_address" name="alternate_registration_address" /></td></tr>';	
-	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Alternate Registration Port:<span>Optional. Sets the port for the Alternate Registration Address.</span></a></td><td>
-		<input type="text" id="alternate_registration_port" name="alternate_registration_port" /></td></tr>';
-	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">NTP Server:<span>Defines the NTP server the phone will synchronize to in order to maintain its time.</span></a></td><td>
-		<input type="text" id="ntp_server" name="ntp_server" /></td></tr>';
-
-	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Syslog Level:<span>If enabled, sets a logging level used by the phone to output syslog messages.</span></a></td><td>
-		<select id="syslog_level" name="syslog_level">
-				<option value="" selected>Disabled (Default)</option>
-				<option value="debug">Debug</option>
-				<option value="error">Error</option>
-				<option value="warn">Warning</option>
-				<option value="information">Infomation</option>
-			</select></td></tr>';
-	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Syslog Server:<span>If Syslog is enabled, sets the server to which syslog messages are sent by the phone.</span></a></td><td>
-		<input type="text" id="syslog_server" name="syslog_server" /></td></tr>';
-	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Syslog Port:<span>If Syslog is enabled, sets the port to which syslog messages are sent by the phone.</span></a></td><td>
-		<input type="text" id="syslog_port" name="syslog_port" /></td></tr>';
-	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Multicast Page VLAN Discovery:<span>Digium phones default to VLAN discovery using LLDP.  If LLDP is not available on your switch, you may elect for Manual VLAN configuration, or VLANs may be disabled.</span></a></td><td>
-		<select id="mcpage_vlan_discovery_mode" name="mcpage_vlan_discovery_mode">
-				<option value="LLDP" selected>LLDP (Default)</option>
-				<option value="NONE">None</option>
-				<option value="MANUAL">Manual</option>
-			</select></td></tr>';
-	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Multicast Page VLAN ID:<span>If a Digium phone is configured for manual VLAN Discovery, sets the VLAN ID to which the phone will bind.</span></a></td><td>
-		<input type="text" id="mcpage_vlan_id" name="mcpage_vlan_id" /></td></tr>';
-	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Multicast Page QoS:<span>If a Digium phone is configured for manual VLAN Discovery, sets the QoS bit for the phones traffic to the mcpage.</span></a></td><td>
-			<input type="text" id="mcpage_vlan_qos" name="mcpage_vlan_qos" /></td></tr>';
-	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">PC VLAN ID:<span>Sets the VLAN ID to which the phone will bind, for the PC port.</span></a></td><td>
-		<input type="text" id="pc_vlan_id" name="pc_vlan_id" /></td></tr>';
-	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">PC QoS:<span>If a Digium phone is configured for manual VLAN Discovery, sets the QoS bit for traffic from the PC port to the mcpage.</span></a></td><td>
-		<input type="text" id="pc_qos" name="pc_qos" /></td></tr>';
-	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Signalling DSCP:<span>Specifies the DSCP field of the DiffServ byte for SIP Signaling QoS, defaults to 24.</span></a></td><td>
-		<input type="text" id="sip_dscp" name="sip_dscp" /></td></tr>';
-	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Media DSCP:<span>Specifies the DSCP field of the DiffServ byte for RTP Media QoS, defaults to 24.</span></a></td><td>
-		<input type="text" id="rtp_dscp" name="rtp_dscp" /></td></tr>';
-	echo '</table>';
-*/
-
 	?>
 
 	<input type="button" value="Cancel" onclick="location.href='config.php?type=setup&display=digium_phones&digium_phones_form=mcpages_edit'"/>

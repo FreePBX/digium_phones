@@ -4,19 +4,20 @@
 	<type>setup</type>
 	<category>Connectivity</category>
 	<name>Digium Phones Config</name>
-	<version>13.0.2</version>
 	<publisher>Digium</publisher>
 	<license>GPLv2</license>
 	<licenselink>http://www.gnu.org/licenses/gpl-3.0.txt</licenselink>
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
+	<version>13.1.0</version>
 	<changelog>
+		*13.1.0* Add D6x support: logos, multicast page
 		*13.0.2* Create PJSIP configuration needed to support DPMA operation
 		*13.0.1* Uses new core functionality
 		*2.11.3.2* Fixes for: * FREEPBX-11835 Digium phones module no options in Applications	Minor - Minor loss of function, or other problem where easy workaround is present. OPEN * FREEPBX-12221 With dpma installed and digium phones config module, can not add a queue	Minor - Minor loss of function, or other problem where easy workaround is present. CLOSED * FREEPBX-12224 unable to apply config, apply config returns error exit: 1 * FREEPBX-11028 Can't create phonebook in Digium module Includes changes to pass HTML5 validation, avoid exceptions on empty arrays, and support updated jquery version.
 		*2.11.3.1* Remove en_US Translations
 		*2.11.3.0* FREEPBX-10931 remove module noload on install
-		*2.11.2.9* Avoid error on empty array 
+		*2.11.2.9* Avoid error on empty array
 		*2.11.2.8* require DPMA 2.2 for phone firmware 2.0+
 		*2.11.2.7* Even more fixes for this module
 		*2.11.2.6* More fixes to detect proper Astman

@@ -26,6 +26,7 @@ $entries = array(
 	'config_auth'=>'disabled',
 	'mdns_address'=>'',
 	'mdns_port'=>'5060',
+	'mdns_transport' => '',
 	'service_name'=>'Asterisk',
 	'easy_mode'=>'yes',
 	'firmware_version'=>'',
@@ -353,6 +354,7 @@ if (!DB::IsError($result)) {
 		'ntp_server'=>'0.digium.pool.ntp.org',
 		'registration_address'=>'',
 		'registration_port'=>'',
+		'transport' => '',
 		'file_url_prefix'=>''
 	);
 

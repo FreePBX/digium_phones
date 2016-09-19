@@ -210,10 +210,19 @@ function digium_phones_configpageload() {
 		$currentcomponent->addguielem($section, new gui_textbox('dp_line_label', $line['settings']['line_label'], _('Line Label'), _("The Line Label for this extension."), '', '', true, 0, false));
 		$currentcomponent->addguielem($section, new gui_textbox('dp_digit_map', $line['settings']['digit_map'], _('Digit Map'), _("The Digit Map for this extension."), '', '', true, 0, false));
 		$currentcomponent->addguielem($section, new gui_textbox('dp_voicemail_uri', $line['settings']['voicemail_uri'], _('Voicemail URI'), _("The Voicemail URI for this extension.  Note that setting this option on a phone's primary line will disable visual voicemail."), '', '', true, 0, false));
-		$currentcomponent->addoptlistitem('dp_transport', '', _("UDP (Default)"));
+
+		$currentcomponent->addoptlistitem('dp_transport', '', _("UDP (Default) or value from Network setting)"));
 		$currentcomponent->addoptlistitem('dp_transport', 'tcp', _("TCP"));
+		$currentcomponent->addoptlistitem('dp_transport', 'tls', _("TLS"));
 		$currentcomponent->setoptlistopts('dp_transport', 'sort', false);
 		$currentcomponent->addguielem($section, new gui_selectbox('dp_transport', $currentcomponent->getoptlist('dp_transport'), $line['settings']['transport'], _('Transport'), _("The Transport for this extension."), false));
+
+		$currentcomponent->addoptlistitem('dp_media_encryption', '', _("None (Default)"));
+		$currentcomponent->addoptlistitem('dp_media_encryption', 'sdes', _("SDES"));
+		$currentcomponent->setoptlistopts('dp_media_encryption', 'sort', false);
+		$currentcomponent->addguielem($section, new gui_selectbox('dp_media_encryption', $currentcomponent->getoptlist('dp_media_encryption'), $line['settings']['media_encryption'], _('Media Encryption'), _("The media encryption for this extension."), false));
+
+
 		$currentcomponent->addguielem($section, new gui_textbox('dp_reregistration_timeout', $line['settings']['reregistration_timeout'], _('Re-registration TImeout'), _("The Re-registration Timeout for this extension."), '', '', true, 0, false));
 		$currentcomponent->addguielem($section, new gui_textbox('dp_registration_retry_interval', $line['settings']['registration_retry_interval'], _('Registration Retry Interval'), _("The Registration Retry Interval for this extension."), '', '', true, 0, false));
 		$currentcomponent->addguielem($section, new gui_textbox('dp_registration_max_retries', $line['settings']['registration_max_retries'], _('Registration Max Retries'), _("The Registration Max Retries for this extension."), '', '', true, 0, false));
@@ -267,6 +276,7 @@ function digium_phones_configprocess() {
 		'digit_map',
 		'voicemail_uri',
 		'transport',
+		'media_encryption',
 		'reregistration_timeout',
 		'registration_retry_interval',
 		'registration_max_retries'

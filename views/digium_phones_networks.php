@@ -1,3 +1,24 @@
+<?php
+$transport_options=array(
+	'' => 'UDP',
+	'tcp' => 'TCP',
+	'tls' => 'TLS',
+);
+
+function selector($name, $value, $options) {
+	$select = '<select id="'.$name.'" name="'.$name.'">';
+	foreach ($options as $optval => $text) {
+		$select .= '<option value="'. $optval.'"';
+		if ($value == $optval) {
+			$select .= ' selected';
+		}
+		$select .= '>'. htmlentities($text).'</option>';
+	}
+	$select .= '</select>' . "\n";
+	return $select;
+}
+
+?>
 <h2>Networks</h2>
 <hr />
 
@@ -104,24 +125,28 @@ foreach ($networks as $networkid=>$network) {
 			array( 'data' => '<input type="text" id="registration_address" name="registration_address" value="' . ($editnetwork == -1 ? "readonly" : $networks[$editnetwork]['settings']['registration_address']) . '" />'));
 	$table->add_row(fpbx_label('Registration Port:', 'Sets the port used by the phone to access the PBX.'),
 			array( 'data' => '<input type="text" id="registration_port" name="registration_port" value="' . ($editnetwork == -1 ? "readonly" : $networks[$editnetwork]['settings']['registration_port']) . '" />'));
-	
-	
-	
+	$table->add_row(fpbx_label('Transport:', 'Sets the transport used by the phone to access the PBX.'),
+			array( 'data' => selector('transport', $networks[$editnetwork]['settings']['transport'], $transport_options)));
+
 	echo $table->generate();
 	$table->clear();
 	echo '<hr>';
 	echo '<table style="border-spacing: 4px;"><tbody>';
 	echo '<tr class="guielToggle" data-toggle_class="advanced"><td><h5><span class="guielToggleBut">+ </span>Advanced</h5><hr></td><td></td></tr>';
-	
+
 	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">File URL Prefix:<span>Defines the URL prefix used by the phone to retrieve firmware and ringtones.</span></a></td><td>
 		<input type="text" id="file_url_prefix" name="file_url_prefix" /></td></tr>';
 	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Alternate Registration Address:<span>Optional.  Sets an alternate host to which the phone will register itself simultaneously.  DPMA Application function is not maintained with the alternate host, but basic call functionality is maintained.</span></a></td><td>
-		<input type="text" id="alternate_registration_address" name="alternate_registration_address" /></td></tr>';	
+		<input type="text" id="alternate_registration_address" name="alternate_registration_address" /></td></tr>';
 	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Alternate Registration Port:<span>Optional. Sets the port for the Alternate Registration Address.</span></a></td><td>
 		<input type="text" id="alternate_registration_port" name="alternate_registration_port" /></td></tr>';
+
+	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Alternate Transport:<span>Optional. Sets the transport for the Alternate Registration.</span></a></td><td>'.
+		selector('alternate_transport', '', $transport_options);
+
 	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">NTP Server:<span>Defines the NTP server the phone will synchronize to in order to maintain its time.</span></a></td><td>
 		<input type="text" id="ntp_server" name="ntp_server" /></td></tr>';
-		
+
 	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Syslog Level:<span>If enabled, sets a logging level used by the phone to output syslog messages.</span></a></td><td>
 		<select id="syslog_level" name="syslog_level">
 				<option value="" selected>Disabled (Default)</option>
@@ -129,7 +154,7 @@ foreach ($networks as $networkid=>$network) {
 				<option value="error">Error</option>
 				<option value="warn">Warning</option>
 				<option value="information">Infomation</option>
-			</select></td></tr>';	
+			</select></td></tr>';
 	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Syslog Server:<span>If Syslog is enabled, sets the server to which syslog messages are sent by the phone.</span></a></td><td>
 		<input type="text" id="syslog_server" name="syslog_server" /></td></tr>';
 	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Syslog Port:<span>If Syslog is enabled, sets the port to which syslog messages are sent by the phone.</span></a></td><td>
@@ -153,8 +178,7 @@ foreach ($networks as $networkid=>$network) {
 	echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Media DSCP:<span>Specifies the DSCP field of the DiffServ byte for RTP Media QoS, defaults to 24.</span></a></td><td>
 		<input type="text" id="rtp_dscp" name="rtp_dscp" /></td></tr>';
 	echo '</table>';
-	
-	
+
 	?>
 
 

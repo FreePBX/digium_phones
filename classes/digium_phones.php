@@ -61,6 +61,7 @@ class digium_phones {
 		$this->read_externallines();
 		$this->read_firmware();
 		$this->read_mcpages();
+		$this->read_pnacs();
 	}
 	private $core_devices = array();
 	private $core_users = array();
@@ -81,6 +82,7 @@ class digium_phones {
 	private $locales = NULL;
 	private $firmware_manager = NULL;
 	private $mcpages = array();
+	private $pnacs = array();
 
 	private $error_msg = '';		// The latest error message
 
@@ -327,6 +329,27 @@ class digium_phones {
 	 */
 	public function get_mcpage($id) {
 		return $this->mcpages[$id];
+	}
+
+	/**
+	 * Get pnacs
+	 *
+	 * Get the pnacs
+	 *
+	 * @access public
+	 * @return array
+	 */
+	public function get_pnacs() {
+		return $this->pnacs;
+	}
+
+	/**
+	 * Get pnac
+	 * 
+	 * Get a pnac and all its settings
+	 */
+	public function get_pnac($id) {
+		return $this->pnacs[$id];
 	}
 
 	/**
@@ -2533,6 +2556,131 @@ class digium_phones {
 
 		needreload();
 	}
+
+
+	public function read_pnacs() {
+		global $db;
+
+		$pnacs = array();
+		$this->pnacs = array();
+
+		$sql = "SELECT ns.id as pnacid, ns.name, nss.keyword, nss.val FROM digium_phones_pnacs AS ns ";
+		$sql = $sql . "  LEFT JOIN digium_phones_pnac_settings AS nss ON (ns.id = nss.pnacid)";
+
+		$results = $db->getAll($sql, DB_FETCHMODE_ASSOC);
+		if (DB::IsError($results)) {
+			die_freepbx($results->getDebugInfo());
+			return false;
+		}
+
+		foreach ($results as $row) {
+			$n = $this->pnacs[$row['pnacid']];
+			$n['id'] = $row['pnacid'];
+			$n['name'] = $row['name'];
+			if ($row['keyword'] != null) {
+				$n['settings'][$row['keyword']] = $row['val'];
+			}
+
+			$this->pnacs[$row['pnacid']] = $n;
+		}
+
+	}
+
+	public function update_pnac($pnac) {
+		$this->delete_pnac($pnac, false);
+		$this->add_pnac($pnac);
+	}
+
+	public function delete_pnac($pnac, $deletefromdevice = true) {
+		global $amp_conf;
+		global $db;
+
+		$pnacid = $pnac['id'];
+
+		$this->pnacs[$pnacid] = $pnac;
+
+		if ($deletefromdevice) {
+			$sql = "DELETE FROM digium_phones_device_pnacs WHERE pnacid = \"{$db->escapeSimple($pnac['id'])}\"";
+			$result = $db->query($sql);
+			if (DB::IsError($result)) {
+				echo $result->getDebugInfo();
+				return false;
+			}
+			unset($result);
+		}
+
+		$sql = "DELETE FROM digium_phones_pnac_settings WHERE pnacid = \"{$db->escapeSimple($pnac['id'])}\"";
+		$result = $db->query($sql);
+		if (DB::IsError($result)) {
+			echo $result->getDebugInfo();
+			return false;
+		}
+		unset($result);
+
+		$sql = "DELETE FROM digium_phones_pnacs WHERE id = \"{$db->escapeSimple($pnac['id'])}\"";
+		$result = $db->query($sql);
+		if (DB::IsError($result)) {
+			echo $result->getDebugInfo();
+			return false;
+		}
+		unset($result);
+
+		needreload();
+	}
+	public function add_pnac($pnac) {
+		global $db;
+
+		$pnacid = $pnac['id'];
+
+		// pnacs
+		$sql = "INSERT INTO digium_phones_pnacs (id, name) VALUES(\"{$db->escapeSimple($pnac['id'])}\", \"{$db->escapeSimple($pnac['name'])}\")";
+		$result = $db->query($sql);
+		if (DB::IsError($result)) {
+			echo $result->getDebugInfo();
+			return false;
+		}
+		unset($result);
+
+		if ($pnacid == 0) {
+			$sql = "SELECT LAST_INSERT_ID()";
+
+			$results = $db->getAll($sql, DB_FETCHMODE_ASSOC);
+			if (DB::IsError($results)) {
+				die_freepbx($results->getDebugInfo());
+				return false;
+			}
+
+			foreach ($results as $row) {
+				$pnacid = $row['LAST_INSERT_ID()'];
+			}
+		}
+
+		$this->pnacs[$pnacid] = $pnac;
+
+		// pnac settings
+		$pnacsettings = array();
+		foreach ($pnac['settings'] as $key=>$val) {
+			if ($val != '') {
+				$pnacsettings[] = '\''.$db->escapeSimple($pnacid).'\',\''.$db->escapeSimple($key).'\',\''.$db->escapeSimple($val).'\'';
+			}
+		}
+
+		if (count($pnacsettings) > 0) {
+			/* Multiple INSERT */
+			$sql = "INSERT INTO digium_phones_pnac_settings (pnacid, keyword, val) VALUES (" . implode('),(', $pnacsettings) . ")";
+			$result = $db->query($sql);
+			if (DB::IsError($result)) {
+				echo $result->getDebugInfo();
+				return false;
+			}
+			unset($result);
+		}
+
+		needreload();
+	}
+
+
+
 
 }
 

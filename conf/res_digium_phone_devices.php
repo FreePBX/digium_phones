@@ -142,6 +142,15 @@ function res_digium_phone_devices($conf) {
 			$doutput[] = "network=network-{$network['networkid']}";
 		}
 
+		if (!empty($device['settings']['pnac_id'])) {
+			$pnacs = $conf->digium_phones->get_pnac($device['settings']['pnac_id']);
+			foreach ($pnacs['settings'] as $name => $value) {
+				$doutput[] = '8021x_' . $name . '=' . $value;
+			}
+		} else {
+			$doutput[] = "8021x_method=";
+		}
+
 		if (!empty($device['mcpages'])) foreach ($device['mcpages'] as $mcpage) {
 			$doutput[] = "multicastpage=mcpage-{$mcpage['mcpageid']}";
 		}

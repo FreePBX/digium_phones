@@ -84,6 +84,7 @@ if (isset($_POST['general_submit'])) {
 	$device['phonebooks'] = array();
 	$device['networks'] = array();
 	$device['mcpages'] = array();
+	$device['pnacs'] = array();
 	$device['externallines'] = array();
 	$device['logos'] = array();
 	$device['alerts'] = array();
@@ -123,7 +124,8 @@ if (isset($_POST['general_submit'])) {
 		'firmware_package_id',
 		'active_locale',
 		'default_fontsize',
-		'call_waiting_tone'
+		'call_waiting_tone',
+		'pnac_id',
 	);
 
 	foreach ($settings as $setting) {
@@ -417,6 +419,38 @@ if (isset($_POST['general_submit'])) {
 	$mcpage['id'] = $mcpageid;
 	$digium_phones->delete_mcpage($mcpage);
 	$digium_phones->read_mcpages();
+} else if (isset($_POST['editpnac_submit'])) {
+	$pnacid = $_POST['pnac'];
+
+	$pnac = array();
+	$pnac['id'] = $pnacid;
+	$pnac['name'] = $_POST['pnacname'];
+
+	$settings = array(
+		'passthrough',
+		'eapol_on_disconnect',
+		'method',
+		'identity',
+		'anonymous_identity',
+		'password',
+		'client_cert_url',
+		'client_cert_value',
+		'root_cert_url',
+		'root_cert_value',
+	);
+	foreach ($settings as $setting) {
+		$pnac['settings'][$setting] = $_POST[$setting];
+	}
+
+	$digium_phones->update_pnac($pnac);
+	$digium_phones->read_pnacs();
+} else if (isset($_GET['deletepnac_submit'])) {
+	$pnacid = $_GET['pnac'];
+
+	$pnac = array();
+	$pnac['id'] = $pnacid;
+	$digium_phones->delete_pnac($pnac);
+	$digium_phones->read_pnacs();
 } else if (isset($_POST['editqueue_submit'])) {
 	$manager = explode(',', $_POST['tempManagers'][0]);
 
@@ -858,6 +892,9 @@ if (isset($_GET['user_image'])) {
 			break;
 		case 'mcpages_edit':
 			require 'modules/digium_phones/views/digium_phones_mcpages.php';
+			break;
+		case 'pnacs_edit':
+			require 'modules/digium_phones/views/digium_phones_pnacs.php';
 			break;
 		}
 	}

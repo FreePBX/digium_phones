@@ -288,6 +288,19 @@ $queries[] = "CREATE TABLE IF NOT EXISTS digium_phones_device_mcpages (
 );";
 
 
+$queries[] = "CREATE TABLE IF NOT EXISTS digium_phones_pnacs (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(30),
+	PRIMARY KEY (`id`)
+);";
+
+$queries[] = "CREATE TABLE IF NOT EXISTS digium_phones_pnac_settings (
+	`pnacid` INT NOT NULL,
+	`keyword` VARCHAR(30),
+	`val` VARCHAR(255),
+	PRIMARY KEY (`pnacid`, `keyword`)
+);";
+
 
 foreach ($queries as $sql) {
 	$result = $db->query($sql);

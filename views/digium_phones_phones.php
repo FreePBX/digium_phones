@@ -788,8 +788,26 @@ $tz .= '</select>';
 $table->add_row(array( 'data' => fpbx_label('Timezone:', 'Sets the timezone to be used for the phone.')),
 				array( 'data' => $tz));
 
+// 802.1X
+
+$pn = '<select id="pnac_id" name="pnac_id">';
+$pn .= '<option value="">None</option>';
+foreach ($digium_phones->get_pnacs() as $pnid => $pnac) {
+	$pn .= '<option value="'.$pnid.'"';
+	if ($pnid == $devices['settings']['pnac_id']) {
+		$pn .= ' selected';
+	}
+	$pn .= '>'.$pnac['name'].'</option>';
+}
+$pn .='</select'. "\n";
+$table->add_row(array('data' => fpbx_label('802.1X:', 'Select the 802.1X configuration to be used for the phone.')), array('data' => $pn));
+
+
 echo $table->generate();
 $table->clear();
+
+
+
 
 //Networks
 foreach ($digium_phones->get_networks() as $network) {

@@ -27,6 +27,9 @@ $show['Logos']		= '<li><a '
 $show['Multicast Page']		= '<li><a ' 
 				. ($_REQUEST['digium_phones_form'] == 'mcpages_edit' ? 'class="current ui-state-highlight" ' : '') 
 				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=mcpages_edit">' . _("Multicast Page") . '</a></li>'."\n";
+$show['802.1X']		= '<li><a ' 
+				. ($_REQUEST['digium_phones_form'] == 'pnacs_edit' ? 'class="current ui-state-highlight" ' : '') 
+				. 'href="config.php?type=setup&display=digium_phones&digium_phones_form=pnacs_edit">' . _("802.1X") . '</a></li>'."\n";
 }
 $show['Networks']		= '<li><a ' 
 				. ($_REQUEST['digium_phones_form'] == 'networks_edit' ? 'class="current ui-state-highlight" ' : '') 

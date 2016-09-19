@@ -1021,7 +1021,7 @@ echo '<div class="dragdropFrame">';
 echo '<div class="dragdrop">';
 echo fpbx_label('Available Multicast Pages', 'Displays a listing of pages that may be assigned to the phone. More than one page may be assigned to a phone.');
 echo '<ul id="availablemcpages" class="mcpages ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
-foreach ($mcpages as $id=>$net){
+if (!empty($mcpages)) foreach ($mcpages as $id=>$net){
 	if(empty($mcpagesSelected[$id])){
 		echo '<li id="devicemcpages_' . $id . '">' . $net . '</li>';
 	}

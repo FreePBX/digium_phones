@@ -112,7 +112,7 @@ $table->add_row(array( 'data' => fpbx_label('Server Port', 'The port on which to
 	array( 'data' => '<input type="text" id="server_port" name="server_port" value="5060"/>')
 	);
 $table->add_row(array( 'data' => fpbx_label('Transport', 'The SIP transport to use for this external line.'), 'class' => 'template_name'),
-	array( 'data' => '<select id="server_transport" name="server_transport"><option value="udp" selected>UDP (Default)</option><option value="tcp">TCP</option></select>')
+	array( 'data' => '<select id="server_transport" name="server_transport"><option value="udp" selected>UDP (Default)</option><option value="tcp">TCP</option><option value="tls">TLS</option></select>')
 	);
 $table->add_row(array( 'data' => fpbx_label('Caller ID', 'The Caller ID to be presented to the called party when using this external line.'), 'class' => 'template_name'),
 	array( 'data' => '<input type="text" id="callerid" name="callerid" />')
@@ -120,8 +120,7 @@ $table->add_row(array( 'data' => fpbx_label('Caller ID', 'The Caller ID to be pr
 $table->add_row(array( 'data' => fpbx_label('Register', 'Whether to register this external line to the specified server.'), 'class' => 'template_name'),
 	array( 'data' => '<select id="register" name="register"><option value="yes" selected>Yes (Default)</option><option value="no">No</option></select>')
 	);
-	
-	
+
 echo $table->generate();
 $table->clear();
 
@@ -137,6 +136,7 @@ echo '<tr class="advanced"><td><a href="#" class="info">Secondary Server Transpo
 			<select id="secondary_server_transport" name="secondary_server_transport">
 				<option value="udp" selected>UDP (Default)</option>
 				<option value="tcp">TCP</option>
+				<option value="tls">TLS</option>
 			</select></td></tr></table>';
 ?>
 	<br />

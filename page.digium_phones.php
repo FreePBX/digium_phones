@@ -35,6 +35,16 @@ if (!empty($_POST['devicenetworks_'])) {
 	unset($_POST['devicenetworks_']);
 }
 
+if (!empty($_POST['devicemcpages_'])) {
+
+	if (empty($_POST['devicemcpages']))
+		$_POST['devicemcpages']=array();
+
+	array_unshift($_POST['devicemcpages'],-1);
+	unset($_POST['devicemcpages_']);
+}
+
+
 
 /**
  * The following if statements check for when a form has been submitted. There
@@ -73,6 +83,8 @@ if (isset($_POST['general_submit'])) {
 	$device['lines'] = array();
 	$device['phonebooks'] = array();
 	$device['networks'] = array();
+	$device['mcpages'] = array();
+	$device['pnacs'] = array();
 	$device['externallines'] = array();
 	$device['logos'] = array();
 	$device['alerts'] = array();
@@ -112,7 +124,8 @@ if (isset($_POST['general_submit'])) {
 		'firmware_package_id',
 		'active_locale',
 		'default_fontsize',
-		'call_waiting_tone'
+		'call_waiting_tone',
+		'pnac_id',
 	);
 
 	foreach ($settings as $setting) {
@@ -168,6 +181,18 @@ if (isset($_POST['general_submit'])) {
 			}
 		}
 		$device['networks'][] = $network;
+	}
+
+	if (!empty($_POST['devicemcpages'])) foreach ($_POST['devicemcpages'] as $mcpageid) {
+		$mcpage = array();
+		$mcpage['mcpageid'] = $mcpageid;
+		if (!empty($olddevice['mcpages'])) foreach ($olddevice['mcpages'] as $n) {
+			if ($n['mcpageid'] == $mcpageid) {
+				$mcpage = $n;
+				break;
+			}
+		}
+		$device['mcpages'][] = $mcpage;
 	}
 
 	if (!empty($_POST['devicelogos'])) foreach ($_POST['devicelogos'] as $logoid) {
@@ -340,9 +365,11 @@ if (isset($_POST['general_submit'])) {
 		'ntp_server',
 		'registration_address',
 		'registration_port',
+		'transport',
 		'file_url_prefix',
 		'alternate_registration_address',
 		'alternate_registration_port',
+		'alternate_transport',
 		'ntp_server',
 		'syslog_level',
 		'syslog_server',
@@ -368,6 +395,64 @@ if (isset($_POST['general_submit'])) {
 	$network['id'] = $networkid;
 	$digium_phones->delete_network($network);
 	$digium_phones->read_networks();
+} else if (isset($_POST['editmcpage_submit'])) {
+	$mcpageid = $_POST['mcpage'];
+
+	$mcpage = array();
+	$mcpage['id'] = $mcpageid;
+	$mcpage['name'] = $_POST['mcpagename'];
+
+	$settings = array(
+		'address',
+		'port',
+		'priority',
+		'interrupt'
+	);
+	foreach ($settings as $setting) {
+		$mcpage['settings'][$setting] = $_POST[$setting];
+	}
+
+	$digium_phones->update_mcpage($mcpage);
+	$digium_phones->read_mcpages();
+} else if (isset($_GET['deletemcpage_submit'])) {
+	$mcpageid = $_GET['mcpage'];
+
+	$mcpage = array();
+	$mcpage['id'] = $mcpageid;
+	$digium_phones->delete_mcpage($mcpage);
+	$digium_phones->read_mcpages();
+} else if (isset($_POST['editpnac_submit'])) {
+	$pnacid = $_POST['pnac'];
+
+	$pnac = array();
+	$pnac['id'] = $pnacid;
+	$pnac['name'] = $_POST['pnacname'];
+
+	$settings = array(
+		'passthrough',
+		'eapol_on_disconnect',
+		'method',
+		'identity',
+		'anonymous_identity',
+		'password',
+		'client_cert_url',
+		'client_cert_value',
+		'root_cert_url',
+		'root_cert_value',
+	);
+	foreach ($settings as $setting) {
+		$pnac['settings'][$setting] = $_POST[$setting];
+	}
+
+	$digium_phones->update_pnac($pnac);
+	$digium_phones->read_pnacs();
+} else if (isset($_GET['deletepnac_submit'])) {
+	$pnacid = $_GET['pnac'];
+
+	$pnac = array();
+	$pnac['id'] = $pnacid;
+	$digium_phones->delete_pnac($pnac);
+	$digium_phones->read_pnacs();
 } else if (isset($_POST['editqueue_submit'])) {
 	$manager = explode(',', $_POST['tempManagers'][0]);
 
@@ -806,6 +891,12 @@ if (isset($_GET['user_image'])) {
 			break;
 		case 'ringtones_edit':
 			require 'modules/digium_phones/views/digium_phones_ringtones.php';
+			break;
+		case 'mcpages_edit':
+			require 'modules/digium_phones/views/digium_phones_mcpages.php';
+			break;
+		case 'pnacs_edit':
+			require 'modules/digium_phones/views/digium_phones_pnacs.php';
 			break;
 		}
 	}

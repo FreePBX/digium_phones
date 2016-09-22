@@ -159,6 +159,15 @@ if (!empty($devices)) foreach ($devices as $deviceid=>$device) {
 <?php
 		}
 	}
+
+	if (!empty($device['mcpages'])) foreach ($device["mcpages"] as $mcpage) {
+		if ($editdev == $deviceid) {
+?>
+			addmcpage("<?php echo $mcpage['mcpageid']?>");
+<?php
+		}
+	}
+
 }
 ?>
 });
@@ -216,6 +225,10 @@ $('form').submit(function() {
 	});
 	$('#devicecustomapps').attr("multiple", "multiple");
  	$('#devicecustomapps option').each(function() {
+ 		$(this).attr("selected", "selected");
+	});
+	$('#devicemcpages').attr("multiple", "multiple");
+ 	$('#devicemcpages option').each(function() {
  		$(this).attr("selected", "selected");
 	});
 });
@@ -413,6 +426,34 @@ function delCustomApp(customappid) {
 	}
 	return true;
 }
+
+function usemcpage(mcpageid) {
+	$('#mcpages option[value='+mcpageid+']').remove();
+}
+function addmcpage(mcpageid) {
+	mcpage = $('#mcpages option[value='+mcpageid+']');
+	if (mcpage.val() == mcpageid) {
+		newmcpage = mcpage.clone();
+		newmcpage.appendTo('#devicemcpages');
+		$('#devicemcpages').attr('selectedIndex', newmcpage.index());
+		$('#mcpages').attr('selectedIndex', '0');
+		usemcpage(mcpageid);
+	}
+	return true;
+}
+function delmcpage(mcpageid) {
+	mcpage = $('#devicemcpages option[value='+mcpageid+']');
+	mcopt = mcpage.appendTo('#mcpages');
+	if (mcopt) {
+		$('#mcpages').attr('selectedIndex', mcopt.index());
+	} else {
+		$('#mcpages').attr('selectedIndex', '0');
+	}
+	return true;
+}
+
+
+
 </script>
 
 <?php
@@ -747,8 +788,26 @@ $tz .= '</select>';
 $table->add_row(array( 'data' => fpbx_label('Timezone:', 'Sets the timezone to be used for the phone.')),
 				array( 'data' => $tz));
 
+// 802.1X
+
+$pn = '<select id="pnac_id" name="pnac_id">';
+$pn .= '<option value="">None</option>';
+foreach ($digium_phones->get_pnacs() as $pnid => $pnac) {
+	$pn .= '<option value="'.$pnid.'"';
+	if ($pnid == $devices['settings']['pnac_id']) {
+		$pn .= ' selected';
+	}
+	$pn .= '>'.$pnac['name'].'</option>';
+}
+$pn .='</select'. "\n";
+$table->add_row(array('data' => fpbx_label('802.1X:', 'Select the 802.1X configuration to be used for the phone.')), array('data' => $pn));
+
+
 echo $table->generate();
 $table->clear();
+
+
+
 
 //Networks
 foreach ($digium_phones->get_networks() as $network) {
@@ -949,6 +1008,37 @@ echo '</ul>';
 echo '</div>';
 echo '</div>'."\n"; // dragdropFrame
 echo '<div style="clear:both;"></div>'."\n";
+
+
+//multicast pages
+foreach ($digium_phones->get_mcpages() as $mcpage) {
+	$mcpages[$mcpage['id']] = $mcpage['name'];
+}
+if (!empty($devices['mcpages'])) foreach($devices['mcpages'] as $net){
+	$mcpagesSelected[$net['mcpageid']] = $net['mcpageid'];
+}
+echo '<div class="dragdropFrame">';
+echo '<div class="dragdrop">';
+echo fpbx_label('Available Multicast Pages', 'Displays a listing of pages that may be assigned to the phone. More than one page may be assigned to a phone.');
+echo '<ul id="availablemcpages" class="mcpages ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
+if (!empty($mcpages)) foreach ($mcpages as $id=>$net){
+	if(empty($mcpagesSelected[$id])){
+		echo '<li id="devicemcpages_' . $id . '">' . $net . '</li>';
+	}
+}
+echo '</ul>';
+echo '</div>'."\n";
+echo '<div class="dragdrop">';
+echo fpbx_label('Assigned Multicast Pages', 'Displays a listing of pages currently assigned to a phone.');
+echo '<ul id="devicemcpages" class="mcpages ui-menu ui-widget ui-widget-content ui-corner-all ui-sortable">';
+if ($mcpagesSelected) foreach( $mcpagesSelected as $net){
+	echo '<li id="devicemcpages_' . $net . '">' . $mcpages[$net] . '</li>';
+}
+echo '</ul>';
+echo '</div>';
+echo '</div>'."\n"; // dragdropFrame
+echo '<div style="clear:both;"></div>'."\n";
+
 
 $table->add_row(array( 'data' => fpbx_label('Enable Call Recording:', 'Enables or Disables Call Recording. If disabled, the Record softkey will not show for in-progress calls.')),
 				array( 'data' => '<select id="record_own_calls" name="record_own_calls">

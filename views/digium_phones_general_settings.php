@@ -1,3 +1,24 @@
+<?php
+$transport_options=array(
+	'' => 'UDP',
+	'tcp' => 'TCP',
+	'tls' => 'TLS',
+);
+
+function selector($name, $value, $options) {
+	$select = '<select id="'.$name.'" name="'.$name.'">';
+	foreach ($options as $optval => $text) {
+		$select .= '<option value="'. $optval.'"';
+		if ($value == $optval) {
+			$select .= ' selected';
+		}
+		$select .= '>'. htmlentities($text).'</option>';
+	}
+	$select .= '</select>' . "\n";
+	return $select;
+}
+
+?>
 <h2>General Settings</h2>
 <hr />
 
@@ -74,7 +95,15 @@ echo '<tr class="guielToggle" data-toggle_class="advanced"><td><h5><span class="
 echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">Active Locale:<span>Set the default active locale</span></a></td><td>' . $locale . '</td></tr>'."\n";
 echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">mDNS Service Name:<span>Defines the registration server name for this server, provided to the phone during its mDNS server discovery.</span></a></td><td><input type="text" id="service_name" name="service_name" value="' . $digium_phones->get_general('service_name') . '" placeholder="mDNS Service Name"/></td></tr>'."\n";
 echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">mDNS Discovery Address:<span>Defines the SIP UDP signaling address or hostname of this server, provided to the phone during its mDNS server discovery.</span></a></td><td><input type="text" id="mdns_address" name="mdns_address" value="' . $digium_phones->get_general('mdns_address') . '" placeholder="mDNS Discovery Address"/></td></tr>'."\n";
-echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">mDNS Discovery Port:<span>Defines the SIP UDP signaling port for this server, provided to the phone during its mDNS server discovery. Defaults to "5060".</span></a></td><td><input type="text" id="mdns_port" name="mdns_port" value="' . $digium_phones->get_general('mdns_port') . '" placeholder="mDNS Discovery Port"/></td></tr>'."\n".'</tbody></table>'."\n";
+
+echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">mDNS Discovery Port:<span>Defines the SIP UDP signaling port for this server, provided to the phone during its mDNS server discovery. Defaults to "5060".</span></a></td><td><input type="text" id="mdns_port" name="mdns_port" value="' . $digium_phones->get_general('mdns_port') . '" placeholder="mDNS Discovery Port"/></td></tr>'."\n";
+
+echo '<tr class="advanced"><td><a href="#" class="info" tabindex="-1">mDNS Discovery Transport:<span>Defines the SIP UDP signaling transport for this server, provided to the phone during its mDNS server discovery. Defaults to "5060".</span></a></td><td>' .
+	selector('mdns_transport', $digium_phones->get_general('mdns_transport'), $transport_options).
+	'</td></tr>'."\n";
+
+echo '</tbody></table>'."\n";
+
 ?>
 
 <div class="btn_container">

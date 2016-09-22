@@ -39,6 +39,7 @@ function res_digium_phone_general($conf) {
 	$output[] = "config_auth={$conf->digium_phones->get_general('config_auth')}";
 	$output[] = "mdns_address={$conf->digium_phones->get_general('mdns_address')}";
 	$output[] = "mdns_port={$conf->digium_phones->get_general('mdns_port')}";
+	$output[] = "mdns_transport={$conf->digium_phones->get_general('mdns_transport')}";
 	$output[] = "service_name={$conf->digium_phones->get_general('service_name')}";
 	/* note: option firmware_package_directory is deprecated in dpma, but leaving this for now */
 	$output[] = "firmware_package_directory=" . digium_phones_get_http_path();

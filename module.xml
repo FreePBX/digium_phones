@@ -9,9 +9,9 @@
 	<licenselink>http://www.gnu.org/licenses/gpl-3.0.txt</licenselink>
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
-	<version>13.1.0</version>
+	<version>13.0.3</version>
 	<changelog>
-		*13.1.0* Add TCP/TLS transport + D6x support: sdes, logos, multicast page, 802.1X
+		*13.0.3* Add TCP/TLS transport + D6x support: sdes, logos, multicast page, 802.1X
 		*13.0.2* Create PJSIP configuration needed to support DPMA operation
 		*13.0.1* Uses new core functionality
 		*2.11.3.2* Fixes for: * FREEPBX-11835 Digium phones module no options in Applications	Minor - Minor loss of function, or other problem where easy workaround is present. OPEN * FREEPBX-12221 With dpma installed and digium phones config module, can not add a queue	Minor - Minor loss of function, or other problem where easy workaround is present. CLOSED * FREEPBX-12224 unable to apply config, apply config returns error exit: 1 * FREEPBX-11028 Can't create phonebook in Digium module Includes changes to pass HTML5 validation, avoid exceptions on empty arrays, and support updated jquery version.

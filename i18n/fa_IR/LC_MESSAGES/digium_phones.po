@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-10 15:25-0700\n"
+"POT-Creation-Date: 2016-09-23 15:30-0700\n"
 "PO-Revision-Date: 2016-04-14 12:34+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -20,11 +20,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.4\n"
 
+#: views/rnav.php:32
+msgid "802.1X"
+msgstr ""
+
 #: views/rnav.php:14
 msgid "Alerts"
 msgstr "هشدارها"
 
-#: page.digium_phones.php:653
+#: page.digium_phones.php:738
 #, php-format
 msgid "Checksum error retrieving %s"
 msgstr "بازیابی خطا کنترلی %s"
@@ -57,21 +61,21 @@ msgstr "گزینه های خط تلفن های Digium"
 msgid "E-Mail Address"
 msgstr "آدرس ایمیل"
 
-#: page.digium_phones.php:620 page.digium_phones.php:624
+#: page.digium_phones.php:705 page.digium_phones.php:709
 #, php-format
 msgid "Error opening %s for reading"
 msgstr "خطا در باز کردن و خواندن %s"
 
-#: page.digium_phones.php:628
+#: page.digium_phones.php:713
 #, php-format
 msgid "Error opening %s for writing"
 msgstr "خطا در باز کردن و نوشتن %s"
 
-#: views/rnav.php:34
+#: views/rnav.php:40
 msgid "External Lines"
 msgstr "خطوط خارجی"
 
-#: views/rnav.php:42
+#: views/rnav.php:48
 msgid "Firmware"
 msgstr "فریمور"
 
@@ -79,7 +83,7 @@ msgstr "فریمور"
 msgid "First Name"
 msgstr "نام"
 
-#: views/rnav.php:38
+#: views/rnav.php:44
 msgid "General Settings"
 msgstr "تنظیمات عمومی"
 
@@ -103,13 +107,25 @@ msgstr "مکان"
 msgid "Logos"
 msgstr "لوگوها"
 
+#: functions.inc.php:223
+msgid "Media Encryption"
+msgstr ""
+
 #: functions.inc.php:200
 msgid "Middle Name"
 msgstr "نام میانی"
 
-#: views/rnav.php:30
+#: views/rnav.php:29
+msgid "Multicast Page"
+msgstr ""
+
+#: views/rnav.php:36
 msgid "Networks"
 msgstr "شبکه ها"
+
+#: functions.inc.php:220
+msgid "None (Default)"
+msgstr ""
 
 #: functions.inc.php:207
 msgid "Notes"
@@ -139,15 +155,15 @@ msgstr "تلفن ها"
 msgid "Prefix"
 msgstr "پیشوند"
 
-#: functions.inc.php:217
+#: functions.inc.php:226
 msgid "Re-registration TImeout"
 msgstr "اتمام مهلت ثبت نام مجدد"
 
-#: functions.inc.php:219
+#: functions.inc.php:228
 msgid "Registration Max Retries"
 msgstr "بیشترین ثبت نام مجدد"
 
-#: functions.inc.php:218
+#: functions.inc.php:227
 msgid "Registration Retry Interval"
 msgstr "فاصله بین تلاش برای ثبت نام"
 
@@ -155,13 +171,21 @@ msgstr "فاصله بین تلاش برای ثبت نام"
 msgid "Ringtones"
 msgstr "صدای زنگ"
 
+#: functions.inc.php:221
+msgid "SDES"
+msgstr ""
+
 #: functions.inc.php:202
 msgid "Suffix"
 msgstr "پسوند"
 
-#: functions.inc.php:214
+#: functions.inc.php:215
 msgid "TCP"
 msgstr "TCP"
+
+#: functions.inc.php:216
+msgid "TLS"
+msgstr ""
 
 #: functions.inc.php:211
 msgid "The Digit Map for this extension."
@@ -203,15 +227,15 @@ msgstr "سازمان برای استفاده در تماس برنامه‌."
 msgid "The Prefix for use in Contacts application."
 msgstr "پیشوند برای استفاده در تماس برنامه‌."
 
-#: functions.inc.php:217
+#: functions.inc.php:226
 msgid "The Re-registration Timeout for this extension."
 msgstr "اتمام مهلت ثبت نام مجدد برای این داخلی."
 
-#: functions.inc.php:219
+#: functions.inc.php:228
 msgid "The Registration Max Retries for this extension."
 msgstr "بیشترین ثبت نام برای این داخلی."
 
-#: functions.inc.php:218
+#: functions.inc.php:227
 msgid "The Registration Retry Interval for this extension."
 msgstr "فاصله بین تلاش برای ثبت نام مجدد برای این داخلی."
 
@@ -219,7 +243,7 @@ msgstr "فاصله بین تلاش برای ثبت نام مجدد برای ای
 msgid "The Suffix for use in Contacts application."
 msgstr "پسوند برای استفاده در تماس برنامه‌."
 
-#: functions.inc.php:216
+#: functions.inc.php:218
 msgid "The Transport for this extension."
 msgstr "انتقال این داخلی."
 
@@ -231,14 +255,21 @@ msgstr ""
 "URI منو صوتی برای این داخلی. نکته تنظیمات این گزینه در خط اصلی تلفن منو صوتی "
 "تصویری را غیرفعال میکند."
 
-#: functions.inc.php:216
+#: functions.inc.php:223
+msgid "The media encryption for this extension."
+msgstr ""
+
+#: functions.inc.php:218
 msgid "Transport"
 msgstr "انتقال"
 
-#: functions.inc.php:213
-msgid "UDP (Default)"
-msgstr "UDP (پیشفرض)"
+#: functions.inc.php:214
+msgid "UDP (Default) or value from Network setting)"
+msgstr ""
 
 #: functions.inc.php:212
 msgid "Voicemail URI"
 msgstr "URI منو صوتی"
+
+#~ msgid "UDP (Default)"
+#~ msgstr "UDP (پیشفرض)"

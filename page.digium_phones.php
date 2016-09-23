@@ -752,6 +752,7 @@ if (isset($_GET['user_image'])) {
 } else if (isset($_POST['uploadfirmware_submit'])) {
 	$allowed_exts = array('tar', 'gz', 'tgz');
 	$original_filename = digium_phones_sanitize_filepath($_FILES['upload_firmware_location']['name']);
+	$original_filename = basename($original_filename);
 	$http_path = digium_phones_get_http_path();
 	$archive  = digium_phones_sanitize_filepath($http_path . $original_filename);
 	$temp_file = digium_phones_sanitize_filepath($_FILES['upload_firmware_location']['tmp_name']);

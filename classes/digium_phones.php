@@ -9,7 +9,7 @@
  * Author: Jason Parker <jparker@digium.com>
  *
  * This program is free software, distributed under the terms of
- * the GNU General Public License Version 2. 
+ * the GNU General Public License Version 2.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -174,7 +174,7 @@ class digium_phones {
 
 	/**
 	 * Get device
-	 * 
+	 *
 	 * Get a device and all its info
 	 */
 	public function get_device($deviceid) {
@@ -195,7 +195,7 @@ class digium_phones {
 
 	/**
 	 * Get extension settings
-	 * 
+	 *
 	 * Get an extension and all its settings
 	 */
 	public function get_extension_settings($extension) {
@@ -219,7 +219,7 @@ class digium_phones {
 
 	/**
 	 * Get phonebook
-	 * 
+	 *
 	 * Get a phonebook and all its extensions
 	 */
 	public function get_phonebook($id) {
@@ -240,7 +240,7 @@ class digium_phones {
 
 	/**
 	 * Get queue
-	 * 
+	 *
 	 * Get a queue and all its settings
 	 */
 	public function get_queue($id) {
@@ -261,7 +261,7 @@ class digium_phones {
 
 	/**
 	 * Get status
-	 * 
+	 *
 	 * Get a status and all its settings and entries
 	 */
 	public function get_status($id) {
@@ -282,7 +282,7 @@ class digium_phones {
 
 	/**
 	 * Get customapp
-	 * 
+	 *
 	 * Get a customapp and all its settings
 	 */
 	public function get_customapp($id) {
@@ -303,7 +303,7 @@ class digium_phones {
 
 	/**
 	 * Get network
-	 * 
+	 *
 	 * Get a network and all its settings
 	 */
 	public function get_network($id) {
@@ -387,7 +387,7 @@ class digium_phones {
 
 	/**
 	 * Get logo
-	 * 
+	 *
 	 * Get a logo and all its settings
 	 */
 	public function get_logo($id) {
@@ -406,7 +406,7 @@ class digium_phones {
 
 	/**
 	 * Get alert
-	 * 
+	 *
 	 * Get an alert
 	 */
 	public function get_alert($id) {
@@ -425,7 +425,7 @@ class digium_phones {
 
 	/**
 	 * Get ringtone
-	 * 
+	 *
 	 * Get a ringtone
 	 */
 	public function get_ringtone($id) {
@@ -492,7 +492,7 @@ class digium_phones {
 
 		$devices = array();
 		$this->devices = array();
-		
+
 		// Get all devices.
 		$sql = "SELECT id as deviceid, name FROM digium_phones_devices ORDER BY id";
 
@@ -1255,7 +1255,7 @@ class digium_phones {
 
 		$phonebooks = array();
 		$this->phonebooks = array();
-		
+
 		$sql = "SELECT ps.id AS phonebookid, ps.name, pes.id AS entryid, pes.extension, pess.keyword, pess.val FROM digium_phones_phonebooks AS ps ";
 		$sql = $sql . "  LEFT JOIN digium_phones_phonebook_entries AS pes ON (ps.id = pes.phonebookid) ";
 		$sql = $sql . "  LEFT JOIN digium_phones_phonebook_entry_settings AS pess ON (pes.id = pess.phonebookentryid AND ps.id = pess.phonebookid) ";
@@ -1334,7 +1334,7 @@ class digium_phones {
 		unset($result);
 
 		if ($deletefromdevice) {
-			unlink("{$amp_conf['ASTETCDIR']}/digium_phones/contacts-{$db->escapeSimple($phonebook['id'])}.xml");
+			unlink($amp_conf['ASTETCDIR']."/digium_phones/contacts-".basename($phonebook['id']).".xml");
 		}
 		needreload();
 	}
@@ -1999,7 +1999,7 @@ class digium_phones {
 		$this->customapps[$id] = $customapp;
 
 		if ($deletefromdevice) {
-			unlink(digium_phones_get_http_path() . 'application_'.$customappid.'.zip');
+			unlink(digium_phones_get_http_path() . 'application_'.basename($customappid).'.zip');
 
 			$sql = "DELETE FROM digium_phones_device_customapps WHERE customappid = \"{$db->escapeSimple($customapp['id'])}\"";
 			$result = $db->query($sql);
@@ -2080,7 +2080,7 @@ class digium_phones {
 		}
 
 		$http_path = digium_phones_get_http_path();
-		if (!move_uploaded_file($customapp['file']['tmp_name'], $http_path . "application_".$customappid.".zip")) {
+		if (!move_uploaded_file($customapp['file']['tmp_name'], $http_path . "application_".basename($customappid).".zip")) {
 			?>
 			<br>
 			<span style="color: red; ">Uploaded file is not valid.</span>
@@ -2120,7 +2120,7 @@ class digium_phones {
 			if ($n['settings']['registration_port'] == '') {
 				$n['settings']['registration_port'] = $this->get_general('mdns_port');
 			}
-			if ($n['settings']['file_url_prefix'] == '' || 
+			if ($n['settings']['file_url_prefix'] == '' ||
 				// also update deprecated path
 				strstr($n['settings']['file_url_prefix'], '/admin/modules/digium_phones/firmware_package/')) {
 				$n['settings']['file_url_prefix'] = digium_phones_get_http_path('http://' . $this->get_general('mdns_address'));
@@ -2683,4 +2683,3 @@ class digium_phones {
 
 
 }
-

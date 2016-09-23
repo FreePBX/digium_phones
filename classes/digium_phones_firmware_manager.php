@@ -9,7 +9,7 @@
  * Author: Jason Parker <jparker@digium.com>
  *
  * This program is free software, distributed under the terms of
- * the GNU General Public License Version 2. 
+ * the GNU General Public License Version 2.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -298,7 +298,7 @@ class digium_phones_firmware_manager {
 			return false;
 		}
 
-		exec('tar xf '.$archive.' -C '.$path.' 2>&1', $output, $exitcode);
+		exec('tar xf '.escapeshellarg($archive).' -C '.escapeshellarg($path).' 2>&1', $output, $exitcode);
 		unlink($archive);
 		if ($exitcode != 0) {
 			$this->error_msg = 'Failed to extract archive: tar exited '.$exitcode;
@@ -330,4 +330,3 @@ class digium_phones_firmware_manager {
 	private $packages;
 	private $phones;
 }
-

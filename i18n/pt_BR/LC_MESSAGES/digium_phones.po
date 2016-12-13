@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-23 15:30-0700\n"
-"PO-Revision-Date: 2016-12-12 05:38+0200\n"
+"PO-Revision-Date: 2016-12-12 21:31+0200\n"
 "Last-Translator: Alexander <alexander.schley@paranagua.pr.gov.br>\n"
 "Language-Team: Portuguese (Brazil) "
 "<http://weblate.freepbx.org/projects/freepbx/digium_phones/pt_BR/>\n"
@@ -246,26 +246,29 @@ msgstr "Sufixo para uso no aplicativo Contatos."
 
 #: functions.inc.php:218
 msgid "The Transport for this extension."
-msgstr ""
+msgstr "Transporte para este ramal."
 
 #: functions.inc.php:212
 msgid ""
 "The Voicemail URI for this extension.  Note that setting this option on a "
 "phone's primary line will disable visual voicemail."
 msgstr ""
+"URI de correio de voz para este ramal. Observe que a configuração dessa "
+"opção na linha principal do telefone desativará a visualização do correio de "
+"voz."
 
 #: functions.inc.php:223
 msgid "The media encryption for this extension."
-msgstr ""
+msgstr "A criptografia de mídia para esse ramal."
 
 #: functions.inc.php:218
 msgid "Transport"
-msgstr ""
+msgstr "Transporte"
 
 #: functions.inc.php:214
 msgid "UDP (Default) or value from Network setting)"
-msgstr ""
+msgstr "UDP (Padrão) ou valor da configuração Rede)"
 
 #: functions.inc.php:212
 msgid "Voicemail URI"
-msgstr ""
+msgstr "Correio de Voz URI"

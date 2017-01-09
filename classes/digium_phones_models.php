@@ -38,9 +38,9 @@ class digium_phones_models {
 			'd40' => array('name' => 'D40', 'logo' => '150x45', 'color' => 0),
 			'd45' => array('name' => 'D45', 'logo' => '150x45', 'color' => 0),
 			'd50' => array('name' => 'D50', 'logo' => '150x45', 'color' => 0),
-			'd60' => array('name' => 'D60', 'logo' => '280x128', 'color' => 1),
-			'd62' => array('name' => 'D62', 'logo' => '280x128', 'color' => 1),
-			'd65' => array('name' => 'D65', 'logo' => '280x128', 'color' => 1),
+			'd60' => array('name' => 'D60', 'logo' => '296x128', 'color' => 1),
+			'd62' => array('name' => 'D62', 'logo' => '296x128', 'color' => 1),
+			'd65' => array('name' => 'D65', 'logo' => '296x128', 'color' => 1),
 			'd70' => array('name' => 'D70', 'logo' => '205x85', 'color' => 0),
 		);
 

@@ -46,21 +46,18 @@ function res_digium_phone_devices($conf) {
 		/* collect which custom ringtones need to be loaded for this device */
 		$ringtones = array();
 
-		$parkext = "";
-		if (function_exists('parking_getconfig')) {
-			// Old and busted parking module
-			$parking = parking_getconfig();
-			if ($parking != null && $parking['parkingenabled'] != "" && $parking['parkext'] != "") {
-				$parkext = $parking['parkext'];
+		if (empty($device['setings']['parking_exten'])) {
+			$parkext = '';
+			if (!$parkext && function_exists('parking_get')) {
+				$parking = parking_get();
+				if (!empty($parking['parkext'])) {
+					$parkext = $parking['parkext'];
+				}
 			}
-		} else if (function_exists('parking_get')) {
-			// Fancy new 'park plus' module
-			$parking = parking_get();
-			if ($parking != null && $parking['parkext'] != "") {
-				$parkext = $parking['parkext'];
-			}
+
+			/* only output default parkext if it's not already set in device settings */
+			$doutput[] = "parking_exten={$parkext}";
 		}
-		$doutput[] = "parking_exten={$parkext}";
 		$doutput[] = "parking_transfer_type=blind";
 
 		if (isset($device['settings']['active_locale']) === FALSE) {

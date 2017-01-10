@@ -126,6 +126,7 @@ if (isset($_POST['general_submit'])) {
 		'default_fontsize',
 		'call_waiting_tone',
 		'pnac_id',
+		'parking_exten',
 	);
 
 	foreach ($settings as $setting) {

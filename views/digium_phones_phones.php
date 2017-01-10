@@ -1039,6 +1039,22 @@ echo '</div>';
 echo '</div>'."\n"; // dragdropFrame
 echo '<div style="clear:both;"></div>'."\n";
 
+if (function_exists('parking_get')) {
+	$parking_lots = parking_get('all');
+} else {
+	$parking_lots = array(array('parkext' => '70', 'name' => 'Default Lot'));
+}
+
+$parklots = '<select id="parking_exten" name="parking_exten">';
+foreach (parking_get('all') as $lot) {
+	$parklots .= '<option value="' . $lot['parkext'] .'"';
+	if ($lot['parkext'] == $devices['settings']['parking_exten']) $parklots .= ' selected';
+	$parklots .= '>' . $lot['name'] . ' (' . $lot['parkext'] . ')</option>';
+}
+
+$table->add_row(array('data' => fpbx_label('Select Parking Lot:', 'Pick which lot to use for the one-touch Park button.')),
+			array('data' => $parklots));
+
 
 $table->add_row(array( 'data' => fpbx_label('Enable Call Recording:', 'Enables or Disables Call Recording. If disabled, the Record softkey will not show for in-progress calls.')),
 				array( 'data' => '<select id="record_own_calls" name="record_own_calls">

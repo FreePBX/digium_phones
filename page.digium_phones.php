@@ -84,6 +84,7 @@ if (isset($_POST['general_submit'])) {
 	$device['phonebooks'] = array();
 	$device['networks'] = array();
 	$device['mcpages'] = array();
+	$device['parkapps'] = array();
 	$device['pnacs'] = array();
 	$device['externallines'] = array();
 	$device['logos'] = array();
@@ -195,6 +196,19 @@ if (isset($_POST['general_submit'])) {
 		}
 		$device['mcpages'][] = $mcpage;
 	}
+
+	if (!empty($_POST['deviceparkapps'])) foreach ($_POST['deviceparkapps'] as $category) {
+		$parkapp = array();
+		$parkapp['category'] = $category;
+		if (!empty($olddevice['parkapps'])) foreach ($olddevice['parkapps'] as $n) {
+			if ($n['category'] == $category) {
+				$parkapp = $n;
+				break;
+			}
+		}
+		$device['parkapps'][] = $parkapp;
+	}
+
 
 	if (!empty($_POST['devicelogos'])) foreach ($_POST['devicelogos'] as $logoid) {
 		$logo = array();

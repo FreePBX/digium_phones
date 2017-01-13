@@ -1039,14 +1039,17 @@ echo '</div>';
 echo '</div>'."\n"; // dragdropFrame
 echo '<div style="clear:both;"></div>'."\n";
 
+
 if (function_exists('parking_get')) {
 	$parking_lots = parking_get('all');
 } else {
 	$parking_lots = array(array('parkext' => '70', 'name' => 'Default Lot'));
 }
 
+$parking_all = parking_get('all');
+
 $parklots = '<select id="parking_exten" name="parking_exten">';
-foreach (parking_get('all') as $lot) {
+foreach ($parking_all as $lot) {
 	$parklots .= '<option value="' . $lot['parkext'] .'"';
 	if ($lot['parkext'] == $devices['settings']['parking_exten']) $parklots .= ' selected';
 	$parklots .= '>' . $lot['name'] . ' (' . $lot['parkext'] . ')</option>';
@@ -1054,6 +1057,27 @@ foreach (parking_get('all') as $lot) {
 
 $table->add_row(array('data' => fpbx_label('Select Parking Lot:', 'Pick which lot to use for the one-touch Park button.')),
 			array('data' => $parklots));
+
+$parkapps = '<div style="overflow-y:auto; max-height:200px; border: 1px solid #aaaaaa; border-radius: 4px; padding: 2px;">';
+foreach ($parking_all as $lot) {
+	$id = 'deviceparkapps[]';
+	$value = 'parkinglot_'.$lot['id'];
+	if ($lot['defaultlot'] == 'yes') {
+		$value = 'default';
+	}
+	$name = $lot['name']. ' ('.$lot['parkpos'].'-'.($lot['parkpos']+$lot['numslots']-1).')';
+	$checked = '';
+	if (!empty($devices['parkapps'])) foreach ($devices['parkapps'] as $parkapp) {
+		if ($parkapp['category'] == $value) {
+			$checked = ' checked';
+		}
+	}
+	$parkapps .= '<input type="checkbox" name="'.$id.'" value="'.$value.'"'.$checked.'>'.$name.'<br>';
+}
+$parkapps.='</div>';
+
+$table->add_row(array('data' => fpbx_label('Visible Parking Lots:', 'Select lots that can be viewed on the phone parking application.  If none are selected, all parked calls will be shown.')),
+			array('data' => $parkapps));
 
 
 $table->add_row(array( 'data' => fpbx_label('Enable Call Recording:', 'Enables or Disables Call Recording. If disabled, the Record softkey will not show for in-progress calls.')),

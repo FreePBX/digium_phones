@@ -515,6 +515,7 @@ class digium_phones {
 			$d['queues'] = array();
 			$d['statuses'] = array();
 			$d['customapps'] = array();
+			$d['parkapps'] = array();
 
 			$devices[$row['deviceid']] = $d;
 		}
@@ -668,6 +669,28 @@ class digium_phones {
 
 			$devices[$row['deviceid']] = $d;
 		}
+
+		// Get parkapps on devices
+		$sql = "SELECT id, deviceid, category FROM digium_phones_device_parkapps ORDER by deviceid";
+
+		$results = $db->getAll($sql, DB_FETCHMODE_ASSOC);
+		if (DB::IsError($results)) {
+			die_freepbx($results->getDebugInfo());
+			return false;
+		}
+
+		foreach ($results as $row) {
+			$d = $devices[$row['deviceid']];
+
+			if ($row['id'] != null) {
+				$n = $d['parkapps'][$row['id']];
+				$n['category'] = $row['category'];
+				$d['parkapps'][$row['id']] = $n;
+			}
+
+			 $devices[$row['deviceid']] = $d;
+		}
+
 
 		// Get external lines on devices.
 		$sql = "SELECT dels.id, ds.id as deviceid, dels.externallineid FROM digium_phones_devices AS ds ";
@@ -940,6 +963,14 @@ class digium_phones {
 		}
 		unset($result);
 
+		$sql = "DELETE FROM digium_phones_device_parkapps WHERE deviceid = \"{$db->escapeSimple($device['id'])}\"";
+		$result = $db->query($sql);
+		if (DB::IsError($result)) {
+			echo $result->getDebugInfo();
+			return false;
+		}
+		unset($result);
+
 		needreload();
 	}
 
@@ -1072,6 +1103,23 @@ class digium_phones {
 		if (count($mcpages) > 0) {
 			/* Multiple INSERT */
 			$sql = "INSERT INTO digium_phones_device_mcpages (id, deviceid, mcpageid) VALUES (" . implode('),(', $mcpages) . ")";
+			$result = $db->query($sql);
+			if (DB::IsError($result)) {
+				echo $result->getDebugInfo();
+				return false;
+			}
+			unset($result);
+		}
+
+		// Device parkapps
+		$parkapps = array();
+		if (!empty($device['parkapps'])) foreach ($device['parkapps'] as $id=>$parkapp) {
+			$parkapps[] = '\''.$db->escapeSimple($id).'\',\''.$db->escapeSimple($deviceid).'\',\''.$db->escapeSimple($parkapp['category']).'\'';
+		}
+
+		if (count($parkapps) > 0) {
+			/* Multiple INSERT */
+			$sql = "INSERT INTO digium_phones_device_parkapps (id, deviceid, category) VALUES (" . implode('),(', $parkapps) . ")";
 			$result = $db->query($sql);
 			if (DB::IsError($result)) {
 				echo $result->getDebugInfo();

@@ -34,6 +34,7 @@ function res_digium_phone_applications($conf) {
 	$output = array();
 	$vm_apps = array();
 	$translations = array();
+	$parking_apps = array();
 
 	foreach ($conf->digium_phones->get_devices() as $deviceid=>$device) {
 		if (isset($device['settings']['active_locale']) === FALSE) {
@@ -83,6 +84,22 @@ function res_digium_phone_applications($conf) {
 			$output[] = "";
 		}
 		unset($table);
+
+		if (!empty($device['parkapps'])) {
+			foreach ($device['parkapps'] as $parkapp) {
+				if (!in_array($parkapp['category'], $parking_apps)) {
+					$parking_apps[] = $parkapp['category'];
+				}
+			}
+		}
+	}
+
+	foreach ($parking_apps as $category) {
+		$output[] = '[parking-app-' . $category . ']';
+		$output[] = 'type=application';
+		$output[] = 'application=parking';
+		$output[] = 'parkinglot='.$category;
+		$output[] = '';
 	}
 
 	foreach ($conf->digium_phones->get_queues() as $queueid=>$queue) {

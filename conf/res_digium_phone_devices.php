@@ -78,6 +78,12 @@ function res_digium_phone_devices($conf) {
 		}
 		$doutput[] = "application={$vm_app}";
 
+		if (!empty($device['parkapps'])) {
+			foreach ($device['parkapps'] as $parkapp) {
+				$doutput[] = 'application=parking-app-'.$parkapp['category'];
+			}
+		}
+
 		if (!empty($device['settings'])) foreach ($device['settings'] as $key=>$val) {
 			if ($key == 'rapiddial') {
 				if ($val == '') {

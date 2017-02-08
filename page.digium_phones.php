@@ -850,15 +850,27 @@ if (isset($_GET['user_image'])) {
 	$easymode = ($digium_phones->get_general('easy_mode') == "yes"?true:false);
 	include('views/rnav.php');
 	echo '<div id="content">';
+
 	$dpmalicensestatus = $astman->send_request('DPMALicenseStatus');
-	if ($dpmalicensestatus == null || $dpmalicensestatus['Response'] != "Success") {
-?>
-		<br />
-		<br />
-		A valid license for res_digium_phones.so was not found.
-		<br />
-		<a href="config.php?type=setup&display=digiumaddons&page=add-license-form&addon=dpma">Obtain/register a license.</a>
-<?php
+	if (empty($dpmalicensestatus) || $dpmalicensestatus['Response'] != "Success") {
+		$lic_file = exec('ls /var/lib/asterisk/licenses | fgrep DPMA-');
+		$ast_major = preg_replace('/\..*/', '', $amp_conf['ASTVERSION']);
+		echo '<h2>Digium Phones is disabled</h2>';
+		if (empty($dpmalicensestatus['Message']) && $lic_file && check_reload_needed()) {
+			echo '<p>A license file is present but has not been loaded into Asterisk.  Press <b>Apply Config</b> to load license file, then reload this page.</p>';
+		} else if (empty($dpmalicensestatus['Message'])) {
+			echo '<p>The DPMA module is not licensed</p>';
+			if ($lic_file) {
+				echo '<p>A license file is present, but is not recognized as valid and should be replaced.</p>';
+			}
+			echo '<input type="button" value="Get Free License" onclick="location.href=\'config.php?type=setup&display=digiumaddons&page=add-license-form&addon=dpma\';" />';
+		} else if (strstr($dpmalicensestatus['Message'], 'unknown command')) {
+			echo '<p>DPMA module is not installed in Asterisk.  Use this root shell command to install DPMA, then restart Asterisk:</p>';
+			echo '<pre>yum install asterisk'.$ast_major.'-res_digium_phone</pre>';
+		} else {
+			echo '<p>Unexpected response from Asterisk:</p>';
+			echo '<pre>'.print_r($dpmalicensestatus, true).'</pre>';
+		}
 	} else {
 		/**
 		 * The following switch statement determines what to render. This

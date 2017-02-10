@@ -853,24 +853,26 @@ if (isset($_GET['user_image'])) {
 
 	$dpmalicensestatus = $astman->send_request('DPMALicenseStatus');
 	if (empty($dpmalicensestatus) || $dpmalicensestatus['Response'] != "Success") {
+		$dpmamoduleloaded = $astman->send_request('ModuleCheck', array('Module'=>'res_digium_phone'));
 		$lic_file = exec('ls /var/lib/asterisk/licenses | fgrep DPMA-');
 		$ast_major = preg_replace('/\..*/', '', $amp_conf['ASTVERSION']);
 		echo '<h2>Digium Phones is disabled</h2>';
-		if (empty($dpmalicensestatus['Message']) && $lic_file && check_reload_needed()) {
-			echo '<p>A license file is present but has not been loaded into Asterisk.  Press <b>Apply Config</b> to load license file, then reload this page.</p>';
-		} else if (empty($dpmalicensestatus['Message'])) {
-			echo '<p>The DPMA module is not licensed</p>';
-			if ($lic_file) {
-				echo '<p>A license file is present, but is not recognized as valid and should be replaced.</p>';
-			}
-			echo '<input type="button" value="Get Free License" onclick="location.href=\'config.php?type=setup&display=digiumaddons&page=add-license-form&addon=dpma\';" />';
-		} else if (strstr($dpmalicensestatus['Message'], 'unknown command')) {
-			echo '<p>DPMA module is not installed in Asterisk.  Use this root shell command to install DPMA, then restart Asterisk:</p>';
+
+		if ($dpmamoduleloaded['Response'] != 'Success') {
+			echo '<p>The DPMA module is not installed in Asterisk.  On a FreePBX Distro, this root shell command will install DPMA:</p>';
 			echo '<pre>yum install asterisk'.$ast_major.'-res_digium_phone</pre>';
+			echo '<p>After DPMA is installed, Asterisk must be restarted.</p>';
+		} else if ($lic_file && check_reload_needed()) {
+			echo '<p>A license file is present but may not be loaded into Asterisk.  Press <b>Apply Config</b> to load license file, then reload this page.</p>';
 		} else {
-			echo '<p>Unexpected response from Asterisk:</p>';
-			echo '<pre>'.print_r($dpmalicensestatus, true).'</pre>';
+			echo '<p>The DPMA module is not licensed.</p>';
+			if ($lic_file) {
+				echo '<p>A license file is present but is not valid and may need to be replaced.</p>';
+			}
+			echo '<p><input type="button" value="Get Free License" onclick="location.href=\'config.php?type=setup&display=digiumaddons&page=add-license-form&addon=dpma\';" /></p>';
 		}
+		$url = 'https://wiki.asterisk.org/wiki/display/DIGIUM/DPMA+Installation';
+		echo '<p>For additional information, see: <a href="'.$url.'">'.$url.'</a></p>';
 	} else {
 		/**
 		 * The following switch statement determines what to render. This

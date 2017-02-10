@@ -3,22 +3,22 @@
 # For licensing information, please see the file named LICENSE located in the module directory
 #
 # FreePBX language template for digium_phones
-# Copyright (C) 2008-2015 Sangoma, Inc.
+# Copyright (C) 2008-2016 Sangoma, Inc.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-27 18:18-0800\n"
-"PO-Revision-Date: 2016-11-23 13:36+0200\n"
-"Last-Translator: Pascal <pascal.noyel@ipexia.com>\n"
-"Language-Team: French <http://weblate.freepbx.org/projects/freepbx/"
-"digium_phones/fr_FR/>\n"
+"PO-Revision-Date: 2017-01-16 17:50+0200\n"
+"Last-Translator: Sven <spiderrs4@web.de>\n"
+"Language-Team: German <http://weblate.freepbx.org/projects/freepbx/"
+"digium_phones/de_DE/>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr_FR\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.4\n"
 
 #: views/rnav.php:32
@@ -27,7 +27,7 @@ msgstr ""
 
 #: views/rnav.php:14
 msgid "Alerts"
-msgstr "Alertes"
+msgstr ""
 
 #: page.digium_phones.php:753
 #, php-format
@@ -36,7 +36,7 @@ msgstr ""
 
 #: digium_phones.i18n.php:6 digium_phones.i18n.php:10
 msgid "Connectivity"
-msgstr "Connectivité"
+msgstr "Verbindungen"
 
 #: functions.inc.php:211
 msgid "Digit Map"
@@ -82,11 +82,11 @@ msgstr ""
 
 #: functions.inc.php:199
 msgid "First Name"
-msgstr "Prénom"
+msgstr ""
 
 #: views/rnav.php:44
 msgid "General Settings"
-msgstr "Paramètres Généraux"
+msgstr ""
 
 #: functions.inc.php:204
 msgid "Job Title"
@@ -94,7 +94,7 @@ msgstr ""
 
 #: functions.inc.php:201
 msgid "Last Name"
-msgstr "Nom"
+msgstr ""
 
 #: functions.inc.php:210
 msgid "Line Label"

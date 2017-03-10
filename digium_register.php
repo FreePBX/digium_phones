@@ -10,22 +10,6 @@
  * interface file instead. 
  * ----------------------------------------------------------------------------- */
 
-// Try to load our extension if it's not already loaded.
-if (!extension_loaded('digium_register')) {
-  if (strtolower(substr(PHP_OS, 0, 3)) === 'win') {
-    if (!dl('php_digium_register.dll')) return;
-  } else {
-    // PHP_SHLIB_SUFFIX gives 'dylib' on MacOS X but modules are 'so'.
-    if (PHP_SHLIB_SUFFIX === 'dylib') {
-      if (!dl('digium_register.so')) return;
-    } else {
-      if (!dl('digium_register.'.PHP_SHLIB_SUFFIX)) return;
-    }
-  }
-}
-
-
-
 abstract class digium_phones_digium_register {
 	const MAX_USERFIELD_SIZE = MAX_USERFIELD_SIZE;
 

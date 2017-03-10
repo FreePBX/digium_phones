@@ -1,18 +1,9 @@
 <?php
 
-if (!function_exists('dl')) {
-	echo '<h3>Error: dynamic library support required in PHP to load register utility.</h3>';
+if (!extension_loaded('digium_register')) {
+	echo '<h3>Error: the register utility did not successfully load.</h3>';
 	echo '<p>DPMA license can be added using command-line register utility instead.</p>';
 	return;
-}
-
-if (!extension_loaded('digium_register')) {
-	if (dl('digium_register.so')) {
-		echo '<h3>Error: the register utility did not successfully load.</h3>';
-		echo '<p>The utility may not be present, or dynamic library support in PHP may not be enabled.</p>';
-		echo '<p>DPMA license can be added using command-line register utility instead.</p>';
-		return;
-	}
 }
 
 require_once(__DIR__.'/register_functions.php');

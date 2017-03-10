@@ -1,23 +1,23 @@
 <?php
 
-require_once(__DIR__.'/register_functions.php');
+if (!function_exists('dl')) {
+	echo '<h3>Error: dynamic library support required in PHP to load register utility.</h3>';
+	echo '<p>DPMA license can be added using command-line register utility instead.</p>';
+	return;
+}
 
-require_once(__DIR__.'/digium_register.php');
-
-
-if(!extension_loaded('digium_register') && function_exists('dl')) {
-	if (strtolower(substr(PHP_OS, 0, 3)) === 'win') {
-		if (!dl('php_digium_register.dll')) return;
-	} else {
-		// PHP_SHLIB_SUFFIX gives 'dylib' on MacOS X but modules are 'so'.
-		if (PHP_SHLIB_SUFFIX === 'dylib') {
-			if (!dl('digium_register.so')) return;
-		} else {
-			if (!dl('digium_register.'.PHP_SHLIB_SUFFIX)) return;
-		}
+if (!extension_loaded('digium_register')) {
+	if (dl('digium_register.so')) {
+		echo '<h3>Error: the register utility did not successfully load.</h3>';
+		echo '<p>The utility may not be present, or dynamic library support in PHP may not be enabled.</p>';
+		echo '<p>DPMA license can be added using command-line register utility instead.</p>';
+		return;
 	}
 }
 
+require_once(__DIR__.'/register_functions.php');
+
+require_once(__DIR__.'/digium_register.php');
 
 function escapeSimple($value)
 {

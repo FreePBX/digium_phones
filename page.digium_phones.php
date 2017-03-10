@@ -45,7 +45,6 @@ if (!empty($_POST['devicemcpages_'])) {
 }
 
 
-
 /**
  * The following if statements check for when a form has been submitted. There
  * are 2 possible forms: general, editline. These conditions
@@ -852,7 +851,10 @@ if (isset($_GET['user_image'])) {
 	echo '<div id="content">';
 
 	$dpmalicensestatus = $astman->send_request('DPMALicenseStatus');
-	if (empty($dpmalicensestatus) || $dpmalicensestatus['Response'] != "Success") {
+	if ($_GET['page'] == 'add-license-form' || $_GET['page'] == 'eula-form') {
+		include(__DIR__.'/license.php');
+		$dpmalicensestatus = $astman->send_request('DPMALicenseStatus');
+	} else if (empty($dpmalicensestatus) || $dpmalicensestatus['Response'] != "Success") {
 		$dpmamoduleloaded = $astman->send_request('ModuleCheck', array('Module'=>'res_digium_phone'));
 		$lic_file = exec('ls /var/lib/asterisk/licenses | fgrep DPMA-');
 		$ast_major = preg_replace('/\..*/', '', $amp_conf['ASTVERSION']);
@@ -869,11 +871,16 @@ if (isset($_GET['user_image'])) {
 			if ($lic_file) {
 				echo '<p>A license file is present but is not valid and may need to be replaced.</p>';
 			}
-			echo '<p><input type="button" value="Get Free License" onclick="location.href=\'config.php?type=setup&display=digiumaddons&page=add-license-form&addon=dpma\';" /></p>';
+			include(__DIR__.'/license.php');
+
+			// now check again
+			$dpmalicensestatus = $astman->send_request('DPMALicenseStatus');
 		}
 		$url = 'https://wiki.asterisk.org/wiki/display/DIGIUM/DPMA+Installation';
 		echo '<p>For additional information, see: <a href="'.$url.'">'.$url.'</a></p>';
-	} else {
+	}
+
+	if (!empty($dpmalicensestatus) && $dpmalicensestatus['Response'] == "Success") {
 		/**
 		 * The following switch statement determines what to render. This
 		 * determination is dependent on the digium_phones_form variable.

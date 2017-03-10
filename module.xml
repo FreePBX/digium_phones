@@ -9,8 +9,9 @@
 	<licenselink>http://www.gnu.org/licenses/gpl-3.0.txt</licenselink>
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
-	<version>13.0.5</version>
+	<version>13.0.5.1</version>
 	<changelog>
+		*13.0.5.1* Embed license register code
 		*13.0.5* FREEPBX-9054: show correct registration state
 		*13.0.4* FREEPBX-9976: support multiple parking lots
 		*13.0.3* Add TCP/TLS transport + D6x support: sdes, logos, multicast page, 802.1X

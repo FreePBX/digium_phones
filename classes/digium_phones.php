@@ -839,7 +839,7 @@ class digium_phones {
 		foreach ($devices as $device) {
 			$d = $device;
 			$d['lines'] = array();
-			foreach ($device['lines'] as $line) {
+			if (!empty($device['lines'])) foreach ($device['lines'] as $line) {
 				$l = $line;
 				$l['user'] = $this->get_core_device($line['extension']);
 				$d['lines'][] = $l;

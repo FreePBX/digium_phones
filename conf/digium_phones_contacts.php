@@ -115,10 +115,10 @@ function digium_phones_contacts($conf, $internal, $extension) {
 			$output[] = '    organization=""';
 		}
 
+		$output[] = '    contact_type="sip"';
+		$output[] = '    account_id="' . htmlspecialchars($entry['extension']) . '"';
 		if ($customexten == false) {
 			// TODO: Not all contacts are SIP.  Or maybe it doesn't matter because it's SIP to Asterisk.  Who knows?
-			$output[] = '    contact_type="sip"';
-			$output[] = '    account_id="' . htmlspecialchars($entry['extension']) . '"';
 			if ($conf->autohint[$extension]) {
 				$output[] = '    subscribe_to="auto_hint_' . htmlspecialchars($entry['extension']) . '"';
 			} else {
@@ -136,7 +136,7 @@ function digium_phones_contacts($conf, $internal, $extension) {
                         $output[] = '    can_monitor="1"';
                     }
                 } else {
-                    $output[] = '    contact_type="sip|external"';
+                    //$output[] = '    contact_type="sip|external"';
                     if ($entry['settings']['subscribe_to'] != null && $entry['settings']['subscribe_to'] == 'on') {
                         if ($entry['settings']['subscription_url'] != null) {
                             $output[] = '    subscribe_to="' . htmlspecialchars($entry['settings']['subscription_url']) . '"';

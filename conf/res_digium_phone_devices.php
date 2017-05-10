@@ -258,7 +258,7 @@ function res_digium_phone_devices($conf) {
 	}
 
 	foreach ($conf->digium_phones->get_mcpages() as $mcpageid=>$mcpage) {
-		$output[] = "[mcpage-{$mcpage['name']}]";
+		$output[] = "[mcpage-{$mcpageid}]";
 		$output[] = "type=multicastpage";
 		$output[] = "alias={$mcpage['name']}";
 

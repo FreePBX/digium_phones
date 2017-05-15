@@ -2443,7 +2443,7 @@ class digium_phones {
 		}
 		unset($result);
 
-		// logo is moved to ASTETCDIR/digium_phones in digium_phones/views/digium_phones_logos.php
+		// logo was moved to http path in digium_phones/views/digium_phones_logos.php
 
 		needreload();
 	}
@@ -2459,7 +2459,7 @@ class digium_phones {
 		}
 		unset($result);
 
-		// logo is moved to ASTETCDIR/digium_phones in digium_phones/views/digium_phones_logos.php
+		// logo was moved to http_path in digium_phones/views/digium_phones_logos.php
 
 		needreload();
 	}
@@ -2478,7 +2478,8 @@ class digium_phones {
 		unset($result);
 
 		// remove from disk
-		@unlink($amp_conf['ASTETCDIR']."/digium_phones/user_image_{$db->escapeSimple($logo_id)}.png");
+		$http_path = digium_phones_get_http_path();
+		@unlink($http_path."user_image_{$db->escapeSimple($logo_id)}.png");
 
 		needreload();
 

@@ -9,8 +9,9 @@
 	<licenselink>http://www.gnu.org/licenses/gpl-3.0.txt</licenselink>
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
-	<version>13.0.6</version>
+	<version>13.0.7</version>
 	<changelog>
+		*13.0.7* Support D80 logos contacts BLF, fix vm bugs
 		*13.0.6* Embed licensing
 		*13.0.5.1* Embed license register code
 		*13.0.5* FREEPBX-9054: show correct registration state

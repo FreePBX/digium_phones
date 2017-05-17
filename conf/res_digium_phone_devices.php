@@ -92,11 +92,11 @@ function res_digium_phone_devices($conf) {
 				foreach ($conf->digium_phones->get_phonebooks() as $phonebook) {
 					if ($val == $phonebook['id']) {
 						if ($phonebook['id'] == -1) {
-							$doutput[] = "contact=contacts-internal-{$device['id']}.xml";
-							$doutput[] = "blf_contact_group=internal-{$device['id']}";
+							$doutput[] = "contact=contacts-internal.xml";
+							//$doutput[] = "blf_items=blf-internal.xml";
 						} else {
 							$doutput[] = "contact=contacts-{$phonebook['id']}.xml";
-							$doutput[] = "blf_contact_group={$phonebook['name']}";
+							//$doutput[] = "blf_items=blf-{$phonebook['id']}.xml";
 						}
 						break;
 					}
@@ -135,7 +135,7 @@ function res_digium_phone_devices($conf) {
 				continue;
 			}
 			if ($phonebook['phonebookid'] == -1) {
-				$doutput[] = "contact=contacts-internal-{$device['id']}.xml";
+				$doutput[] = "contact=contacts-internal.xml";
 			} else {
 				$doutput[] = "contact=contacts-{$phonebook['phonebookid']}.xml";
 			}

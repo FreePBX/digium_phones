@@ -390,18 +390,10 @@ class digium_phones_conf {
 		$files[] = 'res_digium_phone_devices.conf';
 		$files[] = 'res_digium_phone_applications.conf';
 		$files[] = 'res_digium_phone_firmware.conf';
-		foreach ($this->digium_phones->get_phonebooks() as $phonebookid=>$phonebook) {
-			if ($phonebookid == -1) {
-				continue;
-			}
-			$files[] = 'digium_phones/contacts-' . $phonebook['id'] . '.xml';
-		}
-		foreach ($this->digium_phones->get_devices() as $deviceid=>$device) {
-			$files[] = 'digium_phones/contacts-internal-' . $device['id'] . '.xml';
-		}
 
 		@mkdir("{$amp_conf['ASTETCDIR']}/digium_phones/", 0755);
-		foreach (glob("{$amp_conf['ASTETCDIR']}/digium_phones/contacts-internal-*.xml") as $file) {
+		// remove obsoleted contacts xml files
+		foreach (glob("{$amp_conf['ASTETCDIR']}/digium_phones/contacts-*.xml") as $file) {
 			unlink($file);
 		}
 		return $files;
@@ -432,13 +424,12 @@ class digium_phones_conf {
 	 * Called by retrieve_conf for each file specified by get_filename.
 	 */
 	public function generateConf($file) {
-		if (preg_match('/^digium_phones\/contacts-(internal-)?(\d+).xml/', $file, $matches)) {
-			require_once dirname(__FILE__).'/conf/digium_phones_contacts.php';
-			return digium_phones_contacts($this, $matches[1], $matches[2]);
-		}
-
 		switch($file) {
 		case 'res_digium_phone_general.conf':
+			// also generate http files
+			require_once dirname(__FILE__).'/conf/digium_phones_http.php';
+			digium_phones_http_generate_all($this);
+
 			require_once dirname(__FILE__).'/conf/res_digium_phone_general.php';
 			return res_digium_phone_general($this);
 

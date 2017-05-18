@@ -99,7 +99,7 @@ if (isset($_POST['general_submit'])) {
 		'timezone',
 		'web_ui_enabled',
 		'record_own_calls',
-		'blf_unused_linekeys',
+//		'blf_unused_linekeys',
 		'ntp_resync',
 		'active_ringtone',
 		'login_password',

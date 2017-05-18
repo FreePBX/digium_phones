@@ -9,7 +9,7 @@
  * Author: Scott Griepentrog <sgriepentrog@digium.com>
  *
  * This program is free software, distributed under the terms of
- * the GNU General Public License Version 2. 
+ * the GNU General Public License Version 2.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -34,15 +34,24 @@ function digium_phones_http_generate_all($conf)
 
 	$http_path = digium_phones_get_http_path();
 
-	// generate contacts xml
 	foreach ($conf->digium_phones->get_phonebooks() as $id => $phonebook) {
 		if ($id == -1) {
 			$id = 'internal';
 		}
+
+		// generate contacts xml
 		$filename = "contacts-$id.xml";
 
 		$filepath = $http_path.'/'.$filename;
 		file_put_contents($filepath, digium_phones_http_contacts($conf, $id, $phonebook));
+		// if root ran fwconsole the file created may not be accessible by web user
+		@chown($filepath, $amp_conf['AMPASTERISKWEBUSER']);
+
+		// create blf generator as php script to fit blfs into requesting phone model
+		$filename = "blf-$id.php";
+
+		$filepath = $http_path.'/'.$filename;
+		file_put_contents($filepath, digium_phones_http_blf_php($conf, $id, $phonebook));
 		// if root ran fwconsole the file created may not be accessible by web user
 		@chown($filepath, $amp_conf['AMPASTERISKWEBUSER']);
 	}
@@ -55,7 +64,7 @@ function digium_phones_http_contacts($conf, $id, $phonebook)
 
 	$xml = new SimpleXmlElement('<contacts/>');
 
-	$xml->addAttribute('group_name', $phonebook['name']);
+	$xml->addAttribute('group_name', $id); //$phonebook['name']);
 	$xml->addAttribute('editable', '0');
 	$xml->addAttribute('id', rand(0, 10000));
 
@@ -92,6 +101,12 @@ function digium_phones_http_contacts($conf, $id, $phonebook)
 				$line['settings'][$key] = '';
 			}
 			$line['settings']['first_name'] = $entry['settings']['label'];
+		}
+
+		// custom phonebook internal entries are missing the label, look up the extension
+		if (empty($line['settings']['first_name'])) {
+			$device = $conf->digium_phones->get_core_device($entry['extension']);
+			$line['settings']['first_name'] = $device['description'];
 		}
 
 		foreach ($contact_keys as $key) {
@@ -172,3 +187,22 @@ function digium_phones_http_contacts($conf, $id, $phonebook)
 
 	return $dom->saveXML();
 }
+
+/* build a php script that the phone will call to get correct blf for that model */
+function digium_phones_http_blf_php($conf, $id, $phonebook)
+{
+	if ($id == 'internal') {
+		$phonebook['entries'] = array();
+		foreach ($conf->sorted_users as $user) {
+			$phonebook['entries'][] = array('extension' => $user['id']);
+		}
+	}
+
+	$blfs = array();
+	if (!empty($phonebook['entries'])) foreach($phonebook['entries'] as $entryid => $entry) {
+		$blfs[] = array('contact_id' => $entry['extension']);
+	}
+
+	return '<'."?php\n\$blfs=".var_export($blfs, true).";\nrequire '../admin/modules/digium_phones/conf/blf_generator.php';\n";
+}
+

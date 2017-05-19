@@ -40,6 +40,7 @@ $limits = array(
 		'sides' => 0,
 		'main_pages' => 0,
 		'side_pages' => 0,
+		'blfs' => 100,
 	),
 	'70' => array(
 		'lines' => 6,
@@ -117,10 +118,14 @@ $xml = new SimpleXmlElement('<config/>');
 $smart_blf = $xml->addChild('smart_blf');
 $blf_items = $smart_blf->addChild('blf_items');
 
+$total = 0;
 $index = $lines_in_use;
 $page = 0;
 $location = 'main';
 foreach($blfs as $blf) {
+	if (!empty($model_limits['blfs']) && $total >= $model_limits['blfs']) {
+		break;
+	}
 	if ($location == 'main') {
 		if ($index >= $model_limits['lines'] && $model_limits['lines'] != -1) {
 			if ($page < $model_limits['main_pages']) {
@@ -148,6 +153,7 @@ foreach($blfs as $blf) {
 	$blf_item->addAttribute('location', $location);
 	$blf_item->addAttribute('index', $index++);
 	$blf_item->addAttribute('contact_id', $blf['contact_id']);
+	$total++;
 }
 
 $dom = new DOMDocument('1.0');

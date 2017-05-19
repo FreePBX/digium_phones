@@ -85,12 +85,8 @@ function res_digium_phone_devices($conf) {
 		}
 
 		$line_count = 0;
-/*
-		if ($conf->digium_phones->get_general('easy_mode') == "yes") {
-			$doutput[] = "contact=contacts-internal-{$device['id']}.xml";
-			$doutput[] = "blf_contact_group=internal-{$device['id']}";
-		}
-*/
+		$has_voicemail = false;
+
 		if (!empty($device['lines'])) foreach ($device['lines'] as $lineid=>$line) {
 			++$line_count;
 			$doutput[] = "line={$line['extension']}";
@@ -101,6 +97,9 @@ function res_digium_phone_devices($conf) {
 				$user = $conf->digium_phones->get_core_user($line['user']['user']);
 				if ($user != null && $user['voicemail'] != null && $user['voicemail'] != "novm") {
 					$loutput[] = "mailbox={$user['extension']}@{$user['voicemail']}";
+					if ($line_count == 1) {
+						$has_voicemail = true;
+					}
 				}
 			}
 
@@ -115,10 +114,14 @@ function res_digium_phone_devices($conf) {
 			$doutput[] = "external_line=externalline-{$externalline['externallineid']}";
 		}
 
+		$doutput[] = 'send_to_vm='.($has_voicemail ? 'yes' : 'no');
 
 		if (!empty($device['settings'])) foreach ($device['settings'] as $key=>$val) {
 			if ($key == 'rapiddial') {
 				// ignore this value here and process it below
+				continue;
+			} elseif ($key == 'send_to_vm') {
+				// discard old user configured value
 				continue;
 			} elseif ($key == 'firmware_package_id') {
 				$package = $firmware_manager->get_package_by_id($val);

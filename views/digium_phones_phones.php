@@ -1085,10 +1085,12 @@ $table->add_row(array( 'data' => fpbx_label('Enable Call Recording:', 'Enables o
 					<option value="yes" ' . ($devices['settings']['record_own_calls'] == 'yes' ? 'selected' : '') . '>Enabled (Default)</option>
 					<option value="no" ' . ($devices['settings']['record_own_calls'] == 'no' ? 'selected' : '') . '>Disabled</option></select>'));
 
+/*
 $table->add_row(array( 'data' => fpbx_label('Enable Send to Voicemail:', 'Enables or Disables the Send VM softkey. If disabled, the Send VM softkey will not show for incoming calls.')),
 				array( 'data' => '<select id="send_to_vm" name="send_to_vm">
 					<option value="yes" ' . ($devices['settings']['send_to_vm'] == 'yes' ? 'selected' : '') . '>Enabled (Default)</option>
 					<option value="no" ' . ($devices['settings']['send_to_vm'] == 'no' ? 'selected' : '') . '>Disabled</option></select>'));
+*/
 
 $table->add_row(array( 'data' => fpbx_label('Require Pin for Voicemail:', 'Enables or Disables requiring the Phone PIN to access Voicemail. If disabled, Voicemail messages can be viewed and played without entering the PIN first.')),
 				array( 'data' => '<select id="vm_require_pin" name="vm_require_pin">

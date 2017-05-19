@@ -120,6 +120,9 @@ function res_digium_phone_devices($conf) {
 			if ($key == 'rapiddial') {
 				// ignore this value here and process it below
 				continue;
+			} elseif ($key == 'blf_unused_linekeys') {
+				// discard old user configured value
+				continue;
 			} elseif ($key == 'send_to_vm') {
 				// discard old user configured value
 				continue;

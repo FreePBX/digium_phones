@@ -196,7 +196,7 @@ function digium_phones_configpageload() {
 		$extdisplay = $ext;
 	}
 
-	require_once dirname(__FILE__).'/classes/digium_phones.php';
+	include_once dirname(__FILE__).'/classes/digium_phones.php';
 	$digium_phones = new digium_phones();
 
 	if ($action != 'del') {
@@ -257,7 +257,7 @@ function digium_phones_configprocess() {
 		$extdisplay = $ext;
 	}
 
-	require_once dirname(__FILE__).'/classes/digium_phones.php';
+	include_once dirname(__FILE__).'/classes/digium_phones.php';
 	$digium_phones = new digium_phones();
 
 	$line = $digium_phones->get_extension_settings($extdisplay);
@@ -310,7 +310,7 @@ class digium_phones_conf {
 	 * Constructor: load main digium phones class and sort userlist
 	 */
 	public function digium_phones_conf() {
-		require_once dirname(__FILE__).'/classes/digium_phones.php';
+		include_once dirname(__FILE__).'/classes/digium_phones.php';
 		$this->digium_phones = new digium_phones();
 		$this->autohint = array();
 
@@ -435,22 +435,22 @@ class digium_phones_conf {
 		switch($file) {
 		case 'res_digium_phone_general.conf':
 			// also generate http files
-			require_once dirname(__FILE__).'/conf/digium_phones_http.php';
+			include_once dirname(__FILE__).'/conf/digium_phones_http.php';
 			digium_phones_http_generate_all($this);
 
-			require_once dirname(__FILE__).'/conf/res_digium_phone_general.php';
+			include_once dirname(__FILE__).'/conf/res_digium_phone_general.php';
 			return res_digium_phone_general($this);
 
 		case 'res_digium_phone_devices.conf':
-			require_once dirname(__FILE__).'/conf/res_digium_phone_devices.php';
+			include_once dirname(__FILE__).'/conf/res_digium_phone_devices.php';
 			return res_digium_phone_devices($this);
 
 		case 'res_digium_phone_applications.conf':
-			require_once dirname(__FILE__).'/conf/res_digium_phone_applications.php';
+			include_once dirname(__FILE__).'/conf/res_digium_phone_applications.php';
 			return res_digium_phone_applications($this);
 
 		case 'res_digium_phone_firmware.conf':
-			require_once dirname(__FILE__).'/conf/res_digium_phone_firmware.php';
+			include_once dirname(__FILE__).'/conf/res_digium_phone_firmware.php';
 			return res_digium_phone_firmware($this);
 
 		default:

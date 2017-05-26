@@ -4,7 +4,7 @@
 <script type="text/javascript">
 <?php
 
-require_once 'modules/digium_phones/classes/digium_phones_models.php';
+include_once 'modules/digium_phones/classes/digium_phones_models.php';
 global $models;
 $models = new digium_phones_models();
 
@@ -70,7 +70,7 @@ if (isset($_GET['logo_upload']) && isset($_FILES['logo_upload']) && $_FILES['log
 	}
 	$http_path = digium_phones_get_http_path();
 	$dest = $http_path.'/user_image_'.$filename.'.png';
-	system('convert '.$tmp_file.' -resize '.$size.' '.$dest);
+	system('convert '.escapeshellarg($tmp_file).' -resize '.escapeshellarg($size).' '.escapeshellarg($dest));
 	unlink($tmp_file);
 
 

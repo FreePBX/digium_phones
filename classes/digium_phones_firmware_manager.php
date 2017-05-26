@@ -23,7 +23,7 @@
  * generating new configuration files.
  */
 
-require_once dirname(__FILE__).'/digium_phones_firmware_package.php';
+include_once dirname(__FILE__).'/digium_phones_firmware_package.php';
 
 /**
  * An object that manages the firmware on the system.
@@ -144,7 +144,7 @@ class digium_phones_firmware_manager {
 			$this->error_msg = 'Could not find digium_phones_firmware.conf in tarball';
 			return false;
 		}
-		require_once dirname(__FILE__).'/digium_phones_firmware_conf.php';
+		include_once dirname(__FILE__).'/digium_phones_firmware_conf.php';
 		$conf_file = new digium_phones_firmware_conf($conf_name);
 		if (!$conf_file) {
 			$this->error_msg = 'Failed to load configuration file';

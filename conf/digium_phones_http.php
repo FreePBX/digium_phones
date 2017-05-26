@@ -203,6 +203,8 @@ function digium_phones_http_blf_php($conf, $id, $phonebook)
 		$blfs[] = array('contact_id' => $entry['extension']);
 	}
 
-	return '<'."?php\n\$blfs=".var_export($blfs, true).";\nrequire '../admin/modules/digium_phones/conf/blf_generator.php';\n";
+	$path_to_blf_generator = dirname(__FILE__).'/blf_generator.php';
+
+	return '<'."?php\n\$blfs=".var_export($blfs, true).";\nrequire '$path_to_blf_generator';\n";
 }
 

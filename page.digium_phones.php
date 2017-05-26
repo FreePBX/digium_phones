@@ -1,7 +1,7 @@
 <?php
 
 global $astman;
-require_once dirname(__FILE__).'/classes/digium_phones.php';
+include_once dirname(__FILE__).'/classes/digium_phones.php';
 $digium_phones = new digium_phones();
 if (isset($_GET['digium_phones_form'])) {
 	$page = $_GET['digium_phones_form'];

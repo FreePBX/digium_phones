@@ -1,7 +1,7 @@
 <?php
 
 global $astman;
-require_once dirname(__FILE__).'/classes/digium_phones.php';
+include_once dirname(__FILE__).'/classes/digium_phones.php';
 $digium_phones = new digium_phones();
 if (isset($_GET['digium_phones_form'])) {
 	$page = $_GET['digium_phones_form'];
@@ -99,7 +99,7 @@ if (isset($_POST['general_submit'])) {
 		'timezone',
 		'web_ui_enabled',
 		'record_own_calls',
-		'blf_unused_linekeys',
+//		'blf_unused_linekeys',
 		'ntp_resync',
 		'active_ringtone',
 		'login_password',
@@ -761,8 +761,15 @@ function download_firmware($selected, $version_info, $firmware_manager) {
 
 if (isset($_GET['user_image'])) {
 	global $amp_conf;
-	$png_file = "{$amp_conf['ASTETCDIR']}/digium_phones/user_image_".basename($_GET['user_image']).".png";
-	download_file($png_file);
+	$http_path = digium_phones_get_http_path();
+	$png_file = $http_path. 'user_image_'.basename($_GET['user_image']).'.png';
+	if (file_exists($png_file)) {
+		download_file($png_file);
+	} else {
+		// file may still be in old location
+		$png_file = $amp_conf['ASTETCDIR'].'/digium_phones/user_image_'.basename($_GET['user_image']).'.png';
+		download_file($png_file);
+	}
 } else if (isset($_POST['uploadfirmware_submit'])) {
 	$allowed_exts = array('tar', 'gz', 'tgz');
 	$original_filename = digium_phones_sanitize_filepath($_FILES['upload_firmware_location']['name']);

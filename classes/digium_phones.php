@@ -23,7 +23,7 @@
  * generating new configuration files.
  */
 
-require_once dirname(__FILE__).'/digium_phones_firmware_manager.php';
+include_once dirname(__FILE__).'/digium_phones_firmware_manager.php';
 
 /**
  * main class for handling digium_phones configuration
@@ -839,7 +839,7 @@ class digium_phones {
 		foreach ($devices as $device) {
 			$d = $device;
 			$d['lines'] = array();
-			foreach ($device['lines'] as $line) {
+			if (!empty($device['lines'])) foreach ($device['lines'] as $line) {
 				$l = $line;
 				$l['user'] = $this->get_core_device($line['extension']);
 				$d['lines'][] = $l;
@@ -1542,7 +1542,7 @@ class digium_phones {
 		global $db;
 
 		$http_path = digium_phones_get_http_path();
-		unlink($http_path . "user_ringtone_{$db->escapeSimple($id)}.raw");
+		unlink($http_path . basename("user_ringtone_{$id}.raw"));
 
 		$sql = "DELETE FROM digium_phones_ringtones WHERE id = '{$db->escapeSimple($id)}'";
 		$results = $db->query($sql);
@@ -2443,7 +2443,7 @@ class digium_phones {
 		}
 		unset($result);
 
-		// logo is moved to ASTETCDIR/digium_phones in digium_phones/views/digium_phones_logos.php
+		// logo was moved to http path in digium_phones/views/digium_phones_logos.php
 
 		needreload();
 	}
@@ -2459,7 +2459,7 @@ class digium_phones {
 		}
 		unset($result);
 
-		// logo is moved to ASTETCDIR/digium_phones in digium_phones/views/digium_phones_logos.php
+		// logo was moved to http_path in digium_phones/views/digium_phones_logos.php
 
 		needreload();
 	}
@@ -2478,7 +2478,8 @@ class digium_phones {
 		unset($result);
 
 		// remove from disk
-		@unlink($amp_conf['ASTETCDIR']."/digium_phones/user_image_{$db->escapeSimple($logo_id)}.png");
+		$http_path = digium_phones_get_http_path();
+		@unlink($http_path.basename("user_image_{$logo_id}.png"));
 
 		needreload();
 

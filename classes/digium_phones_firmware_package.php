@@ -23,7 +23,7 @@
  * generating new configuration files.
  */
 
-require_once dirname(__FILE__).'/digium_phones_firmware.php';
+include_once dirname(__FILE__).'/digium_phones_firmware.php';
 
 /**
  * A firmware package object. Note that a firmware package object

@@ -112,8 +112,16 @@ function digium_phones_get_config($engine) {
 function digium_phones_hookGet_config($engine) {
 	global $ext;
 
-	$execcond = '$[$["${REDIRECTING(reason)}" = "send_to_vm" | "${SIP_HEADER(X-Digium-Call-Feature)}" = "feature_send_to_vm"] & "${ARG1}" != "novm"]';
+	$execcond = '$[$["${REDIRECTING(reason)}" = "send_to_vm" | "${SIP_HEADER(X-Digium-Call-Feature)}" = "feature_send_to_vm" | "${PJSIP_HEADER(read,X-Digium-Call-Feature)}" = "feature_send_to_vm"] & "${ARG1}" != "novm"]';
 	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'Macro', 'vm,${ARG1},DIRECTDIAL,${IVR_RETVM}'));
+	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'MacroExit'));
+
+	$execcond = '$["${SIP_HEADER(X-Digium-Call-Feature)}" = "feature_intercom" | "${PJSIP_HEADER(read,X-Digium-Call-Feature)}" = "feature_intercom"]';
+	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'Gosub', 'ext-intercom,${INTERCOMCODE}${EXTTOCALL},1()'));
+	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'MacroExit'));
+
+	$execcond = '$["${SIP_HEADER(X-Digium-Call-Feature)}" = "feature_monitor" | "${PJSIP_HEADER(read,X-Digium-Call-Feature)}" = "feature_monitor"]';
+	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'ChanSpy', '${DB(DEVICE/${EXTTOCALL}/dial},q'));
 	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'MacroExit'));
 }
 
@@ -188,7 +196,7 @@ function digium_phones_configpageload() {
 		$extdisplay = $ext;
 	}
 
-	require_once dirname(__FILE__).'/classes/digium_phones.php';
+	include_once dirname(__FILE__).'/classes/digium_phones.php';
 	$digium_phones = new digium_phones();
 
 	if ($action != 'del') {
@@ -249,7 +257,7 @@ function digium_phones_configprocess() {
 		$extdisplay = $ext;
 	}
 
-	require_once dirname(__FILE__).'/classes/digium_phones.php';
+	include_once dirname(__FILE__).'/classes/digium_phones.php';
 	$digium_phones = new digium_phones();
 
 	$line = $digium_phones->get_extension_settings($extdisplay);
@@ -302,7 +310,7 @@ class digium_phones_conf {
 	 * Constructor: load main digium phones class and sort userlist
 	 */
 	public function digium_phones_conf() {
-		require_once dirname(__FILE__).'/classes/digium_phones.php';
+		include_once dirname(__FILE__).'/classes/digium_phones.php';
 		$this->digium_phones = new digium_phones();
 		$this->autohint = array();
 
@@ -390,18 +398,10 @@ class digium_phones_conf {
 		$files[] = 'res_digium_phone_devices.conf';
 		$files[] = 'res_digium_phone_applications.conf';
 		$files[] = 'res_digium_phone_firmware.conf';
-		foreach ($this->digium_phones->get_phonebooks() as $phonebookid=>$phonebook) {
-			if ($phonebookid == -1) {
-				continue;
-			}
-			$files[] = 'digium_phones/contacts-' . $phonebook['id'] . '.xml';
-		}
-		foreach ($this->digium_phones->get_devices() as $deviceid=>$device) {
-			$files[] = 'digium_phones/contacts-internal-' . $device['id'] . '.xml';
-		}
 
 		@mkdir("{$amp_conf['ASTETCDIR']}/digium_phones/", 0755);
-		foreach (glob("{$amp_conf['ASTETCDIR']}/digium_phones/contacts-internal-*.xml") as $file) {
+		// remove obsoleted contacts xml files
+		foreach (glob("{$amp_conf['ASTETCDIR']}/digium_phones/contacts-*.xml") as $file) {
 			unlink($file);
 		}
 		return $files;
@@ -432,26 +432,25 @@ class digium_phones_conf {
 	 * Called by retrieve_conf for each file specified by get_filename.
 	 */
 	public function generateConf($file) {
-		if (preg_match('/^digium_phones\/contacts-(internal-)?(\d+).xml/', $file, $matches)) {
-			require_once dirname(__FILE__).'/conf/digium_phones_contacts.php';
-			return digium_phones_contacts($this, $matches[1], $matches[2]);
-		}
-
 		switch($file) {
 		case 'res_digium_phone_general.conf':
-			require_once dirname(__FILE__).'/conf/res_digium_phone_general.php';
+			// also generate http files
+			include_once dirname(__FILE__).'/conf/digium_phones_http.php';
+			digium_phones_http_generate_all($this);
+
+			include_once dirname(__FILE__).'/conf/res_digium_phone_general.php';
 			return res_digium_phone_general($this);
 
 		case 'res_digium_phone_devices.conf':
-			require_once dirname(__FILE__).'/conf/res_digium_phone_devices.php';
+			include_once dirname(__FILE__).'/conf/res_digium_phone_devices.php';
 			return res_digium_phone_devices($this);
 
 		case 'res_digium_phone_applications.conf':
-			require_once dirname(__FILE__).'/conf/res_digium_phone_applications.php';
+			include_once dirname(__FILE__).'/conf/res_digium_phone_applications.php';
 			return res_digium_phone_applications($this);
 
 		case 'res_digium_phone_firmware.conf':
-			require_once dirname(__FILE__).'/conf/res_digium_phone_firmware.php';
+			include_once dirname(__FILE__).'/conf/res_digium_phone_firmware.php';
 			return res_digium_phone_firmware($this);
 
 		default:

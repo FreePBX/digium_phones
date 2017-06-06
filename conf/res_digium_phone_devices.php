@@ -84,23 +84,47 @@ function res_digium_phone_devices($conf) {
 			}
 		}
 
-		if (!empty($device['settings'])) foreach ($device['settings'] as $key=>$val) {
-			if ($key == 'rapiddial') {
-				if ($val == '') {
-					continue;
-				}
-				foreach ($conf->digium_phones->get_phonebooks() as $phonebook) {
-					if ($val == $phonebook['id']) {
-						if ($phonebook['id'] == -1) {
-							$doutput[] = "contact=contacts-internal-{$device['id']}.xml";
-							$doutput[] = "blf_contact_group=internal-{$device['id']}";
-						} else {
-							$doutput[] = "contact=contacts-{$phonebook['id']}.xml";
-							$doutput[] = "blf_contact_group={$phonebook['name']}";
-						}
-						break;
+		$line_count = 0;
+		$has_voicemail = false;
+
+		if (!empty($device['lines'])) foreach ($device['lines'] as $lineid=>$line) {
+			++$line_count;
+			$doutput[] = "line={$line['extension']}";
+			$loutput[] = "[{$line['extension']}]";
+			$loutput[] = "type=line";
+
+			if ($line['user']['devicetype'] == "fixed") {
+				$user = $conf->digium_phones->get_core_user($line['user']['user']);
+				if ($user != null && $user['voicemail'] != null && $user['voicemail'] != "novm") {
+					$loutput[] = "mailbox={$user['extension']}@{$user['voicemail']}";
+					if ($line_count == 1) {
+						$has_voicemail = true;
 					}
 				}
+			}
+
+			foreach ($line['settings'] as $key=>$val) {
+				$loutput[] = "{$key}={$val}";
+			}
+			$loutput[] = "";
+		}
+
+		if (!empty($device['externallines'])) foreach ($device['externallines'] as $externalline) {
+			++$line_count;
+			$doutput[] = "external_line=externalline-{$externalline['externallineid']}";
+		}
+
+		$doutput[] = 'send_to_vm='.($has_voicemail ? 'yes' : 'no');
+
+		if (!empty($device['settings'])) foreach ($device['settings'] as $key=>$val) {
+			if ($key == 'rapiddial') {
+				// ignore this value here and process it below
+				continue;
+			} elseif ($key == 'blf_unused_linekeys') {
+				// discard old user configured value
+				continue;
+			} elseif ($key == 'send_to_vm') {
+				// discard old user configured value
 				continue;
 			} elseif ($key == 'firmware_package_id') {
 				$package = $firmware_manager->get_package_by_id($val);
@@ -130,14 +154,32 @@ function res_digium_phone_devices($conf) {
 		}
 
 		$doutput[] = "use_local_storage=yes";
+
+		// create master list of enabled phonebooks
+		$phonebook_list = array();
+		$blf_id = $device['settings']['rapiddial'];
 		if (!empty($device['phonebooks'])) foreach ($device['phonebooks'] as $phonebook) {
-			if ($phonebook['phonebookid'] == $device['settings']['rapiddial']) {
+			$phonebook_list[] = $phonebook['phonebookid'];
+		}
+		// if the selected blf phonebook isn't in list, add it too
+		if (!in_array($blf_id, $phonebook_list)) {
+			$phonebook_list[] = $blf_id;
+		}
+		// and output list of selected phonebooks
+		foreach ($conf->digium_phones->get_phonebooks() as $phonebook) {
+			$id = $phonebook['id'];
+			if (!in_array($id, $phonebook_list)) {
 				continue;
 			}
-			if ($phonebook['phonebookid'] == -1) {
-				$doutput[] = "contact=contacts-internal-{$device['id']}.xml";
-			} else {
-				$doutput[] = "contact=contacts-{$phonebook['phonebookid']}.xml";
+			$file_id = $id;
+			if ($id == -1) {
+				$file_id = 'internal';
+			}
+
+			$doutput[] = "contact=contacts-$file_id.xml";
+			if ($id == $blf_id) {
+				$doutput[] = "blf_items=blf-$file_id.php?lines=$line_count";
+				$doutput[] = "blf_contact_group=$file_id";
 			}
 		}
 
@@ -176,33 +218,6 @@ function res_digium_phone_devices($conf) {
 		}
 		foreach ($ringtones as $id => $istrue) {
 			$doutput[] = "ringtone=ringtone-{$id}";
-		}
-/*
-		if ($conf->digium_phones->get_general('easy_mode') == "yes") {
-			$doutput[] = "contact=contacts-internal-{$device['id']}.xml";
-			$doutput[] = "blf_contact_group=internal-{$device['id']}";
-		}
-*/
-		if (!empty($device['lines'])) foreach ($device['lines'] as $lineid=>$line) {
-			$doutput[] = "line={$line['extension']}";
-			$loutput[] = "[{$line['extension']}]";
-			$loutput[] = "type=line";
-
-			if ($line['user']['devicetype'] == "fixed") {
-				$user = $conf->digium_phones->get_core_user($line['user']['user']);
-				if ($user != null && $user['voicemail'] != null && $user['voicemail'] != "novm") {
-					$loutput[] = "mailbox={$user['extension']}@{$user['voicemail']}";
-				}
-			}
-
-			foreach ($line['settings'] as $key=>$val) {
-				$loutput[] = "{$key}={$val}";
-			}
-			$loutput[] = "";
-		}
-
-		if (!empty($device['externallines'])) foreach ($device['externallines'] as $externalline) {
-			$doutput[] = "external_line=externalline-{$externalline['externallineid']}";
 		}
 
 		foreach ($queues as $queueid=>$queue) {

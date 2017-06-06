@@ -42,6 +42,7 @@ class digium_phones_models {
 			'd62' => array('name' => 'D62', 'logo' => '296x128', 'color' => 1),
 			'd65' => array('name' => 'D65', 'logo' => '296x128', 'color' => 1),
 			'd70' => array('name' => 'D70', 'logo' => '205x85', 'color' => 0),
+			'd80' => array('name' => 'D80', 'logo' => '800x1280', 'color' => 1),
 		);
 
 	}

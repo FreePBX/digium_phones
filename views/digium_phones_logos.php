@@ -4,7 +4,7 @@
 <script type="text/javascript">
 <?php
 
-require_once 'modules/digium_phones/classes/digium_phones_models.php';
+include_once 'modules/digium_phones/classes/digium_phones_models.php';
 global $models;
 $models = new digium_phones_models();
 
@@ -68,8 +68,9 @@ if (isset($_GET['logo_upload']) && isset($_FILES['logo_upload']) && $_FILES['log
 		echo '<h3 style="color: red;">Error: unknown phone model</h3>';
 		return;
 	}
-	$dest = $amp_conf['ASTETCDIR'].'/digium_phones/user_image_'.$filename.'.png';
-	system('convert '.$tmp_file.' -resize '.$size.' '.$dest);
+	$http_path = digium_phones_get_http_path();
+	$dest = $http_path.'/user_image_'.$filename.'.png';
+	system('convert '.escapeshellarg($tmp_file).' -resize '.escapeshellarg($size).' '.escapeshellarg($dest));
 	unlink($tmp_file);
 
 
@@ -93,20 +94,33 @@ if (empty($logos)) {
 	</tr>
 <?php
 }
+
+$dpma_version_supports_d80 = false;
+$dpma_version_split = explode('.', $digium_phones->get_dpma_version());
+if ($dpma_version_split[0] == 3) {
+	if ($dpma_version_split[1] == 3) {
+		if ($dpma_version_split[2] >= 2) {
+			$dpma_version_supports_d80 = true;
+		}
+	} else if ($dpma_version_split[1] > 3) {
+		$dpma_version_supports_d80 = true;
+	}
+} else if ($dpma_version_split[0] > 3) {
+	$dpma_version_supports_d80 = true;
+}
+
 foreach ($logos as $logo) {
 ?>
 	<tr>
 		<td><?php echo $logo['name']?></td>
 		<td><?php echo strtoupper($logo['model'])?></td>
 <?php
-	if (file_exists("{$amp_conf['ASTETCDIR']}/digium_phones/user_image_{$logo['id']}.png")) {
-?>
-		<td><img src="config.php?type=setup&display=digium_phones&user_image=<?php echo $logo['id']?>&quietmode=1" /></td>
-<?php
+	$logo_file = 'user_image_'.$logo['id'].'.png';
+	if ($logo['model'] == 'd80' && !$dpma_version_supports_d80) {
+		echo '<td>DPMA Version must be upgraded to at least 3.2.3 for D80 support</td>';
 	} else {
-?>
-		<td>not available</td>
-<?php
+		echo '<td style="max-width:300px;padding:8px;"><img style="max-width:100%;width:auto;height:auto;" src="config.php?type=setup&display=digium_phones&user_image='.
+			$logo['id'].'&quietmode=1" /></td>';
 	}
 ?>
 		<td>

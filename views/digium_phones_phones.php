@@ -1097,12 +1097,10 @@ $table->add_row(array( 'data' => fpbx_label('Require Pin for Voicemail:', 'Enabl
 					<option value="no" ' . ($devices['settings']['vm_require_pin'] == 'no' ? 'selected' : '') . '>Disabled (Default)</option>
 					<option value="yes" ' . ($devices['settings']['vm_require_pin'] == 'yes' ? 'selected' : '') . '>Enabled</option></select>'));
 
-/*
-$table->add_row(array( 'data' => fpbx_label('Rapid Dials on Unused Line Keys:', 'By default, Line keys that do not have an extension assigned to them will be configured with Rapid Dial keys. This behavior may be disabled such that Rapid Dial keys begin assignment on the sidecar keys.')),
+$table->add_row(array( 'data' => fpbx_label('Rapid Dials on Unused Line Keys:', 'By default, Line keys that do not have an extension assigned to them will be configured with Rapid Dial keys. This behavior may be disabled such that Rapid Dial keys begin assignment on the sidecar keys.  Note: this only affects D50 and D70 models.')),
 				array( 'data' => '<select id="blf_unused_linekeys" name="blf_unused_linekeys">
-					<option value="yes" ' . ($devices['settings']['blf_unused_linekeys'] == 'yes' ? 'selected' : '') . '>Enabled</option>
-					<option value="no" ' . ($devices['settings']['blf_unused_linekeys'] == 'no' ? 'selected' : '') . '>Disabled (Default)</option></select>'));
-*/
+					<option value="yes" ' . ($devices['settings']['blf_unused_linekeys'] == 'yes' ? 'selected' : '') . '>Enabled (Default)</option>
+					<option value="no" ' . ($devices['settings']['blf_unused_linekeys'] == 'no' ? 'selected' : '') . '>Disabled</option></select>'));
 
 $table->add_row(array( 'data' => fpbx_label('Seconds between NTP sync:', 'Defines the interval (in seconds) in which time is resynchronized via NTP. Defaults to "86400".')),
 				array( 'data' => '<input type="text" id="ntp_resync" name="ntp_resync" value="' . $devices['settings']['ntp_resync'] . '" />'));

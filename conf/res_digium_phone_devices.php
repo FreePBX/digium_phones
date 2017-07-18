@@ -121,7 +121,7 @@ function res_digium_phone_devices($conf) {
 				// ignore this value here and process it below
 				continue;
 			} elseif ($key == 'blf_unused_linekeys') {
-				// discard old user configured value
+				// don't pass to device anymore, this is used by smart blf now
 				continue;
 			} elseif ($key == 'send_to_vm') {
 				// discard old user configured value
@@ -158,6 +158,7 @@ function res_digium_phone_devices($conf) {
 		// create master list of enabled phonebooks
 		$phonebook_list = array();
 		$blf_id = $device['settings']['rapiddial'];
+		$blf_unused_linekeys = $device['settings']['blf_unused_linekeys'];
 		if (!empty($device['phonebooks'])) foreach ($device['phonebooks'] as $phonebook) {
 			$phonebook_list[] = $phonebook['phonebookid'];
 		}
@@ -178,7 +179,11 @@ function res_digium_phone_devices($conf) {
 
 			$doutput[] = "contact=contacts-$file_id.xml";
 			if ($id == $blf_id) {
-				$doutput[] = "blf_items=blf-$file_id.php?lines=$line_count";
+				if ($blf_unused_linekeys == 'no') {
+					$doutput[] = "blf_items=blf-$file_id.php?lines=-1";
+				} else {
+					$doutput[] = "blf_items=blf-$file_id.php?lines=$line_count";
+				}
 				$doutput[] = "blf_contact_group=$file_id";
 			}
 		}

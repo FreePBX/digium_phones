@@ -114,6 +114,15 @@ if (empty($limits[$model])) {
 $model_limits = $limits[$model];
 $lines_in_use = $_GET['lines'];
 
+if ($lines_in_use == -1) {
+	// blf on unused line keys is disabled
+	$lines_in_use = $model_limits['lines'];
+}
+if ($model_limits['lines'] == -1) {
+	// always start d80 at index 1
+	$lines_in_use = 1;
+}
+
 $xml = new SimpleXmlElement('<config/>');
 $smart_blf = $xml->addChild('smart_blf');
 $blf_items = $smart_blf->addChild('blf_items');

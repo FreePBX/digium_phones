@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-06 13:29-0400\n"
-"PO-Revision-Date: 2017-07-17 14:43+0200\n"
+"PO-Revision-Date: 2017-07-27 15:12+0200\n"
 "Last-Translator: PETER <ftek@ymail.com>\n"
 "Language-Team: Vietnamese "
 "<http://weblate.freepbx.org/projects/freepbx/digium_phones/vi/>\n"
@@ -86,7 +86,7 @@ msgstr "Tên của bạn"
 
 #: views/rnav.php:44
 msgid "General Settings"
-msgstr "Cài đặt chung"
+msgstr "Các cài đặt chung"
 
 #: functions.inc.php:212
 msgid "Job Title"

@@ -121,7 +121,7 @@ function digium_phones_hookGet_config($engine) {
 	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'MacroExit'));
 
 	$execcond = '$["${SIP_HEADER(X-Digium-Call-Feature)}" = "feature_monitor" | "${PJSIP_HEADER(read,X-Digium-Call-Feature)}" = "feature_monitor"]';
-	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'ChanSpy', '${DB(DEVICE/${EXTTOCALL}/dial},q'));
+	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'ChanSpy', '${DB(DEVICE/${EXTTOCALL}/dial)},q'));
 	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'MacroExit'));
 }
 

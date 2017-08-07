@@ -9,8 +9,9 @@
 	<licenselink>http://www.gnu.org/licenses/gpl-3.0.txt</licenselink>
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
-	<version>13.0.7.2</version>
+	<version>13.0.7.3</version>
 	<changelog>
+		*13.0.7.3* Hotfix/13.0.7.3
 		*13.0.7.2* Reimplement blf unused linekeys
 		*13.0.7.1* D80 support, contacts/blf rewrite
 		*13.0.6* Embed licensing

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-06 13:29-0400\n"
+"POT-Creation-Date: 2017-08-07 15:24-0400\n"
 "PO-Revision-Date: 2017-01-16 17:50+0200\n"
 "Last-Translator: Sven <spiderrs4@web.de>\n"
 "Language-Team: German <http://weblate.freepbx.org/projects/freepbx/"
@@ -34,20 +34,8 @@ msgstr ""
 msgid "Checksum error retrieving %s"
 msgstr ""
 
-#: digium_phones.i18n.php:6
-msgid "Connectivity"
-msgstr "Verbindungen"
-
 #: functions.inc.php:219
 msgid "Digit Map"
-msgstr ""
-
-#: digium_phones.i18n.php:8
-msgid "Digium Phones"
-msgstr ""
-
-#: digium_phones.i18n.php:4
-msgid "Digium Phones Config"
 msgstr ""
 
 #: functions.inc.php:205
@@ -269,3 +257,6 @@ msgstr ""
 #: functions.inc.php:220
 msgid "Voicemail URI"
 msgstr ""
+
+#~ msgid "Connectivity"
+#~ msgstr "Verbindungen"

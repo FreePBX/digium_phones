@@ -169,6 +169,7 @@ function res_digium_phone_devices($conf) {
 		// and output list of selected phonebooks
 		foreach ($conf->digium_phones->get_phonebooks() as $phonebook) {
 			$id = $phonebook['id'];
+			$pbName = $phonebook['name'];
 			if (!in_array($id, $phonebook_list)) {
 				continue;
 			}
@@ -184,7 +185,7 @@ function res_digium_phone_devices($conf) {
 				} else {
 					$doutput[] = "blf_items=blf-$file_id.php?lines=$line_count";
 				}
-				$doutput[] = "blf_contact_group=$file_id";
+				$doutput[] = "blf_contact_group=$pbName";
 			}
 		}
 

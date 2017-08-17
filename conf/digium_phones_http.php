@@ -64,7 +64,7 @@ function digium_phones_http_contacts($conf, $id, $phonebook)
 
 	$xml = new SimpleXmlElement('<contacts/>');
 
-	$xml->addAttribute('group_name', $id); //$phonebook['name']);
+	$xml->addAttribute('group_name', $phonebook['name']);
 	$xml->addAttribute('editable', '0');
 	$xml->addAttribute('id', rand(0, 10000));
 

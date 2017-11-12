@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-07 15:24-0400\n"
-"PO-Revision-Date: 2017-10-13 02:18+0200\n"
+"PO-Revision-Date: 2017-11-12 16:21+0200\n"
 "Last-Translator: hammer125 <auswertung@aon.at>\n"
 "Language-Team: German "
 "<http://weblate.freepbx.org/projects/freepbx/digium_phones/de_DE/>\n"
@@ -82,7 +82,7 @@ msgstr ""
 
 #: functions.inc.php:209
 msgid "Last Name"
-msgstr ""
+msgstr "Nachname"
 
 #: functions.inc.php:218
 msgid "Line Label"

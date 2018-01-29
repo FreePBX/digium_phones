@@ -112,15 +112,28 @@ function digium_phones_get_config($engine) {
 function digium_phones_hookGet_config($engine) {
 	global $ext;
 
-	$execcond = '$[$["${REDIRECTING(reason)}" = "send_to_vm" | "${SIP_HEADER(X-Digium-Call-Feature)}" = "feature_send_to_vm" | "${PJSIP_HEADER(read,X-Digium-Call-Feature)}" = "feature_send_to_vm"] & "${ARG1}" != "novm"]';
+	$execcond = '$[$["${REDIRECTING(reason)}" = "send_to_vm" | "${SIP_HEADER(X-Digium-Call-Feature)}" = "feature_send_to_vm"] & "${ARG1}" != "novm"]';
 	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'Macro', 'vm,${ARG1},DIRECTDIAL,${IVR_RETVM}'));
 	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'MacroExit'));
 
-	$execcond = '$["${SIP_HEADER(X-Digium-Call-Feature)}" = "feature_intercom" | "${PJSIP_HEADER(read,X-Digium-Call-Feature)}" = "feature_intercom"]';
+	$execcond = '$["${SIP_HEADER(X-Digium-Call-Feature)}" = "feature_intercom"]';
 	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'Gosub', 'ext-intercom,${INTERCOMCODE}${EXTTOCALL},1()'));
 	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'MacroExit'));
 
-	$execcond = '$["${SIP_HEADER(X-Digium-Call-Feature)}" = "feature_monitor" | "${PJSIP_HEADER(read,X-Digium-Call-Feature)}" = "feature_monitor"]';
+	$execcond = '$["${SIP_HEADER(X-Digium-Call-Feature)}" = "feature_monitor"]';
+	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'ChanSpy', '${DB(DEVICE/${EXTTOCALL}/dial)},q'));
+	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'MacroExit'));
+
+	// separate PJSIP versions (these will generate errors in Asterisk log if PJSIP is not installed)
+	$execcond = '$[$["${PJSIP_HEADER(read,X-Digium-Call-Feature)}" = "feature_send_to_vm"] & "${ARG1}" != "novm"]';
+	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'Macro', 'vm,${ARG1},DIRECTDIAL,${IVR_RETVM}'));
+	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'MacroExit'));
+
+	$execcond = '$["${PJSIP_HEADER(read,X-Digium-Call-Feature)}" = "feature_intercom"]';
+	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'Gosub', 'ext-intercom,${INTERCOMCODE}${EXTTOCALL},1()'));
+	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'MacroExit'));
+
+	$execcond = '$["${PJSIP_HEADER(read,X-Digium-Call-Feature)}" = "feature_monitor"]';
 	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'ChanSpy', '${DB(DEVICE/${EXTTOCALL}/dial)},q'));
 	$ext->splice('macro-exten-vm', 's', 'checkrecord', new ext_execif($execcond, 'MacroExit'));
 }

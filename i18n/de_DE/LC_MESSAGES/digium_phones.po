@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-07 15:24-0400\n"
-"PO-Revision-Date: 2017-11-12 16:21+0200\n"
-"Last-Translator: hammer125 <auswertung@aon.at>\n"
+"PO-Revision-Date: 2018-01-29 23:04+0200\n"
+"Last-Translator: Nils <Nils@heckenkamp.info>\n"
 "Language-Team: German "
 "<http://weblate.freepbx.org/projects/freepbx/digium_phones/de_DE/>\n"
 "Language: de_DE\n"
@@ -23,11 +23,11 @@ msgstr ""
 
 #: views/rnav.php:32
 msgid "802.1X"
-msgstr ""
+msgstr "802.1X"
 
 #: views/rnav.php:14
 msgid "Alerts"
-msgstr ""
+msgstr "Warnungen"
 
 #: page.digium_phones.php:752
 #, php-format

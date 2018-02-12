@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-07 15:24-0400\n"
+"POT-Creation-Date: 2018-02-12 18:45-0500\n"
 "PO-Revision-Date: 2017-07-27 15:12+0200\n"
 "Last-Translator: PETER <ftek@ymail.com>\n"
 "Language-Team: Vietnamese <http://weblate.freepbx.org/projects/freepbx/"
@@ -34,19 +34,31 @@ msgstr "Cảnh báo"
 msgid "Checksum error retrieving %s"
 msgstr "Lỗi checksum ( giá trị kiểm tổng) khi truy xuất %s"
 
-#: functions.inc.php:219
+#: digium_phones.i18n.php:6
+msgid "Connectivity"
+msgstr "Khả năng kết nối"
+
+#: functions.inc.php:232
 msgid "Digit Map"
 msgstr "Bản đồ chữ số"
 
-#: functions.inc.php:205
+#: digium_phones.i18n.php:8
+msgid "Digium Phones"
+msgstr "Điện thoại Digium"
+
+#: digium_phones.i18n.php:4
+msgid "Digium Phones Config"
+msgstr "Cấu hình điện thoại Digium"
+
+#: functions.inc.php:218
 msgid "Digium Phones Contacts Options"
 msgstr "Các tùy chọn liên lạc điện thoại Digium"
 
-#: functions.inc.php:217
+#: functions.inc.php:230
 msgid "Digium Phones Line Options"
 msgstr "Các tùy chọn đường dây điện thoại Digium"
 
-#: functions.inc.php:214
+#: functions.inc.php:227
 msgid "E-Mail Address"
 msgstr "Địa chỉ Email"
 
@@ -68,7 +80,7 @@ msgstr "Các đường dây nội bộ"
 msgid "Firmware"
 msgstr "Phần mềm Firmware"
 
-#: functions.inc.php:207
+#: functions.inc.php:220
 msgid "First Name"
 msgstr "Tên của bạn"
 
@@ -76,19 +88,19 @@ msgstr "Tên của bạn"
 msgid "General Settings"
 msgstr "Các cài đặt chung"
 
-#: functions.inc.php:212
+#: functions.inc.php:225
 msgid "Job Title"
 msgstr "Chức danh"
 
-#: functions.inc.php:209
+#: functions.inc.php:222
 msgid "Last Name"
 msgstr "Họ"
 
-#: functions.inc.php:218
+#: functions.inc.php:231
 msgid "Line Label"
 msgstr "Nhãn đường dây"
 
-#: functions.inc.php:213
+#: functions.inc.php:226
 msgid "Location"
 msgstr "Vị trí"
 
@@ -96,11 +108,11 @@ msgstr "Vị trí"
 msgid "Logos"
 msgstr "Logo"
 
-#: functions.inc.php:231
+#: functions.inc.php:244
 msgid "Media Encryption"
 msgstr "Mã hóa truyền thông"
 
-#: functions.inc.php:208
+#: functions.inc.php:221
 msgid "Middle Name"
 msgstr "Tên đệm"
 
@@ -112,20 +124,20 @@ msgstr "Trang Multicast"
 msgid "Networks"
 msgstr "Mạng"
 
-#: functions.inc.php:228
+#: functions.inc.php:241
 msgid "None (Default)"
 msgstr "Không có ( Mặc định)"
 
-#: functions.inc.php:215
+#: functions.inc.php:228
 msgid "Notes"
 msgstr "Lưu ý"
 
-#: functions.inc.php:215
+#: functions.inc.php:228
 msgid "Notes about the user, for use in Contacts application."
 msgstr ""
 "Lưu ý về người dùng, đối với việc sử dụng tại ứng dụng Contacts (liên lạc)."
 
-#: functions.inc.php:211
+#: functions.inc.php:224
 msgid "Organization"
 msgstr "Tổ chức"
 
@@ -141,19 +153,19 @@ msgstr "Danh bạ điện thoại"
 msgid "Phones"
 msgstr "Điện thoại"
 
-#: functions.inc.php:206
+#: functions.inc.php:219
 msgid "Prefix"
 msgstr "Tiền tố"
 
-#: functions.inc.php:234
+#: functions.inc.php:247
 msgid "Re-registration TImeout"
 msgstr "Thời gian chờ đăng ký lại"
 
-#: functions.inc.php:236
+#: functions.inc.php:249
 msgid "Registration Max Retries"
 msgstr "Số lần thử đăng ký lại tối đa"
 
-#: functions.inc.php:235
+#: functions.inc.php:248
 msgid "Registration Retry Interval"
 msgstr "Khoảng thời gian thử đăng ký lại"
 
@@ -161,83 +173,83 @@ msgstr "Khoảng thời gian thử đăng ký lại"
 msgid "Ringtones"
 msgstr "Nhạc chuông"
 
-#: functions.inc.php:229
+#: functions.inc.php:242
 msgid "SDES"
 msgstr "SDES"
 
-#: functions.inc.php:210
+#: functions.inc.php:223
 msgid "Suffix"
 msgstr "Hậu tố"
 
-#: functions.inc.php:223
+#: functions.inc.php:236
 msgid "TCP"
 msgstr "TCP"
 
-#: functions.inc.php:224
+#: functions.inc.php:237
 msgid "TLS"
 msgstr "TLS"
 
-#: functions.inc.php:219
+#: functions.inc.php:232
 msgid "The Digit Map for this extension."
 msgstr "Bản đồ chữ số cho máy nhánh này."
 
-#: functions.inc.php:214
+#: functions.inc.php:227
 msgid "The E-Mail Address for use in Contacts application."
 msgstr "Địa chỉ Email để sử dụng trong ứng dụng Contacts."
 
-#: functions.inc.php:207
+#: functions.inc.php:220
 msgid "The First Name for use in Contacts application."
 msgstr "Tên để sử dụng trong ứng dụng Contacts."
 
-#: functions.inc.php:212
+#: functions.inc.php:225
 msgid "The Job Title for use in Contacts application."
 msgstr "Chức danh để sử dụng trong ứng dụng Contacts."
 
-#: functions.inc.php:209
+#: functions.inc.php:222
 msgid "The Last Name for use in Contacts application."
 msgstr "Họ để sử dụng trong ứng dụng Contacts."
 
-#: functions.inc.php:218
+#: functions.inc.php:231
 msgid "The Line Label for this extension."
 msgstr "Nhãn đường dây cho máy nhánh này."
 
-#: functions.inc.php:213
+#: functions.inc.php:226
 msgid "The Location for use in Contacts application."
 msgstr "Vị trí để sử dụng trong ứng dụng Contacts."
 
-#: functions.inc.php:208
+#: functions.inc.php:221
 msgid "The Middle Name for use in Contacts application."
 msgstr "Tên đệm để sử dụng trong ứng dụng Contacts."
 
-#: functions.inc.php:211
+#: functions.inc.php:224
 msgid "The Organization for use in Contacts application."
 msgstr "Tổ chức để sử dụng trong ứng dụng Contacts."
 
-#: functions.inc.php:206
+#: functions.inc.php:219
 msgid "The Prefix for use in Contacts application."
 msgstr "Tiền tố để sử dụng trong ứng dụng Contacts."
 
-#: functions.inc.php:234
+#: functions.inc.php:247
 msgid "The Re-registration Timeout for this extension."
 msgstr "Thời gian chờ đăng ký lại cho máy nhánh này."
 
-#: functions.inc.php:236
+#: functions.inc.php:249
 msgid "The Registration Max Retries for this extension."
 msgstr "Số lần thử đăng lý lại tối đa cho máy nhánh này."
 
-#: functions.inc.php:235
+#: functions.inc.php:248
 msgid "The Registration Retry Interval for this extension."
 msgstr "Khoảng thời gian thử đăng ký lại cho máy nhánh này."
 
-#: functions.inc.php:210
+#: functions.inc.php:223
 msgid "The Suffix for use in Contacts application."
 msgstr "Hậu tố để sử dụng trong ứng dụng Contacts."
 
-#: functions.inc.php:226
+#: functions.inc.php:239
 msgid "The Transport for this extension."
 msgstr "Truyền tải cho máy nhánh này."
 
-#: functions.inc.php:220
+#: functions.inc.php:233
 msgid ""
 "The Voicemail URI for this extension.  Note that setting this option on a "
 "phone's primary line will disable visual voicemail."
@@ -245,27 +257,18 @@ msgstr ""
 "Hộp thư thoại URI cho máy nhánh này. Lưu ý ằng tùy chọn này trên đường dây "
 "chính của điện thoại sẽ vô hiệu việc nhìn thấy thư thoại."
 
-#: functions.inc.php:231
+#: functions.inc.php:244
 msgid "The media encryption for this extension."
 msgstr "Mã hóa truyền thống cho máy nhánh này."
 
-#: functions.inc.php:226
+#: functions.inc.php:239
 msgid "Transport"
 msgstr "Truyền tải"
 
-#: functions.inc.php:222
+#: functions.inc.php:235
 msgid "UDP (Default) or value from Network setting)"
 msgstr "UDP ( Mặc ddinhj0 hoặc giá trị từ cài đặt mạng)"
 
-#: functions.inc.php:220
+#: functions.inc.php:233
 msgid "Voicemail URI"
 msgstr "Thư thoại URI"
-
-#~ msgid "Connectivity"
-#~ msgstr "Khả năng kết nối"
-
-#~ msgid "Digium Phones"
-#~ msgstr "Điện thoại Digium"
-
-#~ msgid "Digium Phones Config"
-#~ msgstr "Cấu hình điện thoại Digium"

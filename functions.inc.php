@@ -319,6 +319,10 @@ class digium_phones_conf {
 	var $autohint;
 	var $sorted_users;
 
+	public function __construct() {
+	}
+
+
 	/**
 	 * Constructor: load main digium phones class and sort userlist
 	 */

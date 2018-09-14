@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-12 18:45-0500\n"
-"PO-Revision-Date: 2018-07-18 19:12+0000\n"
+"PO-Revision-Date: 2018-09-15 02:47+0000\n"
 "Last-Translator: Bastian Mertgen <b.mertgen@bastian-mertgen.de>\n"
 "Language-Team: German <http://*/projects/freepbx/digium_phones/de/>\n"
 "Language: de_DE\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.19.1\n"
+"X-Generator: Weblate 3.0.1\n"
 
 #: views/rnav.php:32
 msgid "802.1X"
@@ -31,7 +31,7 @@ msgstr "Warnungen"
 #: page.digium_phones.php:752
 #, php-format
 msgid "Checksum error retrieving %s"
-msgstr ""
+msgstr "Prüfsummenfehler beim Abruf von %s"
 
 #: digium_phones.i18n.php:6
 msgid "Connectivity"
@@ -101,7 +101,7 @@ msgstr ""
 
 #: functions.inc.php:226
 msgid "Location"
-msgstr ""
+msgstr "Ort"
 
 #: views/rnav.php:26
 msgid "Logos"

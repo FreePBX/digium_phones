@@ -314,19 +314,15 @@ function digium_phones_configprocess() {
  * It is instantiated by retrieve_conf and used to build configuration files.
  */
 class digium_phones_conf {
-	var $use_warning_banner = false;
-	var $digium_phones;
-	var $autohint;
-	var $sorted_users;
-
-	public function __construct() {
-	}
-
+	public $use_warning_banner = false;
+	public $digium_phones;
+	public $autohint;
+	public $sorted_users;
 
 	/**
 	 * Constructor: load main digium phones class and sort userlist
 	 */
-	public function digium_phones_conf() {
+	public function __construct() {
 		include_once dirname(__FILE__).'/classes/digium_phones.php';
 		$this->digium_phones = new digium_phones();
 		$this->autohint = array();

@@ -32,7 +32,7 @@ class digium_phones {
 	/**
 	 * Constructor
 	 */
-	public function digium_phones () {
+	public function __construct() {
 		$this->load();
 	}
 

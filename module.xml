@@ -9,8 +9,9 @@
 	<licenselink>http://www.gnu.org/licenses/gpl-3.0.txt</licenselink>
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
-	<version>15.0.2</version>
+	<version>15.0.3</version>
 	<changelog>
+		*15.0.3* FREEPBX-20248 
 		*15.0.2* Fixing FREEPBX-18050 Adding PHP 7.2v support 
     		*15.0.1alpha* Inital Release
 		*13.0.7.4* FREEPBX-16541 move pjsip header tests to separate dialplan expressions

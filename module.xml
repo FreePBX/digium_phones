@@ -9,47 +9,9 @@
 	<licenselink>http://www.gnu.org/licenses/gpl-3.0.txt</licenselink>
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
-	<version>15.0.3</version>
+	<version>16.0.1</version>
 	<changelog>
-		*15.0.3* FREEPBX-20248 
-		*15.0.2* Fixing FREEPBX-18050 Adding PHP 7.2v support 
-    		*15.0.1alpha* Inital Release
-		*13.0.7.4* FREEPBX-16541 move pjsip header tests to separate dialplan expressions
-		*13.0.7.3* Hotfix/13.0.7.3
-		*13.0.7.2* Reimplement blf unused linekeys
-		*13.0.7.1* D80 support, contacts/blf rewrite
-		*13.0.6* Embed licensing
-		*13.0.5.1* Embed license register code
-		*13.0.5* FREEPBX-9054: show correct registration state
-		*13.0.4* FREEPBX-9976: support multiple parking lots
-		*13.0.3* Add TCP/TLS transport + D6x support: sdes, logos, multicast page, 802.1X
-		*13.0.2* Create PJSIP configuration needed to support DPMA operation
-		*13.0.1* Uses new core functionality
-		*2.11.3.2* Fixes for: * FREEPBX-11835 Digium phones module no options in Applications	Minor - Minor loss of function, or other problem where easy workaround is present. OPEN * FREEPBX-12221 With dpma installed and digium phones config module, can not add a queue	Minor - Minor loss of function, or other problem where easy workaround is present. CLOSED * FREEPBX-12224 unable to apply config, apply config returns error exit: 1 * FREEPBX-11028 Can't create phonebook in Digium module Includes changes to pass HTML5 validation, avoid exceptions on empty arrays, and support updated jquery version.
-		*2.11.3.1* Remove en_US Translations
-		*2.11.3.0* FREEPBX-10931 remove module noload on install
-		*2.11.2.9* Avoid error on empty array
-		*2.11.2.8* require DPMA 2.2 for phone firmware 2.0+
-		*2.11.2.7* Even more fixes for this module
-		*2.11.2.6* More fixes to detect proper Astman
-		*2.11.2.5* FREEPBX-9880 Astman is always defined now so ask if we are connected instead
-		*2.11.2.4* FREEPBX-9512 avoid runtime errors
-		*2.11.2.3* Input sanitizing added
-		*2.11.2.2* Added options for default_fontsize and call_waiting_tone, fixed locale and device id
-		*2.11.2.1* Fix for class loading problem
-		*2.11.2.0* Cleanup, support for DPMA 2.1, D45, Logo upload, firmware download enhanced, Ringtones configured to phone
-		*2.11.1.1* update to correct GPL v3 license and move all copyright into proper functions.inc.php file.
-		*2.11.1.0* Relocate firmware directory
-		*2.11.0.10* Use abstracted function
-		*2.11.0.9* Improve error reporting of firmware download
-		*2.11.0.8* When reloading, we explicitly skip astman
-		*2.11.0.7* Retrieve_conf speed improvements
-		*2.11.0.6* Recover from missing firmware directory
-		*2.11.0.5* Fixes for Custom Apps, External Line Edit, Download
-			and select firmware, Queue Members, Status Entries
-		*2.11.0.4* Fixed general settings save, dragdrop pb and net
-		*2.11.0.3* Fixed Not Saving Data #6747
-		*2.11.0.1* FreePBX/Schmoozecom Release
+		*16.0.1alpha* 16.0.1 alpha release
 	</changelog>
 	<depends>
 		<phpversion>5.2.0</phpversion>
@@ -59,6 +21,6 @@
 		<digium_phones needsenginedb="yes">Digium Phones</digium_phones>
 	</menuitems>
 	<supported>
-		<version>15.0</version>
+		<version>16.0</version>
 	</supported>
 </module>

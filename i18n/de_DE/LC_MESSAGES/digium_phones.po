@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-12 18:45-0500\n"
-"PO-Revision-Date: 2019-01-12 15:00+0000\n"
-"Last-Translator: Bastian Mertgen <b.mertgen@bastian-mertgen.de>\n"
+"PO-Revision-Date: 2020-02-11 12:51+0000\n"
+"Last-Translator: florian alberts <alberts@ar-systems.de>\n"
 "Language-Team: German <http://*/projects/freepbx/digium_phones/de/>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
@@ -39,7 +39,7 @@ msgstr "Konnektivität"
 
 #: functions.inc.php:232
 msgid "Digit Map"
-msgstr ""
+msgstr "Ziffernübersicht"
 
 #: digium_phones.i18n.php:8
 msgid "Digium Phones"
@@ -97,7 +97,7 @@ msgstr "Nachname"
 
 #: functions.inc.php:231
 msgid "Line Label"
-msgstr ""
+msgstr "Zeilenbezeichnung"
 
 #: functions.inc.php:226
 msgid "Location"
@@ -113,7 +113,7 @@ msgstr "Medienverschlüsselung"
 
 #: functions.inc.php:221
 msgid "Middle Name"
-msgstr ""
+msgstr "Mittelname/zweiter Vorname"
 
 #: views/rnav.php:29
 msgid "Multicast Page"
@@ -173,7 +173,7 @@ msgstr "Klingetöne"
 
 #: functions.inc.php:242
 msgid "SDES"
-msgstr ""
+msgstr "SDES"
 
 #: functions.inc.php:223
 msgid "Suffix"
@@ -189,7 +189,7 @@ msgstr "TLS"
 
 #: functions.inc.php:232
 msgid "The Digit Map for this extension."
-msgstr ""
+msgstr "Die Ziffernübersicht für diese Nebenstelle."
 
 #: functions.inc.php:227
 msgid "The E-Mail Address for use in Contacts application."
@@ -210,7 +210,7 @@ msgstr "Der Nachname, der in der Kontakte-Anwendung benutzt werden soll."
 
 #: functions.inc.php:231
 msgid "The Line Label for this extension."
-msgstr ""
+msgstr "Die Zeilenbezeichnung für diese Nebenstelle."
 
 #: functions.inc.php:226
 msgid "The Location for use in Contacts application."
@@ -218,7 +218,7 @@ msgstr "Der Ort, der in der Kontakte-Anwendung benutzt werden soll."
 
 #: functions.inc.php:221
 msgid "The Middle Name for use in Contacts application."
-msgstr ""
+msgstr "Der zweite Vorname zur Verwendung in der Kontaktanwendung."
 
 #: functions.inc.php:224
 msgid "The Organization for use in Contacts application."
@@ -230,15 +230,17 @@ msgstr "Das Präfix, das in der Kontakte-Anwendung benutzt werden soll."
 
 #: functions.inc.php:247
 msgid "The Re-registration Timeout for this extension."
-msgstr ""
+msgstr "Das Zeitlimit für die erneute Registrierung für diese Nebenstelle."
 
 #: functions.inc.php:249
 msgid "The Registration Max Retries for this extension."
 msgstr ""
+"Die maximale Anzahl der erneuten Registrierungsversuche für diese "
+"Nebenstelle."
 
 #: functions.inc.php:248
 msgid "The Registration Retry Interval for this extension."
-msgstr ""
+msgstr "Das Registrierungswiederholungsintervall für diese Nebenstelle."
 
 #: functions.inc.php:223
 msgid "The Suffix for use in Contacts application."
@@ -246,13 +248,16 @@ msgstr "Das Suffix, das in der Kontakte-Anwendung benutzt werden soll."
 
 #: functions.inc.php:239
 msgid "The Transport for this extension."
-msgstr ""
+msgstr "Der Transport für diese Nebenstelle."
 
 #: functions.inc.php:233
 msgid ""
 "The Voicemail URI for this extension.  Note that setting this option on a "
 "phone's primary line will disable visual voicemail."
 msgstr ""
+"Die Voicemail-URI für diese Erweiterung.  Beachten Sie, dass durch das "
+"Einstellen dieser Option in der Hauptleitung eines Telefons die visuelle "
+"Voicemail deaktiviert wird."
 
 #: functions.inc.php:244
 msgid "The media encryption for this extension."
@@ -260,7 +265,7 @@ msgstr "Die Medienverschlüsselung für diese Nebenstelle."
 
 #: functions.inc.php:239
 msgid "Transport"
-msgstr ""
+msgstr "Transport"
 
 #: functions.inc.php:235
 msgid "UDP (Default) or value from Network setting)"
@@ -268,4 +273,4 @@ msgstr "UDP (Standard) oder der Wert aus der Netzwerkeinstellung"
 
 #: functions.inc.php:233
 msgid "Voicemail URI"
-msgstr ""
+msgstr "Voicemail URI"

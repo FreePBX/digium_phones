@@ -10,6 +10,8 @@
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
 	<version>13.0.7.4</version>
+  	<description>This module provides a solution for configuring Digium phones and the Digium Phone Module for Asterisk (DPMA)</description>
+  	<more-info>https://wiki.freepbx.org/display/FPG/Digium+Phones+Module</more-info>
 	<changelog>
 		*13.0.7.4* FREEPBX-16541 move pjsip header tests to separate dialplan expressions
 		*13.0.7.3* Hotfix/13.0.7.3

@@ -9,15 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-12 18:45-0500\n"
+"POT-Creation-Date: 2021-03-12 09:48+0000\n"
 "PO-Revision-Date: 2017-07-27 15:12+0200\n"
 "Last-Translator: PETER <ftek@ymail.com>\n"
 "Language-Team: Vietnamese <http://weblate.freepbx.org/projects/freepbx/"
 "digium_phones/vi/>\n"
+"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 2.4\n"
 
@@ -28,6 +28,10 @@ msgstr "802.1X"
 #: views/rnav.php:14
 msgid "Alerts"
 msgstr "Cảnh báo"
+
+#: classes/digium_phones.php:2737
+msgid "Asterisk (DPMA) SSL Certificate Expiration"
+msgstr ""
 
 #: page.digium_phones.php:752
 #, php-format

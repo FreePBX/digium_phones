@@ -3,16 +3,17 @@
 # For licensing information, please see the file named LICENSE located in the module directory
 #
 # FreePBX language template for digium_phones
-# Copyright (C) 2008-2018 Sangoma Technologies, Inc.
+# Copyright (C) 2008-2021 Sangoma Technologies, Inc.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-12 18:45-0500\n"
+"POT-Creation-Date: 2021-03-12 09:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,6 +24,10 @@ msgstr ""
 
 #: views/rnav.php:14
 msgid "Alerts"
+msgstr ""
+
+#: classes/digium_phones.php:2737
+msgid "Asterisk (DPMA) SSL Certificate Expiration"
 msgstr ""
 
 #: page.digium_phones.php:752

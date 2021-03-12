@@ -10,16 +10,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-12 18:45-0500\n"
-"PO-Revision-Date: 2018-01-29 23:04+0200\n"
-"Last-Translator: Nils <Nils@heckenkamp.info>\n"
-"Language-Team: German <http://weblate.freepbx.org/projects/freepbx/"
-"digium_phones/de_DE/>\n"
+"PO-Revision-Date: 2020-02-11 12:51+0000\n"
+"Last-Translator: florian alberts <alberts@ar-systems.de>\n"
+"Language-Team: German <http://*/projects/freepbx/digium_phones/de/>\n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.4\n"
+"X-Generator: Weblate 3.0.1\n"
 
 #: views/rnav.php:32
 msgid "802.1X"
@@ -32,53 +31,53 @@ msgstr "Warnungen"
 #: page.digium_phones.php:752
 #, php-format
 msgid "Checksum error retrieving %s"
-msgstr ""
+msgstr "Prüfsummenfehler beim Abruf von %s"
 
 #: digium_phones.i18n.php:6
 msgid "Connectivity"
-msgstr "Verbindungen"
+msgstr "Konnektivität"
 
 #: functions.inc.php:232
 msgid "Digit Map"
-msgstr ""
+msgstr "Ziffernübersicht"
 
 #: digium_phones.i18n.php:8
 msgid "Digium Phones"
-msgstr ""
+msgstr "Digium-Telefone"
 
 #: digium_phones.i18n.php:4
 msgid "Digium Phones Config"
-msgstr ""
+msgstr "Digium-Telefone – Konfiguration"
 
 #: functions.inc.php:218
 msgid "Digium Phones Contacts Options"
-msgstr ""
+msgstr "Digium-Telefone – Kontakt-Optionen"
 
 #: functions.inc.php:230
 msgid "Digium Phones Line Options"
-msgstr ""
+msgstr "Digium-Telefone – Leitungsoptionen"
 
 #: functions.inc.php:227
 msgid "E-Mail Address"
-msgstr ""
+msgstr "E-Mail-Adresse"
 
 #: page.digium_phones.php:719 page.digium_phones.php:723
 #, php-format
 msgid "Error opening %s for reading"
-msgstr ""
+msgstr "Fehler beim Lesen von %s"
 
 #: page.digium_phones.php:727
 #, php-format
 msgid "Error opening %s for writing"
-msgstr ""
+msgstr "Fehler beim Schreiben von %s"
 
 #: views/rnav.php:40
 msgid "External Lines"
-msgstr ""
+msgstr "Externe Leitungen"
 
 #: views/rnav.php:48
 msgid "Firmware"
-msgstr ""
+msgstr "Firmware"
 
 #: functions.inc.php:220
 msgid "First Name"
@@ -86,11 +85,11 @@ msgstr "Vorname"
 
 #: views/rnav.php:44
 msgid "General Settings"
-msgstr ""
+msgstr "Allgemeine Einstellungen"
 
 #: functions.inc.php:225
 msgid "Job Title"
-msgstr ""
+msgstr "Auftragstitel"
 
 #: functions.inc.php:222
 msgid "Last Name"
@@ -98,174 +97,180 @@ msgstr "Nachname"
 
 #: functions.inc.php:231
 msgid "Line Label"
-msgstr ""
+msgstr "Zeilenbezeichnung"
 
 #: functions.inc.php:226
 msgid "Location"
-msgstr ""
+msgstr "Ort"
 
 #: views/rnav.php:26
 msgid "Logos"
-msgstr ""
+msgstr "Logos"
 
 #: functions.inc.php:244
 msgid "Media Encryption"
-msgstr ""
+msgstr "Medienverschlüsselung"
 
 #: functions.inc.php:221
 msgid "Middle Name"
-msgstr ""
+msgstr "Mittelname/zweiter Vorname"
 
 #: views/rnav.php:29
 msgid "Multicast Page"
-msgstr ""
+msgstr "Multicast-Seite"
 
 #: views/rnav.php:36
 msgid "Networks"
-msgstr ""
+msgstr "Netzwerke"
 
 #: functions.inc.php:241
 msgid "None (Default)"
-msgstr ""
+msgstr "Keine (Standard)"
 
 #: functions.inc.php:228
 msgid "Notes"
-msgstr ""
+msgstr "Notizen"
 
 #: functions.inc.php:228
 msgid "Notes about the user, for use in Contacts application."
-msgstr ""
+msgstr "Notizen zum Benutzer (zur Verwendung in der Kontakte-Anwendung)."
 
 #: functions.inc.php:224
 msgid "Organization"
-msgstr ""
+msgstr "Organisation"
 
 #: views/rnav.php:22
 msgid "Phone Applications"
-msgstr ""
+msgstr "Telefon-Anwendungen"
 
 #: views/rnav.php:10
 msgid "Phonebooks"
-msgstr ""
+msgstr "Telefonbücher"
 
 #: views/rnav.php:5
 msgid "Phones"
-msgstr ""
+msgstr "Telefone"
 
 #: functions.inc.php:219
 msgid "Prefix"
-msgstr ""
+msgstr "Präfix"
 
 #: functions.inc.php:247
 msgid "Re-registration TImeout"
-msgstr ""
+msgstr "Zeitlimit für die erneute Registrierung"
 
 #: functions.inc.php:249
 msgid "Registration Max Retries"
-msgstr ""
+msgstr "Maximale Registrierungsversuche"
 
 #: functions.inc.php:248
 msgid "Registration Retry Interval"
-msgstr ""
+msgstr "Wiederholungsintervall für Registrierungen"
 
 #: views/rnav.php:18
 msgid "Ringtones"
-msgstr ""
+msgstr "Klingetöne"
 
 #: functions.inc.php:242
 msgid "SDES"
-msgstr ""
+msgstr "SDES"
 
 #: functions.inc.php:223
 msgid "Suffix"
-msgstr ""
+msgstr "Suffix"
 
 #: functions.inc.php:236
 msgid "TCP"
-msgstr ""
+msgstr "TCP"
 
 #: functions.inc.php:237
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: functions.inc.php:232
 msgid "The Digit Map for this extension."
-msgstr ""
+msgstr "Die Ziffernübersicht für diese Nebenstelle."
 
 #: functions.inc.php:227
 msgid "The E-Mail Address for use in Contacts application."
-msgstr ""
+msgstr "Die E-Mail-Adresse, die in der Kontakte-Anwendung benutzt werden soll."
 
 #: functions.inc.php:220
 msgid "The First Name for use in Contacts application."
-msgstr ""
+msgstr "Der Vorname, der in der Kontakte-Anwendung benutzt werden soll."
 
 #: functions.inc.php:225
 msgid "The Job Title for use in Contacts application."
 msgstr ""
+"Die Stellenbezeichnung, die in der Kontakte-Anwendung benutzt werden soll."
 
 #: functions.inc.php:222
 msgid "The Last Name for use in Contacts application."
-msgstr ""
+msgstr "Der Nachname, der in der Kontakte-Anwendung benutzt werden soll."
 
 #: functions.inc.php:231
 msgid "The Line Label for this extension."
-msgstr ""
+msgstr "Die Zeilenbezeichnung für diese Nebenstelle."
 
 #: functions.inc.php:226
 msgid "The Location for use in Contacts application."
-msgstr ""
+msgstr "Der Ort, der in der Kontakte-Anwendung benutzt werden soll."
 
 #: functions.inc.php:221
 msgid "The Middle Name for use in Contacts application."
-msgstr ""
+msgstr "Der zweite Vorname zur Verwendung in der Kontaktanwendung."
 
 #: functions.inc.php:224
 msgid "The Organization for use in Contacts application."
-msgstr ""
+msgstr "Die Organisation, die in der Kontakte-Anwendung benutzt werden soll."
 
 #: functions.inc.php:219
 msgid "The Prefix for use in Contacts application."
-msgstr ""
+msgstr "Das Präfix, das in der Kontakte-Anwendung benutzt werden soll."
 
 #: functions.inc.php:247
 msgid "The Re-registration Timeout for this extension."
-msgstr ""
+msgstr "Das Zeitlimit für die erneute Registrierung für diese Nebenstelle."
 
 #: functions.inc.php:249
 msgid "The Registration Max Retries for this extension."
 msgstr ""
+"Die maximale Anzahl der erneuten Registrierungsversuche für diese "
+"Nebenstelle."
 
 #: functions.inc.php:248
 msgid "The Registration Retry Interval for this extension."
-msgstr ""
+msgstr "Das Registrierungswiederholungsintervall für diese Nebenstelle."
 
 #: functions.inc.php:223
 msgid "The Suffix for use in Contacts application."
-msgstr ""
+msgstr "Das Suffix, das in der Kontakte-Anwendung benutzt werden soll."
 
 #: functions.inc.php:239
 msgid "The Transport for this extension."
-msgstr ""
+msgstr "Der Transport für diese Nebenstelle."
 
 #: functions.inc.php:233
 msgid ""
 "The Voicemail URI for this extension.  Note that setting this option on a "
 "phone's primary line will disable visual voicemail."
 msgstr ""
+"Die Voicemail-URI für diese Erweiterung.  Beachten Sie, dass durch das "
+"Einstellen dieser Option in der Hauptleitung eines Telefons die visuelle "
+"Voicemail deaktiviert wird."
 
 #: functions.inc.php:244
 msgid "The media encryption for this extension."
-msgstr ""
+msgstr "Die Medienverschlüsselung für diese Nebenstelle."
 
 #: functions.inc.php:239
 msgid "Transport"
-msgstr ""
+msgstr "Transport"
 
 #: functions.inc.php:235
 msgid "UDP (Default) or value from Network setting)"
-msgstr ""
+msgstr "UDP (Standard) oder der Wert aus der Netzwerkeinstellung"
 
 #: functions.inc.php:233
 msgid "Voicemail URI"
-msgstr ""
+msgstr "Voicemail URI"

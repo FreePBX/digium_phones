@@ -12,6 +12,10 @@ include_once dirname(__FILE__).'/classes/digium_phones.php';
 $digium_phones = new digium_phones();
 $digium_phones->setdashNotifydigumsslcert();
 
+include_once dirname(__FILE__).'/classes/digium_phones.php';
+$digium_phones = new digium_phones();
+$digium_phones->setdashNotifydigumsslcert();
+
 $sql = "CREATE TABLE IF NOT EXISTS digium_phones_general (
 	`keyword` VARCHAR(50) NOT NULL PRIMARY KEY,
 	`val` VARCHAR(255),

@@ -7,6 +7,10 @@ global $asterisk_conf;
 if (version_compare_freepbx(getVersion(), '12', '>=')) {
 	FreePBX::create()->ModulesConf->removenoload('res_digium_phone.so');
 }
+include_once dirname(__FILE__).'/functions.inc.php';
+include_once dirname(__FILE__).'/classes/digium_phones.php';
+$digium_phones = new digium_phones();
+$digium_phones->setdashNotifydigumsslcert();
 
 include_once dirname(__FILE__).'/classes/digium_phones.php';
 $digium_phones = new digium_phones();

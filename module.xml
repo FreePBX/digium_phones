@@ -9,8 +9,9 @@
 	<licenselink>http://www.gnu.org/licenses/gpl-3.0.txt</licenselink>
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
-	<version>13.0.7.5</version>
+	<version>13.0.7.6</version>
 	<changelog>
+		*13.0.7.6* Packaging of ver 13.0.7.6
 		*13.0.7.5* FREEI-2972 Add dashboard notification for DPMA SSL issue 
 		*13.0.7.4* FREEPBX-16541 move pjsip header tests to separate dialplan expressions
 		*13.0.7.3* Hotfix/13.0.7.3

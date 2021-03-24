@@ -9,12 +9,6 @@ if (version_compare_freepbx(getVersion(), '12', '>=')) {
 }
 include_once dirname(__FILE__).'/functions.inc.php';
 include_once dirname(__FILE__).'/classes/digium_phones.php';
-$digium_phones = new digium_phones();
-$digium_phones->setdashNotifydigumsslcert();
-
-include_once dirname(__FILE__).'/classes/digium_phones.php';
-$digium_phones = new digium_phones();
-$digium_phones->setdashNotifydigumsslcert();
 
 $sql = "CREATE TABLE IF NOT EXISTS digium_phones_general (
 	`keyword` VARCHAR(50) NOT NULL PRIMARY KEY,
@@ -500,4 +494,6 @@ $ringtonesql .= "ELSE val END WHERE keyword='active_ringtone'";
 $result = $db->query($ringtonesql);
 unset($result);
 
+$digium_phones = new digium_phones();
+$digium_phones->setdashNotifydigumsslcert();
 //end of file

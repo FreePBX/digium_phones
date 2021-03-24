@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-12 09:47+0000\n"
+"POT-Creation-Date: 2021-03-24 03:20+0000\n"
 "PO-Revision-Date: 2017-02-06 20:33+0200\n"
 "Last-Translator: Suporte <suporte@kingvoice.com.br>\n"
 "Language-Team: Portuguese (Brazil) <http://weblate.freepbx.org/projects/"
@@ -29,7 +29,7 @@ msgstr "802.1X"
 msgid "Alerts"
 msgstr "Alertas"
 
-#: classes/digium_phones.php:2737
+#: classes/digium_phones.php:2742
 msgid "Asterisk (DPMA) SSL Certificate Expiration"
 msgstr ""
 

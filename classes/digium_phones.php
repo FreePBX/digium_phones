@@ -2730,11 +2730,18 @@ class digium_phones {
 
 	public function setdashNotifydigumsslcert() {
 		if($this->get_dpma_version() != 'unknown') {
-			if (version_compare($this->get_dpma_version(), '3.6.2', '<')) {
-				$link = "<b><a href = 'https://wiki.sangoma.com/display/FOP/Desk+Phone+Module+for+Asterisk+%28DPMA%29+SSL+Certificate+Expiration' target='_blank'>wiki page</a></b>";
-				$text = 'An outdated version of the Asterisk DPMA module was detected (v'.$this->get_dpma_version().') . Please upgrade to a supported version (v3.6.2+) to ensure uninterrupted usage of DPMA supported phones. For more information review the ' .$link;
-				$nt = \notifications::create();
-				$nt->add_critical("endpoint", "endpoint_dpmassl", _("Asterisk (DPMA) SSL Certificate Expiration"), _($text), '', true, true);
+			$version_check = array('11'=>'3.4.13', '13'=>'3.6.2', '15'=>'3.5.7', '16'=>'3.6.2', '17'=>'3.6.2', '18'=>'3.6.2');
+			$ast_info = engine_getinfo();
+			$astversion = explode('.', $ast_info["version"]);
+			foreach ($version_check as $key=>$val) {
+				if ($key == $astversion['0']) {
+					if (version_compare($this->get_dpma_version(), $val, '<')) {
+						$link = "<b><a href = 'https://wiki.sangoma.com/display/FOP/Desk+Phone+Module+for+Asterisk+%28DPMA%29+SSL+Certificate+Expiration' target='_blank'>wiki page</a></b>";
+						$text = 'An outdated version of the Asterisk DPMA module was detected. Please upgrade to a supported version to ensure uninterrupted usage of DPMA supported phones. For more information review the ' .$link;
+						$nt = \notifications::create();
+						$nt->add_critical("digium_phones", "digium_phone_dpmassl", _("Asterisk (DPMA) SSL Certificate Expiration"), _($text), '', true, true);
+					}
+				}
 			}
 		}
 	}

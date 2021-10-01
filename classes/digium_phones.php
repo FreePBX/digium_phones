@@ -2746,4 +2746,40 @@ class digium_phones {
 		}
 	}
 
+	public function addDashNotify() {
+		if (!\FreePBX::Modules()->checkStatus('sysadmin')) {
+			return array('status' => false);
+		}
+		\FreePBX::Modules()->loadFunctionsInc('sysadmin');
+		if(function_exists('sysadmin_get_pbx_vendor') && sysadmin_get_pbx_vendor() != 'freepbxdistro') {
+			return array('status' => false);
+		}
+		$version_check = array('13', '16', '17', '18');
+		$ast_info = engine_getinfo();
+		$astversion = explode('.', $ast_info["version"])[0];
+		if (in_array ($astversion, $version_check)) {
+			if ($this->get_dpma_version() == 'unknown') {
+				$Notifymsg =	sprintf(_("<p>The DPMA module is not installed in Asterisk. On a FreePBX Distro, this root shell command will install DPMA:</p>".
+							"\n<pre>yum install asterisk%s-res_digium_phone_public</pre>". "\n" .
+							"<p>After DPMA is installed, Asterisk must be restarted.</p>"), $astversion);
+				return array('status' => 'NotInstalled', 'notify'=> $Notifymsg);
+			}
+			$dpmapackge_new = "asterisk". $astversion . "-res_digium_phone_public";
+			$dpmapackge_old = "asterisk". $astversion . "-res_digium_phone";
+			$output = shell_exec("rpm -q --queryformat '%{VERSION}' ".$dpmapackge_old);
+			if(version_compare($this->get_dpma_version(), '3.6.5', '==') && !strstr($output, "is not installed")) {
+				$Notifymsg =	sprintf(_("<p>On your FreePBX Distro System, You are using RPM ".$dpmapackge_old ." of V3.6.5 for Digium Phones Module which is not Compatible.".
+							"<br>To use the functionality of Digium Phones Module require to install new RPM, so run the following command on Command propmpt:</br></p>".
+							"Step1: Uninstall the previous DPMA RPM Command: <b>yum remove asterisk%s-res_digium_phone</b>".
+							"<br>Step2: Install new DPMA RPM Command: <b>yum install ".$dpmapackge_new."</b><br>".
+							"Step3: <b>fwconsole restart</b> (Restart the Asterisk)"), $astversion, $astversion);
+				return array('status' => 'OldInstalled', 'notify' => $Notifymsg);
+			} else {
+				return array('status' => 'newInstalled');
+			}
+		} else {
+			return array('status' => false);
+		}
+	}
+
 }

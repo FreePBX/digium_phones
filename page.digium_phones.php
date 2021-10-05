@@ -856,7 +856,15 @@ if (isset($_GET['user_image'])) {
 	$easymode = ($digium_phones->get_general('easy_mode') == "yes"?true:false);
 	include('views/rnav.php');
 	echo '<div id="content">';
-
+	$EpmDPMA = false;
+	if (\FreePBX::Modules()->checkStatus('endpoint')) {
+		\FreePBX::Modules()->loadFunctionsInc('endpoint');
+		if(function_exists('endpoint_getGlobalSettings')) {
+			$endpoint_getGlobalSettings = endpoint_getGlobalSettings();
+			$EpmDPMA = ($endpoint_getGlobalSettings['dpma'] == 'Y') ? true : false;
+		}
+	}
+	$addDashNotify = $digium_phones->addDashNotify();
 	$dpmalicensestatus = $astman->send_request('DPMALicenseStatus');
 	if ($_GET['page'] == 'add-license-form' || $_GET['page'] == 'eula-form') {
 		include(__DIR__.'/license.php');
@@ -868,9 +876,13 @@ if (isset($_GET['user_image'])) {
 		echo '<h2>Digium Phones is disabled</h2>';
 
 		if ($dpmamoduleloaded['Response'] != 'Success') {
-			echo '<p>The DPMA module is not installed in Asterisk.  On a FreePBX Distro, this root shell command will install DPMA:</p>';
-			echo '<pre>yum install asterisk'.$ast_major.'-res_digium_phone</pre>';
-			echo '<p>After DPMA is installed, Asterisk must be restarted.</p>';
+			if ($addDashNotify['status'] == 'NotInstalled') {
+				echo $addDashNotify['notify'];
+			} else {
+				echo '<p>The DPMA module is not installed in Asterisk.  On a FreePBX Distro, this root shell command will install DPMA:</p>';
+				echo '<pre>yum install asterisk'.$ast_major.'-res_digium_phone</pre>';
+				echo '<p>After DPMA is installed, Asterisk must be restarted.</p>';
+			}
 		} else if ($lic_file && check_reload_needed()) {
 			echo '<p>A license file is present but may not be loaded into Asterisk.  Press <b>Apply Config</b> to load license file, then reload this page.</p>';
 		} else {
@@ -886,7 +898,14 @@ if (isset($_GET['user_image'])) {
 		$url = 'https://wiki.asterisk.org/wiki/display/DIGIUM/DPMA+Installation';
 		echo '<p>For additional information, see: <a href="'.$url.'">'.$url.'</a></p>';
 	}
-
+	if ($EpmDPMA) {
+		echo '<p><b>FreePBX Endpoint Manager (EPM) DPMA is set to yes in EPM Global Settings, please set to no EPM DPMA to avoid conflict.</b></p>';
+	}
+	if ($addDashNotify['status'] == 'OldInstalled') {
+	    echo '<div class="alert alert-warning">';
+			echo $addDashNotify['notify'];
+		echo '</div>';
+	}
 	if (!empty($dpmalicensestatus) && $dpmalicensestatus['Response'] == "Success") {
 		/**
 		 * The following switch statement determines what to render. This

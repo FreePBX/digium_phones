@@ -9,8 +9,9 @@
 	<licenselink>http://www.gnu.org/licenses/gpl-3.0.txt</licenselink>
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
-	<version>16.0.4</version>
+	<version>16.0.5</version>
 	<changelog>
+		*16.0.5* Packaging of ver 16.0.5
 		*16.0.4* FREEI-2972 Add dashboard notification for DPMA SSL issue 
 		*16.0.3* FREEI-3052 whoops error when trying to upgrade digium phones module 
 		*16.0.2* FREEI-2972 Add dashboard notification for DPMA SSL issue 

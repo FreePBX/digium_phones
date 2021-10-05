@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-24 05:46+0000\n"
+"POT-Creation-Date: 2021-10-05 05:00+0000\n"
 "PO-Revision-Date: 2017-07-27 15:12+0200\n"
 "Last-Translator: PETER <ftek@ymail.com>\n"
 "Language-Team: Vietnamese <http://weblate.freepbx.org/projects/freepbx/"
@@ -24,6 +24,20 @@ msgstr ""
 #: views/rnav.php:32
 msgid "802.1X"
 msgstr "802.1X"
+
+#: classes/digium_phones.php:2771
+#, php-format
+msgid "<p>On your FreePBX Distro System, You are using RPM "
+msgstr ""
+
+#: classes/digium_phones.php:2762
+#, php-format
+msgid ""
+"<p>The DPMA module is not installed in Asterisk. On a FreePBX Distro, this "
+"root shell command will install DPMA:</p>\n"
+"<pre>yum install asterisk%s-res_digium_phone_public</pre>\n"
+"<p>After DPMA is installed, Asterisk must be restarted.</p>"
+msgstr ""
 
 #: views/rnav.php:14
 msgid "Alerts"

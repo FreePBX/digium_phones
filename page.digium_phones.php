@@ -898,10 +898,10 @@ if (isset($_GET['user_image'])) {
 		$url = 'https://wiki.asterisk.org/wiki/display/DIGIUM/DPMA+Installation';
 		echo '<p>For additional information, see: <a href="'.$url.'">'.$url.'</a></p>';
 	}
-	if ($EpmDPMA) {
+	if ($EpmDPMA && $dpmalicensestatus['Response'] == "Success") {
 		echo '<p><b>FreePBX Endpoint Manager (EPM) DPMA is set to yes in EPM Global Settings, please set to no EPM DPMA to avoid conflict.</b></p>';
 	}
-	if ($addDashNotify['status'] == 'OldInstalled') {
+	if ($addDashNotify['status'] == 'OldInstalled' && $dpmalicensestatus['Response'] == "Success") {
 	    echo '<div class="alert alert-warning">';
 			echo $addDashNotify['notify'];
 		echo '</div>';

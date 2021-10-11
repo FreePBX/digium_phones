@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-05 05:03+0000\n"
+"POT-Creation-Date: 2021-10-11 07:37+0000\n"
 "PO-Revision-Date: 2016-11-23 13:36+0200\n"
 "Last-Translator: Pascal <pascal.noyel@ipexia.com>\n"
 "Language-Team: French <http://weblate.freepbx.org/projects/freepbx/"
@@ -25,18 +25,9 @@ msgstr ""
 msgid "802.1X"
 msgstr ""
 
-#: classes/digium_phones.php:2771
+#: classes/digium_phones.php:2764
 #, php-format
-msgid "<p>On your FreePBX Distro System, You are using RPM "
-msgstr ""
-
-#: classes/digium_phones.php:2762
-#, php-format
-msgid ""
-"<p>The DPMA module is not installed in Asterisk. On a FreePBX Distro, this "
-"root shell command will install DPMA:</p>\n"
-"<pre>yum install asterisk%s-res_digium_phone_public</pre>\n"
-"<p>After DPMA is installed, Asterisk must be restarted.</p>"
+msgid "After DPMA is installed, Asterisk must be restarted."
 msgstr ""
 
 #: views/rnav.php:14
@@ -105,6 +96,11 @@ msgstr "Prénom"
 #: views/rnav.php:44
 msgid "General Settings"
 msgstr "Paramètres Généraux"
+
+#: classes/digium_phones.php:2771
+#, php-format
+msgid "Installed on this FreePBX Distro System is version %s of the "
+msgstr ""
 
 #: functions.inc.php:225
 msgid "Job Title"
@@ -194,6 +190,16 @@ msgstr ""
 msgid "SDES"
 msgstr ""
 
+#: classes/digium_phones.php:2773
+#, php-format
+msgid "Step1: Uninstall the previous DPMA RPM Command:"
+msgstr ""
+
+#: classes/digium_phones.php:2774
+#, php-format
+msgid "Step2: Install new DPMA RPM Command:"
+msgstr ""
+
 #: functions.inc.php:223
 msgid "Suffix"
 msgstr ""
@@ -204,6 +210,13 @@ msgstr ""
 
 #: functions.inc.php:237
 msgid "TLS"
+msgstr ""
+
+#: classes/digium_phones.php:2762
+#, php-format
+msgid ""
+"The DPMA module is not installed in Asterisk. On a FreePBX Distro, this root "
+"shell command will install DPMA:"
 msgstr ""
 
 #: functions.inc.php:232
@@ -274,6 +287,14 @@ msgstr ""
 
 #: functions.inc.php:244
 msgid "The media encryption for this extension."
+msgstr ""
+
+#: classes/digium_phones.php:2772
+#, php-format
+msgid ""
+"To gain the full functionality of the Digium Phones Module, it is "
+"recommended that the matching RPM for Asterisk be installed.  Please run the "
+"following commands on the PBX during a maintenance window:"
 msgstr ""
 
 #: functions.inc.php:239

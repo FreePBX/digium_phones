@@ -9,8 +9,9 @@
 	<licenselink>http://www.gnu.org/licenses/gpl-3.0.txt</licenselink>
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
-	<version>13.0.7.8</version>
+	<version>13.0.7.9</version>
 	<changelog>
+		*13.0.7.9* FREEI-4054 Update wording for digium phones module warning 
 		*13.0.7.8* FREEI-3952 new dpma rpm 3.6.5 keep restarting the asterisk 
 		*13.0.7.7* FREEI-2972 Add dashboard notification for DPMA SSL issue 
 		*13.0.7.6* Packaging of ver 13.0.7.6

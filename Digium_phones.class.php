@@ -24,11 +24,20 @@ class Digium_phones implements \BMO {
 	}
 
 	public function install() {
+		// every hour
+		$time = "5 * * * *";
+		$this->FreePBX->Job->addClass('digium_phones', 'clearcdr', 'FreePBX\modules\Digium_phones\Job', $time);
+        $this->FreePBX->Job->setEnabled('timeconditions', 'clearcdr', 'Yes');
 	}
 	public function uninstall() {
 	}
 	public function backup() {
 	}
 	public function restore($backup) {
+	}
+	public function cleanupcdr(){
+		$cdrdbh =  $this->FreePBX->Cdr->getCdrDbHandle();
+		$sth = $cdrdbh->prepare("DELETE from cdr where `dst`='digium_phone_module'");
+        $sth->execute();
 	}
 };

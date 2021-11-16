@@ -2759,18 +2759,32 @@ class digium_phones {
 		$astversion = explode('.', $ast_info["version"])[0];
 		if (in_array ($astversion, $version_check)) {
 			if ($this->get_dpma_version() == 'unknown') {
-				$Notifymsg =	sprintf("<p>"._("The DPMA module is not installed in Asterisk. On a FreePBX Distro, this root shell command will install DPMA:")."</p>".
+				$Notifymsg =	sprintf("<p>"._("The DPMA module is not installed in Asterisk %s. On a FreePBX Distro, this root shell command will install DPMA:")."</p>".
 							"\n<pre>yum install asterisk%s-res_digium_phone_public</pre>". "\n" .
-							"<p>"._("After DPMA is installed, Asterisk must be restarted.")."</p>", $astversion);
+							"<p>"._("Note: If Asterisk %s Certified is Install than use below command to install DPMA:")."</p>".
+							"\n<pre>yum install asterisk%scert-res_digium_phone_public</pre>". "\n" .
+							"</p>"._("After DPMA is installed, Asterisk must be restarted.")."</p>", $astversion, $astversion, $astversion, $astversion);
 				return array('status' => 'NotInstalled', 'notify'=> $Notifymsg);
 			}
+			if ($astversion == '13' || $astversion == '16') {
+				$dpmapackge_old = $dpmapackge_new = '';
+				$getrpmName = array('asterisk'.$astversion.'cert-res_digium_phone' , 'asterisk'.$astversion.'-res_digium_phone');
+				foreach ($getrpmName as $value) {
+					$output = shell_exec("rpm -qa | grep ".$value);
+					if (!empty($output)) {
+						$dpmapackge_old = $value;
+						$dpmapackge_new = $value . '_' . 'public';
+					}
+				}
+			} else {
 			$dpmapackge_new = "asterisk". $astversion . "-res_digium_phone_public";
 			$dpmapackge_old = "asterisk". $astversion . "-res_digium_phone";
+			}
 			$output = shell_exec("rpm -q --queryformat '%{VERSION}' ".$dpmapackge_old);
 			if(version_compare($this->get_dpma_version(), '3.6.5', '==') && !strstr($output, "is not installed")) {
 				$Notifymsg =	sprintf("<p>"._("Installed on this FreePBX Distro System is version %s of the ".$dpmapackge_old ." rpm for the Digium Phones Module which is not optimal.").
 							"<br>"._("To gain the full functionality of the Digium Phones Module, it is recommended that the matching RPM for Asterisk be installed.  Please run the following commands on the PBX during a maintenance window:")."</br></p>".
-							_("Step1: Uninstall the previous DPMA RPM Command:") . "<b>yum remove " . $dpmapackge_old . "</b>".
+							_("Step1: Uninstall the previous DPMA RPM Command: ") . "<b>yum remove " . $dpmapackge_old . "</b>".
 							"<br>"._("Step2: Install new DPMA RPM Command:"). "<b> yum install " . $dpmapackge_new . "</b><br>".
 							"Step3: <b>fwconsole restart</b>" . " (Restart the Asterisk)", $this->get_dpma_version());
 				return array('status' => 'OldInstalled', 'notify' => $Notifymsg);

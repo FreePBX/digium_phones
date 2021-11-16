@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-11 07:36+0000\n"
+"POT-Creation-Date: 2021-11-16 03:51+0000\n"
 "PO-Revision-Date: 2017-02-06 20:33+0200\n"
 "Last-Translator: Suporte <suporte@kingvoice.com.br>\n"
 "Language-Team: Portuguese (Brazil) <http://weblate.freepbx.org/projects/"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "802.1X"
 msgstr "802.1X"
 
-#: classes/digium_phones.php:2764
+#: classes/digium_phones.php:2766
 #, php-format
 msgid "After DPMA is installed, Asterisk must be restarted."
 msgstr ""
@@ -97,7 +97,7 @@ msgstr "Primeiro Nome"
 msgid "General Settings"
 msgstr "Opções Gerais"
 
-#: classes/digium_phones.php:2771
+#: classes/digium_phones.php:2785
 #, php-format
 msgid "Installed on this FreePBX Distro System is version %s of the "
 msgstr ""
@@ -141,6 +141,13 @@ msgstr "Redes"
 #: functions.inc.php:241
 msgid "None (Default)"
 msgstr "Nenhum (Padrão)"
+
+#: classes/digium_phones.php:2764
+#, php-format
+msgid ""
+"Note: If Asterisk %s Certified is Install than use below command to install "
+"DPMA:"
+msgstr ""
 
 #: functions.inc.php:228
 msgid "Notes"
@@ -190,12 +197,12 @@ msgstr "Toques"
 msgid "SDES"
 msgstr "SDES"
 
-#: classes/digium_phones.php:2773
+#: classes/digium_phones.php:2787
 #, php-format
-msgid "Step1: Uninstall the previous DPMA RPM Command:"
+msgid "Step1: Uninstall the previous DPMA RPM Command: "
 msgstr ""
 
-#: classes/digium_phones.php:2774
+#: classes/digium_phones.php:2788
 #, php-format
 msgid "Step2: Install new DPMA RPM Command:"
 msgstr ""
@@ -215,8 +222,8 @@ msgstr "TLS"
 #: classes/digium_phones.php:2762
 #, php-format
 msgid ""
-"The DPMA module is not installed in Asterisk. On a FreePBX Distro, this root "
-"shell command will install DPMA:"
+"The DPMA module is not installed in Asterisk %s. On a FreePBX Distro, this "
+"root shell command will install DPMA:"
 msgstr ""
 
 #: functions.inc.php:232
@@ -292,7 +299,7 @@ msgstr ""
 msgid "The media encryption for this extension."
 msgstr "A criptografia de mídia para esse ramal."
 
-#: classes/digium_phones.php:2772
+#: classes/digium_phones.php:2786
 #, php-format
 msgid ""
 "To gain the full functionality of the Digium Phones Module, it is "

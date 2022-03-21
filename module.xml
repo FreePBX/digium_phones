@@ -9,8 +9,9 @@
 	<licenselink>http://www.gnu.org/licenses/gpl-3.0.txt</licenselink>
 	<candisable>yes</candisable>
 	<canuninstall>yes</canuninstall>
-	<version>16.0.8</version>
+	<version>16.0.9</version>
 	<changelog>
+		*16.0.9* FREEI-4640 Digium_phones module UI shows wrong install warnings 
 		*16.0.8* FREEI-4151 CDR Reports - 'digium_phone_module' records 
 		*16.0.7* FREEPBX-22911 Missing res_digium_phone_public rpm for digium phone module 
 		*16.0.6* FREEI-4054 Update wording for digium phones module warning 

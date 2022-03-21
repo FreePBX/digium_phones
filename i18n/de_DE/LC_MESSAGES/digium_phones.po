@@ -10,9 +10,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-16 03:51+0000\n"
-"PO-Revision-Date: 2020-02-11 12:51+0000\n"
+"PO-Revision-Date: 2021-12-15 04:04+0000\n"
 "Last-Translator: florian alberts <alberts@ar-systems.de>\n"
-"Language-Team: German <http://*/projects/freepbx/digium_phones/de/>\n"
+"Language-Team: German <http://weblate.freepbx.org/projects/freepbx/"
+"digium_phones/de/>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,17 +26,18 @@ msgid "802.1X"
 msgstr "802.1X"
 
 #: classes/digium_phones.php:2766
-#, php-format
+#, fuzzy, php-format
 msgid "After DPMA is installed, Asterisk must be restarted."
-msgstr ""
+msgstr "Nach der Installation von DPMA muss Asterisk neu gestartet werden."
 
 #: views/rnav.php:14
 msgid "Alerts"
 msgstr "Warnungen"
 
 #: classes/digium_phones.php:2742
+#, fuzzy
 msgid "Asterisk (DPMA) SSL Certificate Expiration"
-msgstr ""
+msgstr "Ablauf des SSL-Zertifikats von Asterisk (DPMA)"
 
 #: page.digium_phones.php:752
 #, php-format
@@ -99,7 +101,7 @@ msgstr "Allgemeine Einstellungen"
 #: classes/digium_phones.php:2785
 #, php-format
 msgid "Installed on this FreePBX Distro System is version %s of the "
-msgstr ""
+msgstr "Auf diesem FreePBX Distro System installiert ist version %s der "
 
 #: functions.inc.php:225
 msgid "Job Title"
@@ -142,11 +144,13 @@ msgid "None (Default)"
 msgstr "Keine (Standard)"
 
 #: classes/digium_phones.php:2764
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "Note: If Asterisk %s Certified is Install than use below command to install "
 "DPMA:"
 msgstr ""
+"Hinweis: Wenn Asterisk %s Zertifiziert installieren ist, verwenden Sie den "
+"folgenden Befehl, um DPMA zu installieren:"
 
 #: functions.inc.php:228
 msgid "Notes"

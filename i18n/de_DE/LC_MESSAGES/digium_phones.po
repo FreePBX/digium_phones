@@ -9,10 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-16 03:51+0000\n"
-"PO-Revision-Date: 2020-02-11 12:51+0000\n"
+"POT-Creation-Date: 2022-03-21 03:32+0000\n"
+"PO-Revision-Date: 2021-12-15 04:04+0000\n"
 "Last-Translator: florian alberts <alberts@ar-systems.de>\n"
-"Language-Team: German <http://*/projects/freepbx/digium_phones/de/>\n"
+"Language-Team: German <http://weblate.freepbx.org/projects/freepbx/"
+"digium_phones/de/>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,18 +25,19 @@ msgstr ""
 msgid "802.1X"
 msgstr "802.1X"
 
-#: classes/digium_phones.php:2766
-#, php-format
+#: classes/digium_phones.php:2777
+#, fuzzy
 msgid "After DPMA is installed, Asterisk must be restarted."
-msgstr ""
+msgstr "Nach der Installation von DPMA muss Asterisk neu gestartet werden."
 
 #: views/rnav.php:14
 msgid "Alerts"
 msgstr "Warnungen"
 
 #: classes/digium_phones.php:2742
+#, fuzzy
 msgid "Asterisk (DPMA) SSL Certificate Expiration"
-msgstr ""
+msgstr "Ablauf des SSL-Zertifikats von Asterisk (DPMA)"
 
 #: page.digium_phones.php:752
 #, php-format
@@ -96,10 +98,10 @@ msgstr "Vorname"
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
-#: classes/digium_phones.php:2785
+#: classes/digium_phones.php:2796
 #, php-format
 msgid "Installed on this FreePBX Distro System is version %s of the "
-msgstr ""
+msgstr "Auf diesem FreePBX Distro System installiert ist version %s der "
 
 #: functions.inc.php:225
 msgid "Job Title"
@@ -141,12 +143,14 @@ msgstr "Netzwerke"
 msgid "None (Default)"
 msgstr "Keine (Standard)"
 
-#: classes/digium_phones.php:2764
-#, php-format
+#: classes/digium_phones.php:2774
+#, fuzzy, php-format
 msgid ""
 "Note: If Asterisk %s Certified is Install than use below command to install "
 "DPMA:"
 msgstr ""
+"Hinweis: Wenn Asterisk %s Zertifiziert installieren ist, verwenden Sie den "
+"folgenden Befehl, um DPMA zu installieren:"
 
 #: functions.inc.php:228
 msgid "Notes"
@@ -196,12 +200,12 @@ msgstr "Klingetöne"
 msgid "SDES"
 msgstr "SDES"
 
-#: classes/digium_phones.php:2787
+#: classes/digium_phones.php:2798
 #, php-format
 msgid "Step1: Uninstall the previous DPMA RPM Command: "
 msgstr ""
 
-#: classes/digium_phones.php:2788
+#: classes/digium_phones.php:2799
 #, php-format
 msgid "Step2: Install new DPMA RPM Command:"
 msgstr ""
@@ -218,7 +222,7 @@ msgstr "TCP"
 msgid "TLS"
 msgstr "TLS"
 
-#: classes/digium_phones.php:2762
+#: classes/digium_phones.php:2771
 #, php-format
 msgid ""
 "The DPMA module is not installed in Asterisk %s. On a FreePBX Distro, this "
@@ -301,7 +305,7 @@ msgstr ""
 msgid "The media encryption for this extension."
 msgstr "Die Medienverschlüsselung für diese Nebenstelle."
 
-#: classes/digium_phones.php:2786
+#: classes/digium_phones.php:2797
 #, php-format
 msgid ""
 "To gain the full functionality of the Digium Phones Module, it is "

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-16 03:51+0000\n"
+"POT-Creation-Date: 2022-03-21 03:32+0000\n"
 "PO-Revision-Date: 2017-02-06 20:33+0200\n"
 "Last-Translator: Suporte <suporte@kingvoice.com.br>\n"
 "Language-Team: Portuguese (Brazil) <http://weblate.freepbx.org/projects/"
@@ -25,8 +25,7 @@ msgstr ""
 msgid "802.1X"
 msgstr "802.1X"
 
-#: classes/digium_phones.php:2766
-#, php-format
+#: classes/digium_phones.php:2777
 msgid "After DPMA is installed, Asterisk must be restarted."
 msgstr ""
 
@@ -97,7 +96,7 @@ msgstr "Primeiro Nome"
 msgid "General Settings"
 msgstr "Opções Gerais"
 
-#: classes/digium_phones.php:2785
+#: classes/digium_phones.php:2796
 #, php-format
 msgid "Installed on this FreePBX Distro System is version %s of the "
 msgstr ""
@@ -142,7 +141,7 @@ msgstr "Redes"
 msgid "None (Default)"
 msgstr "Nenhum (Padrão)"
 
-#: classes/digium_phones.php:2764
+#: classes/digium_phones.php:2774
 #, php-format
 msgid ""
 "Note: If Asterisk %s Certified is Install than use below command to install "
@@ -197,12 +196,12 @@ msgstr "Toques"
 msgid "SDES"
 msgstr "SDES"
 
-#: classes/digium_phones.php:2787
+#: classes/digium_phones.php:2798
 #, php-format
 msgid "Step1: Uninstall the previous DPMA RPM Command: "
 msgstr ""
 
-#: classes/digium_phones.php:2788
+#: classes/digium_phones.php:2799
 #, php-format
 msgid "Step2: Install new DPMA RPM Command:"
 msgstr ""
@@ -219,7 +218,7 @@ msgstr "TCP"
 msgid "TLS"
 msgstr "TLS"
 
-#: classes/digium_phones.php:2762
+#: classes/digium_phones.php:2771
 #, php-format
 msgid ""
 "The DPMA module is not installed in Asterisk %s. On a FreePBX Distro, this "
@@ -299,7 +298,7 @@ msgstr ""
 msgid "The media encryption for this extension."
 msgstr "A criptografia de mídia para esse ramal."
 
-#: classes/digium_phones.php:2786
+#: classes/digium_phones.php:2797
 #, php-format
 msgid ""
 "To gain the full functionality of the Digium Phones Module, it is "

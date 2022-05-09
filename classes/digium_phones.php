@@ -2760,6 +2760,7 @@ class digium_phones {
 		switch ($astversion) {
 			case '13':
 			case '16':
+            case '18':
 				$addcertInfo = true;
 				break;
 			default:
@@ -2771,7 +2772,7 @@ class digium_phones {
 				$Notifymsg =	sprintf("<p>"._("The DPMA module is not installed in Asterisk %s. On a FreePBX Distro, this root shell command will install DPMA:")."</p>".
 							"\n<pre>yum install asterisk%s-res_digium_phone_public</pre>". "\n", $astversion, $astversion);
 				if ($addcertInfo) {
-					$Notifymsg .= sprintf("<p>"._("Note: If Asterisk %s Certified is Install than use below command to install DPMA:")."</p>".
+					$Notifymsg .= sprintf("<p>"._("Note: If Asterisk %s Certified is Install then use below command to install DPMA:")."</p>".
 							"\n<pre>yum install asterisk%scert-res_digium_phone_public</pre>". "\n", $astversion, $astversion);
 				}
 				$Notifymsg .= "</p>"._("After DPMA is installed, Asterisk must be restarted.")."</p>";

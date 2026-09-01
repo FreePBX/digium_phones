@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-21 03:32+0000\n"
+"POT-Creation-Date: 2026-09-01 06:37+0000\n"
 "PO-Revision-Date: 2021-12-15 04:04+0000\n"
 "Last-Translator: florian alberts <alberts@ar-systems.de>\n"
 "Language-Team: German <http://weblate.freepbx.org/projects/freepbx/"
@@ -44,21 +44,9 @@ msgstr "Ablauf des SSL-Zertifikats von Asterisk (DPMA)"
 msgid "Checksum error retrieving %s"
 msgstr "Prüfsummenfehler beim Abruf von %s"
 
-#: digium_phones.i18n.php:6
-msgid "Connectivity"
-msgstr "Konnektivität"
-
 #: functions.inc.php:232
 msgid "Digit Map"
 msgstr "Ziffernübersicht"
-
-#: digium_phones.i18n.php:8
-msgid "Digium Phones"
-msgstr "Digium-Telefone"
-
-#: digium_phones.i18n.php:4
-msgid "Digium Phones Config"
-msgstr "Digium-Telefone – Konfiguration"
 
 #: functions.inc.php:218
 msgid "Digium Phones Contacts Options"
@@ -324,3 +312,12 @@ msgstr "UDP (Standard) oder der Wert aus der Netzwerkeinstellung"
 #: functions.inc.php:233
 msgid "Voicemail URI"
 msgstr "Voicemail URI"
+
+#~ msgid "Connectivity"
+#~ msgstr "Konnektivität"
+
+#~ msgid "Digium Phones"
+#~ msgstr "Digium-Telefone"
+
+#~ msgid "Digium Phones Config"
+#~ msgstr "Digium-Telefone – Konfiguration"

@@ -3,13 +3,13 @@
 # For licensing information, please see the file named LICENSE located in the module directory
 #
 # FreePBX language template for digium_phones
-# Copyright (C) 2008-2022 Sangoma Technologies, Inc.
+# Copyright (C) 2008-2026 Sangoma Technologies, Inc.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-21 03:32+0000\n"
+"POT-Creation-Date: 2026-09-01 06:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,20 +39,8 @@ msgstr ""
 msgid "Checksum error retrieving %s"
 msgstr ""
 
-#: digium_phones.i18n.php:6
-msgid "Connectivity"
-msgstr ""
-
 #: functions.inc.php:232
 msgid "Digit Map"
-msgstr ""
-
-#: digium_phones.i18n.php:8
-msgid "Digium Phones"
-msgstr ""
-
-#: digium_phones.i18n.php:4
-msgid "Digium Phones Config"
 msgstr ""
 
 #: functions.inc.php:218

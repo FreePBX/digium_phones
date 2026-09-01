@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-21 03:32+0000\n"
+"POT-Creation-Date: 2026-09-01 06:37+0000\n"
 "PO-Revision-Date: 2017-07-27 15:12+0200\n"
 "Last-Translator: PETER <ftek@ymail.com>\n"
 "Language-Team: Vietnamese <http://weblate.freepbx.org/projects/freepbx/"
@@ -42,21 +42,9 @@ msgstr ""
 msgid "Checksum error retrieving %s"
 msgstr "Lỗi checksum ( giá trị kiểm tổng) khi truy xuất %s"
 
-#: digium_phones.i18n.php:6
-msgid "Connectivity"
-msgstr "Khả năng kết nối"
-
 #: functions.inc.php:232
 msgid "Digit Map"
 msgstr "Bản đồ chữ số"
-
-#: digium_phones.i18n.php:8
-msgid "Digium Phones"
-msgstr "Điện thoại Digium"
-
-#: digium_phones.i18n.php:4
-msgid "Digium Phones Config"
-msgstr "Cấu hình điện thoại Digium"
 
 #: functions.inc.php:218
 msgid "Digium Phones Contacts Options"
@@ -317,3 +305,12 @@ msgstr "UDP ( Mặc ddinhj0 hoặc giá trị từ cài đặt mạng)"
 #: functions.inc.php:233
 msgid "Voicemail URI"
 msgstr "Thư thoại URI"
+
+#~ msgid "Connectivity"
+#~ msgstr "Khả năng kết nối"
+
+#~ msgid "Digium Phones"
+#~ msgstr "Điện thoại Digium"
+
+#~ msgid "Digium Phones Config"
+#~ msgstr "Cấu hình điện thoại Digium"

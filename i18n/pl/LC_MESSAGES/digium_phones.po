@@ -3,48 +3,45 @@
 # For licensing information, please see the file named LICENSE located in the module directory
 #
 # FreePBX language template for digium_phones
-# Copyright (C) 2008-2015 Sangoma, Inc.
+# Copyright (C) 2008-2022 Sangoma Technologies, Inc.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-21 03:32+0000\n"
-"PO-Revision-Date: 2023-01-11 10:00+0000\n"
-"Last-Translator:  peyre <contact@provya.fr>\n"
-"Language-Team: French <http://weblate.freepbx.org/projects/freepbx/"
-"digium_phones/fr/>\n"
-"Language: fr_FR\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.0.1\n"
 
 #: views/rnav.php:32
 msgid "802.1X"
-msgstr "802.1X"
+msgstr ""
 
 #: classes/digium_phones.php:2777
 msgid "After DPMA is installed, Asterisk must be restarted."
-msgstr "Une fois DPMA installé, Asterisk doit être redémarré."
+msgstr ""
 
 #: views/rnav.php:14
 msgid "Alerts"
-msgstr "Alertes"
+msgstr ""
 
 #: classes/digium_phones.php:2742
 msgid "Asterisk (DPMA) SSL Certificate Expiration"
-msgstr "Expiration du certificat SSL Asterisk (DPMA)"
+msgstr ""
 
 #: page.digium_phones.php:752
 #, php-format
 msgid "Checksum error retrieving %s"
-msgstr "Erreur de somme de contrôle lors de la récupération de %s1"
+msgstr ""
 
 #: digium_phones.i18n.php:6
 msgid "Connectivity"
-msgstr "Connectivité"
+msgstr ""
 
 #: functions.inc.php:232
 msgid "Digit Map"
@@ -52,25 +49,26 @@ msgstr ""
 
 #: digium_phones.i18n.php:8
 msgid "Digium Phones"
-msgstr "Téléphones Digium"
+msgstr ""
 
 #: digium_phones.i18n.php:4
 msgid "Digium Phones Config"
-msgstr "Configuration des téléphones Digium"
+msgstr ""
 
 #: functions.inc.php:218
 msgid "Digium Phones Contacts Options"
-msgstr "Options de contacts des téléphones Digium"
+msgstr ""
 
 #: functions.inc.php:230
 msgid "Digium Phones Line Options"
-msgstr "Options de ligne des téléphones Digium"
+msgstr ""
 
 #: functions.inc.php:227
 msgid "E-Mail Address"
-msgstr "Adresse e-mail"
+msgstr ""
 
-#: page.digium_phones.php:719 page.digium_phones.php:723
+#: page.digium_phones.php:719
+#: page.digium_phones.php:723
 #, php-format
 msgid "Error opening %s for reading"
 msgstr ""
@@ -82,19 +80,19 @@ msgstr ""
 
 #: views/rnav.php:40
 msgid "External Lines"
-msgstr "Lignes externes"
+msgstr ""
 
 #: views/rnav.php:48
 msgid "Firmware"
-msgstr "Firmware"
+msgstr ""
 
 #: functions.inc.php:220
 msgid "First Name"
-msgstr "Prénom"
+msgstr ""
 
 #: views/rnav.php:44
 msgid "General Settings"
-msgstr "Paramètres Généraux"
+msgstr ""
 
 #: classes/digium_phones.php:2796
 #, php-format
@@ -103,32 +101,31 @@ msgstr ""
 
 #: functions.inc.php:225
 msgid "Job Title"
-msgstr "Profession"
+msgstr ""
 
 #: functions.inc.php:222
 msgid "Last Name"
-msgstr "Nom"
+msgstr ""
 
 #: functions.inc.php:231
 msgid "Line Label"
-msgstr "Étiquette"
+msgstr ""
 
 #: functions.inc.php:226
 msgid "Location"
-msgstr "Emplacement"
+msgstr ""
 
 #: views/rnav.php:26
 msgid "Logos"
-msgstr "Logos"
+msgstr ""
 
 #: functions.inc.php:244
 msgid "Media Encryption"
-msgstr "Chiffrement du média"
+msgstr ""
 
 #: functions.inc.php:221
-#, fuzzy
 msgid "Middle Name"
-msgstr "Deuxième nom"
+msgstr ""
 
 #: views/rnav.php:29
 msgid "Multicast Page"
@@ -136,11 +133,11 @@ msgstr ""
 
 #: views/rnav.php:36
 msgid "Networks"
-msgstr "Réseaux"
+msgstr ""
 
 #: functions.inc.php:241
 msgid "None (Default)"
-msgstr "Aucun (par défaut)"
+msgstr ""
 
 #: classes/digium_phones.php:2774
 #, php-format
@@ -148,78 +145,76 @@ msgid ""
 "Note: If Asterisk %s Certified is Install than use below command to install "
 "DPMA:"
 msgstr ""
-"Remarque : si Asterisk %s Certified est installé, utilisez la commande ci-"
-"dessous pour installer DPMA :"
 
 #: functions.inc.php:228
 msgid "Notes"
-msgstr "Remarques"
+msgstr ""
 
 #: functions.inc.php:228
 msgid "Notes about the user, for use in Contacts application."
-msgstr "Remarques sur l'utilisateur, à utiliser dans l'application Contacts."
+msgstr ""
 
 #: functions.inc.php:224
 msgid "Organization"
-msgstr "Société"
+msgstr ""
 
 #: views/rnav.php:22
 msgid "Phone Applications"
-msgstr "Applications téléphoniques"
+msgstr ""
 
 #: views/rnav.php:10
 msgid "Phonebooks"
-msgstr "Annuaires"
+msgstr ""
 
 #: views/rnav.php:5
 msgid "Phones"
-msgstr "Téléphones"
+msgstr ""
 
 #: functions.inc.php:219
 msgid "Prefix"
-msgstr "Préfixe"
+msgstr ""
 
 #: functions.inc.php:247
 msgid "Re-registration TImeout"
-msgstr "Délai de réinscription"
+msgstr ""
 
 #: functions.inc.php:249
 msgid "Registration Max Retries"
-msgstr "Tentatives maxi d'enregistrement"
+msgstr ""
 
 #: functions.inc.php:248
 msgid "Registration Retry Interval"
-msgstr "Intervalle de réessai d'enregistrement"
+msgstr ""
 
 #: views/rnav.php:18
 msgid "Ringtones"
-msgstr "Sonneries"
+msgstr ""
 
 #: functions.inc.php:242
 msgid "SDES"
 msgstr ""
 
 #: classes/digium_phones.php:2798
-#, fuzzy, php-format
+#, php-format
 msgid "Step1: Uninstall the previous DPMA RPM Command: "
-msgstr "Étape 1 : Désinstallez la commande RPM DPMA précédente : "
+msgstr ""
 
 #: classes/digium_phones.php:2799
-#, fuzzy, php-format
+#, php-format
 msgid "Step2: Install new DPMA RPM Command:"
-msgstr "Étape 2 : Installez la nouvelle commande RPM DPMA :"
+msgstr ""
 
 #: functions.inc.php:223
 msgid "Suffix"
-msgstr "Suffixe"
+msgstr ""
 
 #: functions.inc.php:236
 msgid "TCP"
-msgstr "TCP"
+msgstr ""
 
 #: functions.inc.php:237
 msgid "TLS"
-msgstr "TLS"
+msgstr ""
 
 #: classes/digium_phones.php:2771
 #, php-format
@@ -227,59 +222,54 @@ msgid ""
 "The DPMA module is not installed in Asterisk %s. On a FreePBX Distro, this "
 "root shell command will install DPMA:"
 msgstr ""
-"Le module DPMA n'est pas installé dans Asterisk %s. Sur une distribution "
-"FreePBX, cette commande root shell installera DPMA :"
 
 #: functions.inc.php:232
-#, fuzzy
 msgid "The Digit Map for this extension."
-msgstr "Le Digit Map pour cette extension."
+msgstr ""
 
 #: functions.inc.php:227
 msgid "The E-Mail Address for use in Contacts application."
-msgstr "L'adresse e-mail à utiliser dans l'application Contacts."
+msgstr ""
 
 #: functions.inc.php:220
 msgid "The First Name for use in Contacts application."
-msgstr "Le prénom à utiliser dans l'application Contacts."
+msgstr ""
 
 #: functions.inc.php:225
 msgid "The Job Title for use in Contacts application."
-msgstr "La profession à utiliser dans l'application Contacts."
+msgstr ""
 
 #: functions.inc.php:222
 msgid "The Last Name for use in Contacts application."
-msgstr "Le nom à utiliser dans l'application Contacts."
+msgstr ""
 
 #: functions.inc.php:231
 msgid "The Line Label for this extension."
-msgstr "L'étiquette pour cette extension."
+msgstr ""
 
 #: functions.inc.php:226
 msgid "The Location for use in Contacts application."
-msgstr "L'emplacement à utiliser dans l'application Contacts."
+msgstr ""
 
 #: functions.inc.php:221
 msgid "The Middle Name for use in Contacts application."
-msgstr "Le deuxième prénom à utiliser dans l'application Contacts."
+msgstr ""
 
 #: functions.inc.php:224
 msgid "The Organization for use in Contacts application."
-msgstr "La société à utiliser dans l'application Contacts."
+msgstr ""
 
 #: functions.inc.php:219
 msgid "The Prefix for use in Contacts application."
-msgstr "Le préfixe à utiliser dans l'application Contacts."
+msgstr ""
 
 #: functions.inc.php:247
-#, fuzzy
 msgid "The Re-registration Timeout for this extension."
-msgstr "Le délai max de réenregistrement pour ce poste."
+msgstr ""
 
 #: functions.inc.php:249
-#, fuzzy
 msgid "The Registration Max Retries for this extension."
-msgstr "Le nombre maximum de tentatives d'enregistrement pour ce poste."
+msgstr ""
 
 #: functions.inc.php:248
 msgid "The Registration Retry Interval for this extension."
@@ -287,25 +277,21 @@ msgstr ""
 
 #: functions.inc.php:223
 msgid "The Suffix for use in Contacts application."
-msgstr "Le suffixe à utiliser dans l'application Contacts."
+msgstr ""
 
 #: functions.inc.php:239
 msgid "The Transport for this extension."
-msgstr "Le transport pour ce poste."
+msgstr ""
 
 #: functions.inc.php:233
 msgid ""
 "The Voicemail URI for this extension.  Note that setting this option on a "
 "phone's primary line will disable visual voicemail."
 msgstr ""
-"L'URI de la messagerie vocale pour ce poste. Notez que la configuration de "
-"cette option sur la ligne principale d'un téléphone désactivera la "
-"messagerie vocale visuelle."
 
 #: functions.inc.php:244
-#, fuzzy
 msgid "The media encryption for this extension."
-msgstr "Le chiffrement multimédia pour ce poste."
+msgstr ""
 
 #: classes/digium_phones.php:2797
 #, php-format
@@ -314,19 +300,15 @@ msgid ""
 "recommended that the matching RPM for Asterisk be installed.  Please run the "
 "following commands on the PBX during a maintenance window:"
 msgstr ""
-"Pour bénéficier de toutes les fonctionnalités du module Digium Phones, il "
-"est recommandé d'installer le RPM correspondant pour Asterisk. Veuillez "
-"exécuter les commandes suivantes sur le PBX pendant une fenêtre de "
-"maintenance :"
 
 #: functions.inc.php:239
 msgid "Transport"
-msgstr "Transport"
+msgstr ""
 
 #: functions.inc.php:235
 msgid "UDP (Default) or value from Network setting)"
-msgstr "UDP (par défaut) ou valeur du paramètre réseau)"
+msgstr ""
 
 #: functions.inc.php:233
 msgid "Voicemail URI"
-msgstr "URI de la messagerie vocale"
+msgstr ""
